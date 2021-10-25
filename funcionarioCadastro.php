@@ -112,7 +112,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataNascimento" type="datepick" class="required" maxlength="200" required autocomplete="off">
+                                                                <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -257,9 +257,7 @@ include("inc/scripts.php");
             voltar();
         });
 
-        $("#cpf").mask("999.999.999-99")
-
-        $("#dataNascimento").mask("99/99/9999")
+        $("#cpf").mask("999.999.999-99");
 
 
         carregaPagina();
@@ -275,7 +273,7 @@ include("inc/scripts.php");
             var idx = id.split("=");
             var idd = idx[1];
             if (idd !== "") {
-                recuperaUsuarioGrupo(idd,
+                recuperaFuncionario(idd,
                     function(data) {
                         if (data.indexOf('failed') > -1) {
                             return;
@@ -283,20 +281,22 @@ include("inc/scripts.php");
                             data = data.replace(/failed/g, '');
                             var piece = data.split("#");
                             var mensagem = piece[0];
-                            var out = piece[1];
+                            var out = piece[1]; 
                             piece = out.split("^");
 
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
-                            var descricao = piece[1];
-                            var ativo = piece[2];
+                            var ativo = piece[1];
+                            var nome = piece[2];
+                            var dataNascimento = piece[3];
+                            var cpf = piece[4];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#cpf").val(cpf);
                             $("#ativo").val(ativo);
                             $("#nome").val(nome);
-                            $("#dataNascimento").val(data);
+                            $("#dataNascimento").val(dataNascimento);
 
                             return;
 
@@ -309,7 +309,7 @@ include("inc/scripts.php");
     }
 
     function novo() {
-        $(location).attr('href', 'usuarioGrupoCadastro.php');
+        $(location).attr('href', 'funcionarioCadastro.php');
     }
 
     function voltar() {
@@ -327,7 +327,7 @@ include("inc/scripts.php");
 
         excluirGrupo(id,
             function(data) {
-                if (data.indexOf('failed') > -1) {
+                if (data.indexOf('failed') > 0) {
                     var piece = data.split("#");
                     var mensagem = piece[1];
 

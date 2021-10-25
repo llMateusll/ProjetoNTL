@@ -14,21 +14,33 @@ include "js/repositorio.php";
             </thead>
             <tbody>
                 <?php
-                $nomeFiltro = "";
                 $where = "WHERE (0 = 0)";
 
-                $nomeFiltro = "";
-                if ($_GET["nomeFiltro"] != "") {
-                    $nomeFiltro = $_GET["nomeFiltro"];
-                    $where = $where . " AND (USU.[login] like '%' + " . "replace('" . $nomeFiltro . "',' ','%') + " . "'%')";
+                $nome = "";
+                $nome = $_POST["nome"];
+
+                if ($nome != '') {
+                    $where = $where . " AND (nome like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
+                }
+                $cpf = "";
+                $cpf = $_POST["cpf"];
+
+                if ($cpf != '') {
+                    $where = $where . " AND (cpf like '%' + " . "replace('" . $cpf . "',' ','%') + " . "'%')";
+                }
+                $dataNascimento = "";
+                $dataNascimento = $_POST["dataNascimento"];
+
+                if ($dataNascimento != '') {
+                    $where = $where . " AND (dataNascimento like '%' + " . "replace('" . $dataNascimento . "',' ','%') + " . "'%')";
                 }
 
                 $sql = " SELECT  
-                [codigo]
-                ,[ativo]
-                ,[nome]
-                ,[dataNascimento]
-                ,[cpf]
+                codigo
+                ,ativo
+                ,nome
+                ,dataNascimento
+                ,cpf
                 FROM 
                  [dbo].[funcionario]";
                 $where = $where;
@@ -43,6 +55,7 @@ include "js/repositorio.php";
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nome'];
                     $dataNascimento = $row['dataNascimento'];
+
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
@@ -55,7 +68,7 @@ include "js/repositorio.php";
                     $dataNascimento =$dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="usuarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';

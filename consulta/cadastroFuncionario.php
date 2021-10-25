@@ -113,7 +113,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Data de nascimento</label>
                                                                 <label class="input">
-                                                                    <input type="date" id="dataDeNascimento" name="dataDeNascimento" class="datepicker" class="required" >
+                                                                    <input type="date" id="dataDeNascimento" name="dataDeNascimento" class="datepick" class="required" >
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -319,7 +319,7 @@ include("inc/scripts.php");
     }
 
     function voltar() {
-        $(location).attr('href', 'tipoDependenteFiltro.php');
+        $(location).attr('href', 'funcionarioFiltro.php');
     }
 
     function excluir() {

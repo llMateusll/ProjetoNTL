@@ -26,7 +26,7 @@ function grava()
 
 
     session_start();
-    $id= (int)$_POST['id'];
+    $id = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
     $nome = "'" . $_POST['nome'] . "'";
     $dataNascimento = "'" . $_POST['dataNascimento'] . "'";
@@ -39,8 +39,8 @@ function grava()
             $cpf,
             $ativo";
 
-    $dataNascimento= explode("/" , $dataNascimento );
-    $dataNascimento= "'". $dataNascimento[2] ."-" . $dataNascimento[1]. "-" . $dataNascimento[0] ."'" ;
+    $dataNascimento = explode("/", $dataNascimento);
+    $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -54,47 +54,33 @@ function grava()
 
 function recupera()
 {
-    $condicaoId = !((empty($_POST["id"])) || (!isset($_POST["id"])) || (is_null($_POST["id"])));
-    $condicaoLogin = !((empty($_POST["loginPesquisa"])) || (!isset($_POST["loginPesquisa"])) || (is_null($_POST["loginPesquisa"])));
+    $codigo = $_POST["id"];
 
-    if (($condicaoId === false) && ($condicaoLogin === false)) {
-        $mensagem = "Nenhum parâmetro de pesquisa foi informado.";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
 
-    if (($condicaoId === true) && ($condicaoLogin === true)) {
-        $mensagem = "Somente 1 parâmetro de pesquisa deve ser informado.";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
+    $sql = "SELECT codigo, ativo, nome, dataNascimento,cpf FROM dbo.funcionario WHERE (0 = 0)";
 
-    if ($condicaoId) {
-        $codigo = $_POST["id"];
-    }
 
-    if ($condicaoLogin) {
-        $loginPesquisa = $_POST["loginPesquisa"];
-    }
+    $sql = $sql . " AND codigo = " . $codigo;
 
-    $sql = "SELECT codigo, grupo,ativo FROM Ntl.usuarioGrupo WHERE (0 = 0)";
-
-    if ($condicaoId) {
-        $sql = $sql . " AND codigo = " . $codigo . " ";
-    }
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
     $out = "";
 
-    if($row = $result[0]) {
+    if ($row = $result[0]) {
 
-        $id = (int)$row['codigo'];
-        $grupo = (string)$row['grupo'];
-        $ativo = (int)$row['ativo'];
+        $id = +$row['codigo'];
+        $ativo = +$row['ativo'];
+        $nome = $row['nome'];
+        $dataNascimento = $row['dataNascimento'];
+        $dataNascimento = explode(" ", $dataNascimento);
+        $dataNascimento = explode("-", $dataNascimento[0]);
+        $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
+        $cpf = $row['cpf'];
 
-        $out = $id . "^" . $grupo . "^" . $ativo;
+
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf;
 
         if ($out == "") {
             echo "failed#";
@@ -110,13 +96,6 @@ function excluir()
 {
 
     $reposit = new reposit();
-    $possuiPermissao = $reposit->PossuiPermissao("USUARIO_ACESSAR|USUARIO_EXCLUIR");
-
-    if ($possuiPermissao === 0) {
-        $mensagem = "O usuário não tem permissão para excluir!";
-        echo "failed#" . $mensagem . ' ';
-        return;
-    }
 
     $id = $_POST["id"];
 
@@ -126,7 +105,7 @@ function excluir()
         return;
     }
 
-    $result = $reposit->update('Ntl.grupo' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
+    $result = $reposit->update('dbo.funcionario' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
 
     if ($result < 1) {
         echo ('failed#');
