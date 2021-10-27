@@ -89,8 +89,8 @@ include("inc/nav.php");
                                                                 <label class="input">
                                                                     <input id="codigo" name="codigo" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
-                                                            </section> 
-                                                            
+                                                            </section>
+
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
@@ -100,7 +100,7 @@ include("inc/nav.php");
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
                                                                 </label>
-                                                            </section> 
+                                                            </section>
 
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="nome">Nome</label>
@@ -110,15 +110,23 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2 col-auto">
                                                                 <label class="label" for="cpf">CPF</label>
                                                                 <label class="input">
                                                                     <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
+                                                                <label class="input">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-1 col-auto">
+                                                                <label class="label" for="idade">Idade</label>
+                                                                <label class="input">
+                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -250,14 +258,28 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            gravar()
+            gravar();
         });
 
         $("#btnVoltar").on("click", function() {
             voltar();
         });
 
+        $("#dataNascimento").on("change", function() {
+            calcularIdade();
+        });
+
+        $("#cpf").on("change", function() {
+            var cpf = $('#cpf').val();
+
+            if (!validarCPF(cpf)) {
+                $("#cpf").focus();
+                smartAlert("Atenção", "CPF invalido!", "error");
+            }
+        });
+
         $("#cpf").mask("999.999.999-99");
+
 
 
         carregaPagina();
@@ -281,7 +303,7 @@ include("inc/scripts.php");
                             data = data.replace(/failed/g, '');
                             var piece = data.split("#");
                             var mensagem = piece[0];
-                            var out = piece[1]; 
+                            var out = piece[1];
                             piece = out.split("^");
 
                             // Atributos de vale transporte unitário que serão recuperados: 
@@ -298,6 +320,7 @@ include("inc/scripts.php");
                             $("#nome").val(nome);
                             $("#dataNascimento").val(dataNascimento);
 
+                            calcularIdade()
                             return;
 
                         }
@@ -306,43 +329,6 @@ include("inc/scripts.php");
             }
         }
         $("#descricao").focus();
-    }
-
-    function novo() {
-        $(location).attr('href', 'funcionarioCadastro.php');
-    }
-
-    function voltar() {
-        $(location).attr('href', 'funcionarioFiltro.php');
-    }
-    
-
-    function excluir() {
-        var id = $("#codigo").val();
-
-        if (id === 0) {
-            smartAlert("Atenção", "Selecione um registro para excluir!", "error");
-            return;
-        }
-
-        excluirGrupo(id,
-            function(data) {
-                if (data.indexOf('failed') > 0) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
-                    }
-                    voltar();
-                } else {
-                    smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                    voltar();
-                }
-            }
-        );
     }
 
     function gravar() {
@@ -406,4 +392,144 @@ include("inc/scripts.php");
             }
         );
     }
-</script> 
+
+    function novo() {
+        $(location).attr('href', 'funcionarioCadastro.php');
+    }
+
+    function voltar() {
+        $(location).attr('href', 'funcionarioFiltro.php');
+    }
+
+    function excluir() {
+        var id = $("#codigo").val();
+
+        if (id === 0) {
+            smartAlert("Atenção", "Selecione um registro para excluir!", "error");
+            return;
+        }
+
+        excluirGrupo(id,
+            function(data) {
+                if (data.indexOf('failed') > 0) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Operação não realizada - entre em contato com a GIR!", "error");
+                    }
+                    voltar();
+                } else {
+                    smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
+                    voltar();
+                }
+            }
+        );
+    }
+
+    function calcularIdade() {
+        var dataNascimento = $('#dataNascimento').val();
+        var y = (parseInt(dataNascimento.split('/')[2]));
+        var m = (parseInt(dataNascimento.split('/')[1]));
+        var d = (parseInt(dataNascimento.split('/')[0]));
+
+
+        var dataHoje = moment().format('DD/MM/YYYY');
+        var yH = (parseInt(dataHoje.split('/')[2]));
+        var mH = (parseInt(dataHoje.split('/')[1]));
+        var dH = (parseInt(dataHoje.split('/')[0]));
+
+
+
+        var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
+        if (!dataValida) {
+            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            $('#idade').val('');
+            $('#dataNascimento').val('');
+            return;
+        }
+        if (moment(dataNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
+            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            $('#idade').val('');
+            $('#dataNascimento').val('');
+            return;
+
+        }
+
+        var idade = yH - y;
+
+        if (mH < m) {
+            idade--;
+        }
+        if (dH < d && mH == m) {
+            idade--;
+        }
+
+        $('#idade').val(idade);
+        return idade;
+    }
+
+    function validarCPF(cpf) {
+        var cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf == '') return false;
+        // Elimina CPFs invalidos conhecidos	
+        if (cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999")
+            return false;
+        // Valida 1o digito	
+        add = 0;
+        for (i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(9)))
+            return false;
+        // Valida 2o digito	
+        add = 0;
+        for (i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(10))) {
+            return false;
+        } else {
+            validarCpfCadastrado();
+            return true;
+        }
+    }
+
+    function validarCpfCadastrado() {
+
+        var cpf = $("#cpf").val();
+
+        validaCpfExistente(cpf,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "CPF já cadastrado no sistema!", "error");
+                        $('#nome').val("");
+
+                    }
+                }
+            }
+        );
+    }
+</script>

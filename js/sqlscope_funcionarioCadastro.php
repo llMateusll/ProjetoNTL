@@ -16,6 +16,9 @@ if ($funcao == 'recupera') {
 if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
+if ($funcao == 'validaCpf') {
+    call_user_func($funcao);
+}
 
 return;
 
@@ -29,18 +32,17 @@ function grava()
     $id = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
     $nome = "'" . $_POST['nome'] . "'";
-    $dataNascimento = "'" . $_POST['dataNascimento'] . "'";
+    $dataNascimento = $_POST['dataNascimento'];
+    $dataNascimento = explode("/", $dataNascimento);
+    $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
     $cpf = "'" . $_POST['cpf'] . "'";
 
     $sql = "dbo.funcionario_Atualiza
             $id,
+            $ativo,
             $nome,
             $dataNascimento,
-            $cpf,
-            $ativo";
-
-    $dataNascimento = explode("/", $dataNascimento);
-    $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
+            $cpf";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -48,6 +50,7 @@ function grava()
     if ($result < 1) {
         $ret = 'failed#';
     }
+
     echo $ret;
     return;
 }
@@ -116,17 +119,20 @@ function excluir()
     return;
 }
 
-function validaUsuarioGrupo($grupo)
-{
-    $sql = "SELECT codigo,grupo,ativo FROM Ntl.usuarioGrupo 
-    WHERE grupo LIKE $grupo and ativo = 1";
+function validaCpf(){
+    $cpf = "'" . $_POST["cpf"] . "'";
+
+    $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    if ($result[0]) {
-        return true;
-    } else {
-        return false;
+
+    if ($result[0]["cpf"] === $_POST["cpf"]) {
+        echo 'failed#';
+        return;
     }
+    
+    echo 'sucess#';
+    return ;
 }
