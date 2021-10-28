@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro
+                                                        Cadastro De Sexo
                                                     </a>
                                                 </h4>
                                             </div>
@@ -91,62 +91,10 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Ativo</label>
-                                                                <label class="select">
-                                                                    <select id="ativo" name="ativo">
-                                                                        <option></option>
-                                                                        <option value="1" selected>Sim</option>
-                                                                        <option value="0">Não</option>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
-
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Nome</label>
+                                                                <label class="label" for="nome">Sexo</label>
                                                                 <label class="input">
-                                                                    <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Sexo</label>
-                                                                <label class="select">
-                                                                    <select id="sexo" name="sexo">
-                                                                        <option></option>
-                                                                        <option value="1" selected>Masculino</option>
-                                                                        <option value="0">Feminino</option>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-1 col-auto">
-                                                                <label class="label" for="idade">Idade</label>
-                                                                <label class="input">
-                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="cpf">CPF</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="cpf">RG</label>
-                                                                <label class="input">
-                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="Sexo" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -285,23 +233,6 @@ include("inc/scripts.php");
             voltar();
         });
 
-        $("#dataNascimento").on("change", function() {
-            calcularIdade();
-        });
-
-        $("#cpf").on("change", function() {
-            var cpf = $('#cpf').val();
-
-            if (!validarCPF(cpf)) {
-                $("#cpf").focus();
-                smartAlert("Atenção", "CPF invalido!", "error");
-            }
-        });
-
-        $("#cpf").mask("999.999.999-99");
-
-        $("#rg").mask("99.999.999-9");
-
         carregaPagina();
 
 
@@ -329,22 +260,13 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var nome = piece[2];
-                            var dataNascimento = piece[3];
-                            var cpf = piece[4];
-                            var rg = piece[5];
                             var sexo = piece[6];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
-                            $("#cpf").val(cpf);
                             $("#ativo").val(ativo);
-                            $("#nome").val(nome);
-                            $("#dataNascimento").val(dataNascimento);
-                            $("#rg").val(rg);
                             $("#sexo").val(sexo);
 
-                            calcularIdade()
                             return;
 
                         }
@@ -360,43 +282,16 @@ include("inc/scripts.php");
         // $("#btnGravar").prop('disabled', true);
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
-        var nome = $('#nome').val();
         var ativo = +$('#ativo').val();
-        var cpf = $('#cpf').val();
-        var dataNascimento = $('#dataNascimento').val();
-        var rg = $('#rg').val();
+        var sexo = $('#sexo').val();
 
-        // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
-        if (!nome) {
-            smartAlert("Atenção", "Informe a Nome", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!cpf) {
-            smartAlert("Atenção", "Informe o CPF", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!dataNascimento) {
-            smartAlert("Atenção", "Informe a Data de Nascimento", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!ativo) {
-            smartAlert("Atenção", "Informe o Ativo", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!rg) {
-            smartAlert("Atenção", "Informe o RG", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
+        // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:   
+        
     
         ativo = 1;
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento,rg,
+        gravaSexos(id, ativo, sexo,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -425,11 +320,11 @@ include("inc/scripts.php");
     }
 
     function novo() {
-        $(location).attr('href', 'funcionarioCadastro.php');
+        $(location).attr('href', 'funcionarioCadastroSexo.php');
     }
 
     function voltar() {
-        $(location).attr('href', 'funcionarioFiltro.php');
+        $(location).attr('href', 'funcionarioFiltroSexo.php');
     }
 
     function excluir() {
@@ -459,130 +354,5 @@ include("inc/scripts.php");
             }
         );
     }
-
-    function calcularIdade() {
-        var dataNascimento = $('#dataNascimento').val();
-        var y = (parseInt(dataNascimento.split('/')[2]));
-        var m = (parseInt(dataNascimento.split('/')[1]));
-        var d = (parseInt(dataNascimento.split('/')[0]));
-
-
-        var dataHoje = moment().format('DD/MM/YYYY');
-        var yH = (parseInt(dataHoje.split('/')[2]));
-        var mH = (parseInt(dataHoje.split('/')[1]));
-        var dH = (parseInt(dataHoje.split('/')[0]));
-
-
-
-        var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
-        if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
-            $('#idade').val('');
-            $('#dataNascimento').val('');
-            return;
-        }
-        if (moment(dataNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
-            $('#idade').val('');
-            $('#dataNascimento').val('');
-            return;
-
-        }
-
-        var idade = yH - y;
-
-        if (mH < m) {
-            idade--;
-        }
-        if (dH < d && mH == m) {
-            idade--;
-        }
-
-        $('#idade').val(idade);
-        return idade;
-    }
-
-    function validarCPF(cpf) {
-        var cpf = cpf.replace(/[^\d]+/g, '');
-        if (cpf == '') return false;
-        // Elimina CPFs invalidos conhecidos	
-        if (cpf.length != 11 ||
-            cpf == "00000000000" ||
-            cpf == "11111111111" ||
-            cpf == "22222222222" ||
-            cpf == "33333333333" ||
-            cpf == "44444444444" ||
-            cpf == "55555555555" ||
-            cpf == "66666666666" ||
-            cpf == "77777777777" ||
-            cpf == "88888888888" ||
-            cpf == "99999999999")
-            return false;
-        // Valida 1o digito	
-        add = 0;
-        for (i = 0; i < 9; i++)
-            add += parseInt(cpf.charAt(i)) * (10 - i);
-        rev = 11 - (add % 11);
-        if (rev == 10 || rev == 11)
-            rev = 0;
-        if (rev != parseInt(cpf.charAt(9)))
-            return false;
-        // Valida 2o digito	
-        add = 0;
-        for (i = 0; i < 10; i++)
-            add += parseInt(cpf.charAt(i)) * (11 - i);
-        rev = 11 - (add % 11);
-        if (rev == 10 || rev == 11)
-            rev = 0;
-        if (rev != parseInt(cpf.charAt(10))) {
-            return false;
-        } else {
-            validarCpfCadastrado();
-            return true;
-        }
-    }
-
-    function validarCpfCadastrado() {
-
-        var cpf = $("#cpf").val();
-
-        validaCpfExistente(cpf,
-            function(data) {
-                if (data.indexOf('failed') > -1) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "CPF já cadastrado no sistema!", "error");
-                        $('#nome').val("");
-
-                    }
-                }
-            }
-        );
-    }
-
-    function validarRG() {
-
-        var rg = $("#rg").val();
-
-        validaRgExistente(rg,
-            function(data) {
-                if (data.indexOf('failed') > -1) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "rg já cadastrado no sistema!", "error");
-                        $('#nome').val("");
-
-                    }
-                }
-            }
-        );
-    }
+   
 </script>

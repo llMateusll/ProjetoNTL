@@ -9,6 +9,10 @@ if ($funcao == 'grava') {
     call_user_func($funcao);
 }
 
+if ($funcao == 'gravarSexo') {
+    call_user_func($funcao);
+}
+
 if ($funcao == 'recupera') {
     call_user_func($funcao);
 }
@@ -16,14 +20,18 @@ if ($funcao == 'recupera') {
 if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
+
 if ($funcao == 'validaCpf') {
+    call_user_func($funcao);
+}
+
+if ($funcao == 'validaRg') {
     call_user_func($funcao);
 }
 
 return;
 
-function grava()
-{
+function grava(){
 
     $reposit = new reposit(); //Abre a conexão.
 
@@ -36,13 +44,15 @@ function grava()
     $dataNascimento = explode("/", $dataNascimento);
     $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
     $cpf = "'" . $_POST['cpf'] . "'";
+    $rg = $_POST['rg'];
 
     $sql = "dbo.funcionario_Atualiza
             $id,
             $ativo,
             $nome,
             $dataNascimento,
-            $cpf";
+            $cpf
+            $rg";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -55,8 +65,7 @@ function grava()
     return;
 }
 
-function recupera()
-{
+function recupera(){
     $codigo = $_POST["id"];
 
 
@@ -81,9 +90,10 @@ function recupera()
         $dataNascimento = explode("-", $dataNascimento[0]);
         $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
         $cpf = $row['cpf'];
+        $rg = $row['rg'];
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg;
 
         if ($out == "") {
             echo "failed#";
@@ -95,8 +105,7 @@ function recupera()
     }
 }
 
-function excluir()
-{
+function excluir(){
 
     $reposit = new reposit();
 
@@ -132,7 +141,26 @@ function validaCpf(){
         echo 'failed#';
         return;
     }
-    
+
     echo 'sucess#';
-    return ;
+    return;
+}
+
+function validaRg()
+{
+    $rg = "'" . $_POST["rg"] . "'";
+
+    $sql = "SELECT rg FROM dbo.funcionario WHERE rg = $rg";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+
+    if ($result[0]["rg"] === $_POST["rg"]) {
+        echo 'failed#';
+        return;
+    }
+
+    echo 'sucess#';
+    return;
 }

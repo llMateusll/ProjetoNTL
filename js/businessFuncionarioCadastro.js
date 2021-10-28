@@ -1,15 +1,27 @@
-function gravaFuncionario(id, ativo, nome, cpf, dataNascimento, callback) {
+function gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg,callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "grava", id: id, ativo: ativo, nome: nome , cpf: cpf , dataNascimento: dataNascimento},   
+        data: {funcao: "grava", id: id, ativo: ativo, nome: nome , cpf: cpf , dataNascimento: dataNascimento,rg: rg},   
         success: function (data) {
         callback(data);
         } 
     }); 
 }
-  
+
+function gravaSexos(sexo, callback) {
+    $.ajax({
+        url: 'js/sqlscope_funcionarioCadastroSexo.php',
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: {funcao: "gravarSexo", sexo: sexo},   
+        success: function (data) {
+        callback(data);
+        } 
+    }); 
+} 
+
 function recuperaFuncionario(id, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastro.php', //caminho do arquivo a ser executado
@@ -49,4 +61,16 @@ function validaCpfExistente(cpf, callback) {
     });
 }
 
+function validaRgExistente(rg, callback) {
+    $.ajax({
+        url: 'js/sqlscope_funcionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: {funcao: 'validaCpf', rg: rg}, //valores enviados ao script      
+        success: function (data) {
+            
+            callback(data); 
+        }
+    });
+}
 
