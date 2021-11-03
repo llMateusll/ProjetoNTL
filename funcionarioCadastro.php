@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro
+                                                        Cadastro De Funcionario
                                                     </a>
                                                 </h4>
                                             </div>
@@ -95,8 +95,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
-                                                                    <select id="ativo" name="ativo">
-                                                                        <option></option>
+                                                                    <select id="ativo" name="ativo" class="required">
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -104,17 +103,16 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Nome</label>
+                                                                <label class="label" for="nome">Nome Do Fucionario</label>
                                                                 <label class="input">
-                                                                    <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo">
-                                                                        <option></option>
+                                                                    <select id="sexo" name="sexo" class="required">
                                                                         <option value="1" selected>Masculino</option>
                                                                         <option value="0">Feminino</option>
                                                                     </select><i></i>
@@ -122,9 +120,22 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
+                                                                <label class="label">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required">
+                                                                        <option value="4" selected>Solteiro</option>
+                                                                        <option value="3">Casado</option>
+                                                                        <option value="2">Separado</option>
+                                                                        <option value="1">Divorciado</option>
+                                                                        <option value="0">Viúvo</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
                                                                 </label>
                                                             </section>
 
@@ -138,7 +149,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="cpf">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
                                                                 </label>
                                                             </section>
 
@@ -146,7 +157,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="cpf">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
                                                                 </label>
                                                             </section>
 
@@ -293,8 +304,18 @@ include("inc/scripts.php");
             var cpf = $('#cpf').val();
 
             if (!validarCPF(cpf)) {
-                $("#cpf").focus();
                 smartAlert("Atenção", "CPF invalido!", "error");
+                $('#cpf').val("");
+
+            }
+        });
+
+        $("#rg").on("change", function() {
+            var cpf = $('#rg').val();
+
+            if (!validarRG(rg)) {
+                $('#rg').val("");
+
             }
         });
 
@@ -333,7 +354,6 @@ include("inc/scripts.php");
                             var dataNascimento = piece[3];
                             var cpf = piece[4];
                             var rg = piece[5];
-                            var sexo = piece[6];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -342,7 +362,6 @@ include("inc/scripts.php");
                             $("#nome").val(nome);
                             $("#dataNascimento").val(dataNascimento);
                             $("#rg").val(rg);
-                            $("#sexo").val(sexo);
 
                             calcularIdade()
                             return;
@@ -392,11 +411,9 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-    
-        ativo = 1;
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento,rg,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -556,7 +573,7 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "CPF já cadastrado no sistema!", "error");
-                        $('#nome').val("");
+                        $('#cpf').val("");
 
                     }
                 }
@@ -585,4 +602,5 @@ include("inc/scripts.php");
             }
         );
     }
+    
 </script>

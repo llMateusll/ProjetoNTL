@@ -8,11 +8,6 @@ $funcao = $_POST["funcao"];
 if ($funcao == 'grava') {
     call_user_func($funcao);
 }
-
-if ($funcao == 'gravarSexo') {
-    call_user_func($funcao);
-}
-
 if ($funcao == 'recupera') {
     call_user_func($funcao);
 }
@@ -44,14 +39,14 @@ function grava(){
     $dataNascimento = explode("/", $dataNascimento);
     $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
     $cpf = "'" . $_POST['cpf'] . "'";
-    $rg = $_POST['rg'];
+    $rg = "'" . $_POST['rg'] . "'";
 
     $sql = "dbo.funcionario_Atualiza
             $id,
             $ativo,
             $nome,
             $dataNascimento,
-            $cpf
+            $cpf,
             $rg";
 
     $result = $reposit->Execprocedure($sql);
@@ -69,7 +64,8 @@ function recupera(){
     $codigo = $_POST["id"];
 
 
-    $sql = "SELECT codigo, ativo, nome, dataNascimento,cpf FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT *
+    FROM dbo.funcionario WHERE (0 = 0)";
 
 
     $sql = $sql . " AND codigo = " . $codigo;
@@ -146,8 +142,7 @@ function validaCpf(){
     return;
 }
 
-function validaRg()
-{
+function validaRg(){
     $rg = "'" . $_POST["rg"] . "'";
 
     $sql = "SELECT rg FROM dbo.funcionario WHERE rg = $rg";

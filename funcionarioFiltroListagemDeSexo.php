@@ -14,17 +14,20 @@ include "js/repositorio.php";
                 <?php
                 $where = "WHERE (0 = 0)";
 
-                $sexo = "";
-                $sexo = $_POST["sexo"];
-
-                if ($sexo != '') {
-                    $where = $where . " AND (nome like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
-                }
-                $ativo = "";
-                $ativo = $_POST["ativo"];
-
                 $codigo = "";
                 $codigo = $_POST["codigo"];
+
+                $ativo = "";
+                $ativo = $_POST["ativo"];
+                if ($ativo != '') {
+                    $where = $where . " AND ativo = $ativo";
+                }
+
+                $sexo = "";
+                $sexo = $_POST["sexo"];
+                if ($sexo != '') {
+                    $where = $where . " AND sexo = $sexo";
+                }
 
                 $sql = " SELECT  
                 codigo,
@@ -41,11 +44,13 @@ include "js/repositorio.php";
 
                 foreach ($result as $row) {
                     $id = (int) $row['codigo'];
-                    $ativo = (int) $row['ativo'];
+                    $ativo = $row['ativo'];
                     $sexo = $row['sexo'];
 
+                    
+
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $ativo . '</a></td>';
                     echo '<td class="text-left">' . $sexo . '</td>';
                     echo '</tr >';
                 }

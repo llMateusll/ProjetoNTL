@@ -10,11 +10,19 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:30px;">CPF</th>
                     <th class="text-left" style="min-width:30px;">Data de Nascimento</th>
                     <th class="text-left" style="min-width:35px;">Ativo</th>
+                    <th class="text-left" style="min-width:35px;">RG</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $where = "WHERE (0 = 0)";
+
+                $ativo = "";
+                $ativo = $_POST["ativo"];
+
+                if ($ativo != '') {
+                    $where = $where . " AND ativo = $ativo";
+                }
 
                 $nome = "";
                 $nome = $_POST["nome"];
@@ -28,11 +36,22 @@ include "js/repositorio.php";
                 if ($cpf != '') {
                     $where = $where . " AND (cpf like '%' + " . "replace('" . $cpf . "',' ','%') + " . "'%')";
                 }
+                $rg = "";
+                $rg = $_POST["rg"];
+
+                if ($rg != '') {
+                    $where = $where . " AND (rg like '%' + " . "replace('" . $rg . "',' ','%') + " . "'%')";
+                }
+
                 $dataNascimento = "";
                 $dataNascimento = $_POST["dataNascimento"];
 
                 if ($dataNascimento != '') {
-                    $where = $where . " AND (dataNascimento like '%' + " . "replace('" . $dataNascimento . "',' ','%') + " . "'%')";
+                    $dataNascimento = explode(" ", $dataNascimento);
+                    $dataNascimento = explode("/", $dataNascimento[0]);
+                    $dataNascimento = "'" . $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0] . "'";
+
+                    $where = $where . " AND dataNascimento = $dataNascimento ";
                 }
 
                 $sql = " SELECT  
@@ -41,6 +60,7 @@ include "js/repositorio.php";
                 ,nome
                 ,dataNascimento
                 ,cpf
+                ,rg
                 FROM 
                  [dbo].[funcionario]";
                 $where = $where;
@@ -51,10 +71,11 @@ include "js/repositorio.php";
 
                 foreach ($result as $row) {
                     $id = (int) $row['codigo'];
-                    $cpf = $row['cpf'];
-                    $ativo = (int) $row['ativo'];
+                    $ativo = $row['ativo'];
                     $nome = $row['nome'];
                     $dataNascimento = $row['dataNascimento'];
+                    $cpf = $row['cpf'];
+                    $rg = $row['rg'];
 
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
@@ -65,13 +86,14 @@ include "js/repositorio.php";
 
                     $dataNascimento = explode(" ", $dataNascimento);
                     $dataNascimento = explode("-", $dataNascimento[0]);
-                    $dataNascimento =$dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
+                    $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
                     echo '<tr >';
                     echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
                     echo '<td class="text-left">' . $cpf . '</td>';
                     echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
+                    echo '<td class="text-left">' . $rg . '</td>';
                     echo '</tr >';
                 }
                 ?>

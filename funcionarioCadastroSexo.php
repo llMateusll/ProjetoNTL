@@ -91,10 +91,20 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
+                                                            <section class="col col-1">
+                                                                <label class="label">Ativo</label>
+                                                                <label class="select">
+                                                                    <select id="ativo" name="ativo" class="required">                                  
+                                                                        <option value="1" selected>Sim</option>
+                                                                        <option value="0">Não</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="nome">Sexo</label>
                                                                 <label class="input">
-                                                                    <input id="Sexo" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="sexo" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -159,7 +169,7 @@ include("inc/footer.php");
 include("inc/scripts.php");
 ?>
 
-<script src="<?php echo ASSETS_URL; ?>/js/businessFuncionarioCadastro.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS_URL; ?>/js/businessFuncionarioCadastroSexo.js" type="text/javascript"></script>
 
 <!-- PAGE RELATED PLUGIN(S) 
 <script src="..."></script>-->
@@ -260,7 +270,7 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var sexo = piece[6];
+                            var sexo = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -282,17 +292,23 @@ include("inc/scripts.php");
         // $("#btnGravar").prop('disabled', true);
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
-        var ativo = +$('#ativo').val();
+        var ativo = $('#ativo').val();
         var sexo = $('#sexo').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:   
-        
-    
-        ativo = 1;
-
+        if (!ativo) {
+            smartAlert("Atenção", "Informe o Ativo", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }    
+        if (!sexo) {
+            smartAlert("Atenção", "Informe o Ativo", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }    
         //Chama a função de gravar do business de convênio de saúde.
-        gravaSexos(id, ativo, sexo,
-            function(data) {
+        gravarSexo(id, ativo, sexo,
+        function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
                     var mensagem = piece[1];

@@ -60,7 +60,7 @@ include("inc/nav.php");
         <section id="widget-grid" class="">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable centerBox">
-                    <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" >
+                    <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
                             <h2>Usuário</h2>
@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFiltro" class="">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Filtro
+                                                        Filtro De Funcionario
                                                     </a>
                                                 </h4>
                                             </div>
@@ -83,39 +83,35 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
+
+                                                            <section class=" col col-1 col-auto">
+                                                                <label class="label">Ativo</label>
+                                                                <label class="select">
+                                                                    <select id="ativo" name="ativo">
+                                                                        <option value="1">Sim</option>
+                                                                        <option value="0">Não</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+                                                            
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
                                                                     <input id="nome" maxlength="50" name="nome" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Cpf</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" maxlength="100" class="required" placeholder="XXX.XXX.XXX-XX">
-                                                                </label>
-                                                            </section>
+
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Data de nascimento</label>
                                                                 <label class="input">
-                                                                <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
                                                                 </label>
                                                             </section>
-                                                            <section class=" col col-1 col-auto">
-                                                                <label class="label">Ativo</label>
-                                                                <label class="select">
-                                                                    <select id="ativo" name="ativo" class="required">
 
-                                                                        <option value="1">Sim</option>
-                                                                        <option value="0">Não</option>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
                                                                     <select id="sexo" name="sexo">
-                                                                        <option></option>
                                                                         <option value="1" selected>Masculino</option>
                                                                         <option value="0">Feminino</option>
                                                                     </select><i></i>
@@ -123,9 +119,30 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
-                                                                <label class="label" for="cpf">RG</label>
+                                                                <label class="label">Data Inicio</label>
                                                                 <label class="input">
-                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Data Fim</label>
+                                                                <label class="input">
+                                                                    <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Cpf</label>
+                                                                <label class="input">
+                                                                    <input id="cpf" maxlength="100" placeholder="000.000.000-00">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">RG</label>
+                                                                <label class="input">
+                                                                    <input id="rg" type="text" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -134,7 +151,7 @@ include("inc/nav.php");
                                                 <footer>
                                                     <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
-                                                    </button>    
+                                                    </button>
                                                     <?php if ($condicaoGravarOK) { ?>
                                                         <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
                                                             <span class="fa fa-file"></span>
@@ -211,14 +228,18 @@ include("inc/scripts.php");
         var dataNascimento = $('#dataNascimento').val();
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
+        var dataInicio = $('#dataInicio').val();
+        var dataFim = $('#dataFim').val();
 
- 
+
         $('#resultadoBusca').load('funcionarioFiltroListagem.php?', {
             nome: nome,
             cpf: cpf,
             dataNascimento: dataNascimento,
             ativo: ativo,
-            rg: rg, 
+            rg: rg,
+            dataInicio : dataInicio,
+            dataFim : dataFim,
 
         });
     }
@@ -226,5 +247,4 @@ include("inc/scripts.php");
     function novo() {
         $(location).attr('href', 'funcionarioCadastro.php');
     }
-    
 </script>

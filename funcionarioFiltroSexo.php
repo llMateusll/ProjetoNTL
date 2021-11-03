@@ -84,12 +84,22 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
 
+                                                        <section class="col col-1 col-auto">
+                                                                <label class="label">Ativo</label>
+                                                                <label class="select">
+                                                                    <select id="ativo" name="ativo">
+                                                                        <option value="1" selected>Sim</option>
+                                                                        <option value="0">Não</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
                                                                     <select id="sexo" name="sexo">
-                                                                        <option></option>
-                                                                        <option value="1" selected>Masculino</option>
+                                                                        <option selected></option>
+                                                                        <option value="1">Masculino</option>
                                                                         <option value="0">Feminino</option>
                                                                     </select><i></i>
                                                                 </label>
@@ -173,7 +183,7 @@ include("inc/scripts.php");
         var sexo = $('#sexo').val();
 
 
-        $('#resultadoBusca').load('funcionarioFiltroListagemDeSexo.php?', {
+        $('#resultadoBusca').load('funcionarioFiltroListagemDeSexo.php', {
             codigo: codigo,
             ativo: ativo,
             sexo: sexo
