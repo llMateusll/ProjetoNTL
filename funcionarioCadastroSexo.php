@@ -104,7 +104,7 @@ include("inc/nav.php");
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="nome">Sexo</label>
                                                                 <label class="input">
-                                                                    <input id="sexo" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -302,7 +302,7 @@ include("inc/scripts.php");
             return;
         }    
         if (!sexo) {
-            smartAlert("Atenção", "Informe o Ativo", "error");
+            smartAlert("Atenção", "Informe o Sexo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }    

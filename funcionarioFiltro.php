@@ -94,10 +94,10 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                             
-                                                            <section class="col col-3">
+                                                            <section class="col col-4">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="">
+                                                                    <input id="nome" maxlength="50" name="nome" type="text" value=""placeholder=Nome>
                                                                 </label>
                                                             </section>
 
@@ -111,9 +111,35 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo">
-                                                                        <option value="1" selected>Masculino</option>
-                                                                        <option value="0">Feminino</option>
+                                                                    <select id="sexo" name="sexo" >
+                                                                        <option selected></option>
+                                                                        <?php
+                                                                        $sql = "SELECT sexo FROM dbo.sexo WHERE (0 = 0)";
+
+                                                                        $reposit = new reposit();
+                                                                        $result = $reposit->RunQuery($sql);
+
+                                                                        foreach ($result as $row) {
+                                                                            $id = (int) $row['codigo'];
+                                                                            $sexo = $row['sexo'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                        }
+                                                                        ?>
+
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" name="estadoCivil" >
+                                                                        <option ></option>
+                                                                        <option >Solteiro(a)</option>
+                                                                        <option >Casado(a)</option>
+                                                                        <option >Separado(a)</option>
+                                                                        <option >Divorciado(a)</option>
+                                                                        <option >Viúvo(a)</option>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -133,7 +159,7 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
-                                                                <label class="label">Cpf</label>
+                                                                <label class="label">CPF</label>
                                                                 <label class="input">
                                                                     <input id="cpf" maxlength="100" placeholder="000.000.000-00">
                                                                 </label>
@@ -228,6 +254,7 @@ include("inc/scripts.php");
         var dataNascimento = $('#dataNascimento').val();
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
+        var sexo = $('#sexo').val();
         var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
 
@@ -238,6 +265,7 @@ include("inc/scripts.php");
             dataNascimento: dataNascimento,
             ativo: ativo,
             rg: rg,
+            sexo : sexo,
             dataInicio : dataInicio,
             dataFim : dataFim,
 

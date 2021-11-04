@@ -27,7 +27,7 @@ function gravarSexo(){
     session_start();
     $id = (int)$_POST['id'];
     $ativo = $_POST['ativo'];
-    $sexo  = $_POST['sexo'];
+    $sexo = "'" . $_POST['sexo'] . "'";
 
     $sql = "dbo.sexo_Atualiza
             $id,

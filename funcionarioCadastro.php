@@ -113,8 +113,21 @@ include("inc/nav.php");
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
                                                                     <select id="sexo" name="sexo" class="required">
-                                                                        <option value="1" selected>Masculino</option>
-                                                                        <option value="0">Feminino</option>
+                                                                        <option selected></option>
+                                                                        <?php
+                                                                        $sql = "SELECT * FROM dbo.sexo WHERE (0 = 0)";
+
+                                                                        $reposit = new reposit();
+                                                                        $result = $reposit->RunQuery($sql);
+
+                                                                        foreach ($result as $row) {
+                                                                            $id = (int) $row['codigo'];
+                                                                            $ativo = +$row['ativo'];
+                                                                            $sexo = $row['sexo'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                        }
+                                                                        ?>
+
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -123,11 +136,12 @@ include("inc/nav.php");
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
                                                                     <select id="estadoCivil" name="estadoCivil" class="required">
-                                                                        <option value="4" selected>Solteiro</option>
-                                                                        <option value="3">Casado</option>
-                                                                        <option value="2">Separado</option>
-                                                                        <option value="1">Divorciado</option>
-                                                                        <option value="0">Viúvo</option>
+                                                                        <option ></option>
+                                                                        <option >Solteiro(a)</option>
+                                                                        <option >Casado(a)</option>
+                                                                        <option >Separado(a)</option>
+                                                                        <option >Divorciado(a)</option>
+                                                                        <option >Viúvo(a)</option>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -314,8 +328,6 @@ include("inc/scripts.php");
             var cpf = $('#rg').val();
 
             if (!validarRG(rg)) {
-                $('#rg').val("");
-
             }
         });
 
@@ -354,7 +366,8 @@ include("inc/scripts.php");
                             var dataNascimento = piece[3];
                             var cpf = piece[4];
                             var rg = piece[5];
-
+                            var sexo = piece[6];
+                            var estadoCivil = piece [7]    
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#cpf").val(cpf);
@@ -362,6 +375,8 @@ include("inc/scripts.php");
                             $("#nome").val(nome);
                             $("#dataNascimento").val(dataNascimento);
                             $("#rg").val(rg);
+                            $("#sexo").val(sexo);
+                            $("#estadoCivil").val(estadoCivil);
 
                             calcularIdade()
                             return;
@@ -384,15 +399,17 @@ include("inc/scripts.php");
         var cpf = $('#cpf').val();
         var dataNascimento = $('#dataNascimento').val();
         var rg = $('#rg').val();
-
+        var sexo = $('#sexo').val();
+        var estadoCivil = $('#estadoCivil').val();
+        
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
-            smartAlert("Atenção", "Informe a Nome", "error");
+            smartAlert("Atenção", "Informe Seu Nome", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!cpf) {
-            smartAlert("Atenção", "Informe o CPF", "error");
+            smartAlert("Atenção", "Informe Seu CPF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -407,13 +424,23 @@ include("inc/scripts.php");
             return;
         }
         if (!rg) {
-            smartAlert("Atenção", "Informe o RG", "error");
+            smartAlert("Atenção", "Informe Seu RG", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!sexo) {
+            smartAlert("Atenção", "Informe Seu Sexo", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!estadoCivil) {
+            smartAlert("Atenção", "Informe Seu Estado Civil", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo,estadoCivil,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -595,12 +622,13 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "rg já cadastrado no sistema!", "error");
-                        $('#nome').val("");
+                        $('#rg').val("");
 
                     }
+                    
                 }
             }
         );
+        
     }
-    
 </script>

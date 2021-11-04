@@ -40,6 +40,8 @@ function grava(){
     $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
     $cpf = "'" . $_POST['cpf'] . "'";
     $rg = "'" . $_POST['rg'] . "'";
+    $sexo = (int)$_POST['sexo'];
+    $estadoCivil = "'" . $_POST['estadoCivil'] . "'";
 
     $sql = "dbo.funcionario_Atualiza
             $id,
@@ -47,7 +49,9 @@ function grava(){
             $nome,
             $dataNascimento,
             $cpf,
-            $rg";
+            $rg,
+            $sexo,
+            $estadoCivil";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -87,9 +91,12 @@ function recupera(){
         $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
         $cpf = $row['cpf'];
         $rg = $row['rg'];
+        $sexo = $row['sexo'];
+        $estadoCivil = $row['estadiCivil'];
+        
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil;
 
         if ($out == "") {
             echo "failed#";

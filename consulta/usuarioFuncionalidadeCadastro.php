@@ -141,7 +141,7 @@ include("inc/nav.php");
                                                                         $arg = " (0=0) ORDER BY codigo ";
 
                                                                         $reposit = new reposit();
-                                                                        $result = $reposit->SelectCond($tabela1 . "|" . $arg . "");
+                                                                        $result = $reposit->RunQuery($sql);
 
                                                                         foreach($result as $row) {
                                                                             $id = (int) $row['codigo'];

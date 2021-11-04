@@ -97,10 +97,21 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo">
+                                                                    <select id="sexo" name="sexo" class="required">
                                                                         <option selected></option>
-                                                                        <option value="1">Masculino</option>
-                                                                        <option value="0">Feminino</option>
+                                                                        <?php
+                                                                        $sql = "SELECT sexo FROM dbo.sexo WHERE (0 = 0)";
+
+                                                                        $reposit = new reposit();
+                                                                        $result = $reposit->RunQuery($sql);
+
+                                                                        foreach ($result as $row) {
+                                                                            $id = (int) $row['codigo'];
+                                                                            $sexo = $row['sexo'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                        }
+                                                                        ?>
+
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
