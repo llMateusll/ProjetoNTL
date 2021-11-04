@@ -137,18 +137,6 @@ include "js/repositorio.php";
                         echo '</tr >';
                         return;                        
                     }
-                    
-
-                    
-                    echo '<tr >';
-                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
-                    echo '<td class="text-left">' . $cpf . '</td>';
-                    echo '<td class="text-left">' . $dataNascimento . '</td>';
-                    echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left">' . $rg . '</td>';
-                    echo '<td class="text-left">' . $sexo . '</td>';
-                    echo '<td class="text-left">' . $estadoCivil . '</td>';
-                    echo '</tr >';
                 }
                 ?>
             </tbody>
