@@ -64,8 +64,24 @@ include "js/repositorio.php";
                 $dataInicio = "";
                 $dataInicio = $_POST["dataInicio"];
 
+                $dataInicio = explode(" ", $dataInicio);
+                $dataInicio = explode("/", $dataInicio[0]);
+                $dataInicio = $dataInicio[2] . "-" . $dataInicio[1] . "-" . $dataInicio[0];
+
+                if ($dataInicio != '') {
+                    $where = $where .  "AND F.dataNascimento  $dataNascimento > = '" . $dataInicio . "'";
+                }
+
                 $dataFim = "";
                 $dataFim = $_POST["dataFim"];
+
+                $dataFim = explode(" ", $dataFim);
+                $dataFim = explode("/", $dataFim[0]);
+                $dataFim = $dataFim[2] . "-" . $dataFim[1] . "-" . $dataFim[0];
+
+                if ($dataFim != '') {
+                    $where = $where .  "AND F.dataNascimento  $dataNascimento < = '" . $dataFim . "'";
+                }
 
                 $dataNascimento = "";
                 $dataNascimento = $_POST["dataNascimento"];
@@ -106,14 +122,6 @@ include "js/repositorio.php";
                     $estadoCivil = $row['estadoCivil'];
                     $sexo = $row['sexo'];
 
-                    if ($dataNascimento != '') {
-                        $dataNascimento = explode(" ", $dataNascimento);
-                        $dataNascimento = explode("/", $dataNascimento[0]);
-                        $dataNascimento = $dataNascimento[2] . $dataNascimento[1] . $dataNascimento[0];
-    
-                        $where = $where . " AND dataNascimento = $dataNascimento ";
-                    }                
-
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
@@ -125,18 +133,15 @@ include "js/repositorio.php";
                     $dataNascimento = explode("-", $dataNascimento[0]);
                     $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
-                    if (strtotime($dataInicio) < strtotime($dataNascimento) && strtotime($dataFim )> strtotime($dataNascimento)){
-                        echo '<tr >';
-                        echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
-                        echo '<td class="text-left">' . $cpf . '</td>';
-                        echo '<td class="text-left">' . $dataNascimento . '</td>';
-                        echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                        echo '<td class="text-left">' . $rg . '</td>';
-                        echo '<td class="text-left">' . $sexo . '</td>';
-                        echo '<td class="text-left">' . $estadoCivil . '</td>';
-                        echo '</tr >';
-                        return;                        
-                    }
+                    echo '<tr >';
+                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
+                    echo '<td class="text-left">' . $cpf . '</td>';
+                    echo '<td class="text-left">' . $dataNascimento . '</td>';
+                    echo '<td class="text-left">' . $descricaoAtivo . '</td>';
+                    echo '<td class="text-left">' . $rg . '</td>';
+                    echo '<td class="text-left">' . $sexo . '</td>';
+                    echo '<td class="text-left">' . $estadoCivil . '</td>';
+                    echo '</tr >';
                 }
                 ?>
             </tbody>

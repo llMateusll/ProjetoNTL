@@ -145,7 +145,7 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
-
+                                                            
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
@@ -173,6 +173,10 @@ include("inc/nav.php");
                                                                 <label class="input">
                                                                     <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
                                                                 </label>
+                                                            </section>
+
+                                                            <section>
+                                                            <button class="accordion">Contato</button>  
                                                             </section>
 
                                                         </div>
