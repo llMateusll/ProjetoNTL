@@ -136,16 +136,16 @@ include("inc/nav.php");
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
                                                                     <select id="estadoCivil" name="estadoCivil" class="required">
-                                                                        <option ></option>
-                                                                        <option >Solteiro(a)</option>
-                                                                        <option >Casado(a)</option>
-                                                                        <option >Separado(a)</option>
-                                                                        <option >Divorciado(a)</option>
-                                                                        <option >Viúvo(a)</option>
+                                                                        <option></option>
+                                                                        <option>Solteiro(a)</option>
+                                                                        <option>Casado(a)</option>
+                                                                        <option>Separado(a)</option>
+                                                                        <option>Divorciado(a)</option>
+                                                                        <option>Viúvo(a)</option>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
-                                                            
+
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
@@ -167,7 +167,6 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="cpf">RG</label>
                                                                 <label class="input">
@@ -177,6 +176,31 @@ include("inc/nav.php");
                                                         </div>
                                                     </fieldset>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div id="accordions">
+                                            <h3>Contatos</h3>
+                                            <div>
+
+                                                <section class="col col-3 col-auto">
+                                                    <label class="label" for="telefone">Telefone</label>
+                                                    <label class="input">
+                                                        <input id="telefone" type="tel" class="required" maxlength="200" required autocomplete="off" placeholder="9999-99999">
+                                                    </label>
+                                                    <input type="checkbox" id="scales" name="scales" checked>
+                                                    <label for="scales">Principal</label>
+                                                    <input type="checkbox" id="scales" name="scales" checked>
+                                                    <label for="scales">Whatsapp</label>
+                                                </section>
+                                                <section class="col col-3 col-auto">
+                                                    <label class="label" for="email">Email</label>
+                                                    <label class="input">
+                                                        <input id="email" type="email" class="required" maxlength="200" required autocomplete="off" placeholder=Seuemail@gmail.com>
+                                                    </label>
+                                                    <input type="checkbox" id="scales" name="scales" checked>
+                                                    <label for="scales">Principal</label>
+                                                </section>
+
                                             </div>
                                         </div>
                                     </div>
@@ -326,13 +350,18 @@ include("inc/scripts.php");
         $("#rg").on("change", function() {
             var cpf = $('#rg').val();
 
-            if (!validarRG(rg)) {
-            }
+            if (!validarRG(rg)) {}
         });
 
         $("#cpf").mask("999.999.999-99");
 
         $("#rg").mask("99.999.999-9");
+
+        $("#telefone").mask("9999-99999");
+
+        $(function() {
+            $("#accordions").accordion();
+        });
 
         carregaPagina();
 
@@ -401,7 +430,7 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
-        
+
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
             smartAlert("Atenção", "Informe Seu Nome", "error");
@@ -440,7 +469,7 @@ include("inc/scripts.php");
         }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo,estadoCivil,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -625,10 +654,10 @@ include("inc/scripts.php");
                         $('#rg').val("");
 
                     }
-                    
+
                 }
             }
         );
-        
+
     }
 </script>
