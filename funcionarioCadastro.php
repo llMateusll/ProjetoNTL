@@ -174,11 +174,6 @@ include("inc/nav.php");
                                                                     <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
                                                                 </label>
                                                             </section>
-
-                                                            <section>
-                                                            <button class="accordion">Contato</button>  
-                                                            </section>
-
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -371,7 +366,8 @@ include("inc/scripts.php");
                             var cpf = piece[4];
                             var rg = piece[5];
                             var sexo = piece[6];
-                            var estadoCivil = piece [7]    
+                            var estadoCivil = piece[7];
+
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#cpf").val(cpf);

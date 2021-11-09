@@ -6,7 +6,7 @@ include "js/repositorio.php";
         <table id="tableSearchResult" class="table table-bordered table-striped table-condensed table-hover dataTable">
             <thead>
                 <tr role="row">
-                    <th class="text-left" style="min-width:30px;">Ativo</th>
+                    <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:30px;">Generos</th>
                 </tr>
             </thead>
@@ -19,14 +19,16 @@ include "js/repositorio.php";
 
                 $ativo = "";
                 $ativo = $_POST["ativo"];
+
                 if ($ativo != '') {
                     $where = $where . " AND ativo = $ativo";
                 }
 
                 $sexo = "";
                 $sexo = $_POST["sexo"];
+
                 if ($sexo != '') {
-                    $where = $where . " AND sexo = $sexo";
+                    $where = $where . " AND codigo = $sexo";
                 }
 
                 $sql = " SELECT  
@@ -34,8 +36,8 @@ include "js/repositorio.php";
                 ativo,
                 sexo
                 
-                FROM 
-                 [dbo].[funcionario]";
+                FROM  [dbo].[sexo] ";
+
                 $where = $where;
 
                 $sql = $sql . $where;
@@ -47,11 +49,16 @@ include "js/repositorio.php";
                     $ativo = $row['ativo'];
                     $sexo = $row['sexo'];
 
-                    
+                    $descricaoAtivo = "";
+                    if ($ativo == 1) {
+                        $descricaoAtivo = "Sim";
+                    } else {
+                        $descricaoAtivo = "Não";
+                    }
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $ativo . '</a></td>';
-                    echo '<td class="text-left">' . $sexo . '</td>';
+                    echo '<td class="text-left">' . $descricaoAtivo . '</td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $sexo . '</td>';
                     echo '</tr >';
                 }
                 ?>

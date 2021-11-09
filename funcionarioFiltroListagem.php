@@ -58,28 +58,27 @@ include "js/repositorio.php";
                 $sexo = $_POST["sexo"];
 
                 if ($sexo != '') {
-                    $where = $where . " AND S.sexo = $sexo";
+                    $where = $where . " AND F.sexo = $sexo";
                 }
 
                 $dataInicio = "";
                 $dataInicio = $_POST["dataInicio"];
 
-                $dataInicio = explode(" ", $dataInicio);
-                $dataInicio = explode("/", $dataInicio[0]);
-                $dataInicio = $dataInicio[2] . "-" . $dataInicio[1] . "-" . $dataInicio[0];
-
                 if ($dataInicio != '') {
+                    $dataInicio = explode(" ", $dataInicio);
+                    $dataInicio = explode("/", $dataInicio[0]);
+                    $dataInicio = $dataInicio[2] . "-" . $dataInicio[1] . "-" . $dataInicio[0];
+
                     $where = $where .  "AND F.dataNascimento  $dataNascimento > = '" . $dataInicio . "'";
                 }
 
                 $dataFim = "";
                 $dataFim = $_POST["dataFim"];
 
-                $dataFim = explode(" ", $dataFim);
-                $dataFim = explode("/", $dataFim[0]);
-                $dataFim = $dataFim[2] . "-" . $dataFim[1] . "-" . $dataFim[0];
-
                 if ($dataFim != '') {
+                    $dataFim = explode(" ", $dataFim);
+                    $dataFim = explode("/", $dataFim[0]);
+                    $dataFim = $dataFim[2] . "-" . $dataFim[1] . "-" . $dataFim[0];
                     $where = $where .  "AND F.dataNascimento  $dataNascimento < = '" . $dataFim . "'";
                 }
 
@@ -90,7 +89,6 @@ include "js/repositorio.php";
                     $dataNascimento = explode(" ", $dataNascimento);
                     $dataNascimento = explode("/", $dataNascimento[0]);
                     $dataNascimento = "'" . $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0] . "'";
-
                     $where = $where . " AND dataNascimento = $dataNascimento ";
                 }
 
@@ -119,8 +117,9 @@ include "js/repositorio.php";
                     $dataNascimento = $row['dataNascimento'];
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
-                    $estadoCivil = $row['estadoCivil'];
                     $sexo = $row['sexo'];
+                    $estadoCivil = $row['estadoCivil'];
+
 
                     $descricaoAtivo = "";
                     if ($ativo == 1) {

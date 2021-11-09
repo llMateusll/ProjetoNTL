@@ -68,7 +68,15 @@ function recupera(){
     $codigo = $_POST["id"];
 
 
-    $sql = "SELECT *
+    $sql = "SELECT codigo
+    ,ativo
+    ,nome
+    ,dataNascimento
+    ,cpf
+    ,rg
+    ,sexo
+    ,estadoCivil
+
     FROM dbo.funcionario WHERE (0 = 0)";
 
 
@@ -92,7 +100,7 @@ function recupera(){
         $cpf = $row['cpf'];
         $rg = $row['rg'];
         $sexo = $row['sexo'];
-        $estadoCivil = $row['estadiCivil'];
+        $estadoCivil = $row['estadoCivil'];
         
 
 

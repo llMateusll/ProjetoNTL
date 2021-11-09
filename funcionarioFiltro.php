@@ -114,7 +114,7 @@ include("inc/nav.php");
                                                                     <select id="sexo" name="sexo" >
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT sexo FROM dbo.sexo WHERE (0 = 0)";
+                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
@@ -257,6 +257,7 @@ include("inc/scripts.php");
         var sexo = $('#sexo').val();
         var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
+        var estadoCivil = $('#estadoCivil').val();
 
 
         $('#resultadoBusca').load('funcionarioFiltroListagem.php?', {
@@ -268,6 +269,7 @@ include("inc/scripts.php");
             sexo : sexo,
             dataInicio : dataInicio,
             dataFim : dataFim,
+            estadoCivil : estadoCivil,
 
         });
     }

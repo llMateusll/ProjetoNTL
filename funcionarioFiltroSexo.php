@@ -100,7 +100,7 @@ include("inc/nav.php");
                                                                     <select id="sexo" name="sexo" class="required">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT sexo FROM dbo.sexo WHERE (0 = 0)";
+                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
@@ -197,7 +197,7 @@ include("inc/scripts.php");
         $('#resultadoBusca').load('funcionarioFiltroListagemDeSexo.php', {
             codigo: codigo,
             ativo: ativo,
-            sexo: sexo
+            sexo: sexo 
 
         });
     }
