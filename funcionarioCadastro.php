@@ -72,7 +72,7 @@ include("inc/nav.php");
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordion">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
                                                         Cadastro De Funcionario
@@ -82,8 +82,8 @@ include("inc/nav.php");
                                             <div id="collapseCadastro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
-
                                                         <div class="row">
+
                                                             <section class="col col-1 col-auto">
                                                                 <label class="label">Código</label>
                                                                 <label class="input">
@@ -106,6 +106,35 @@ include("inc/nav.php");
                                                                 <label class="label" for="nome">Nome Do Fucionario</label>
                                                                 <label class="input">
                                                                     <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cpf">CPF</label>
+                                                                <label class="input">
+                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cpf">RG</label>
+                                                                <label class="input">
+                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
+                                                                </label>
+                                                            </section>
+
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
+                                                                <label class="input">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-1 col-auto">
+                                                                <label class="label" for="idade">Idade</label>
+                                                                <label class="input">
+                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -145,92 +174,149 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-1 col-auto">
-                                                                <label class="label" for="idade">Idade</label>
-                                                                <label class="input">
-                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="cpf">CPF</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="cpf">RG</label>
-                                                                <label class="input">
-                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00.000.000-0">
-                                                                </label>
-                                                            </section>
                                                         </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="accordions">
-                                            <h3>Contatos</h3>
-                                            <div>
+                                        <div class="panel-group smart-accordion-default" id="accordion">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseContato" class="" id="accordion">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Contatos
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseContato" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <input id="jsonExemplo" name="jsonExemplo" type="hidden" value="[]">
+                                                        <div id="formExemplo" class="col-sm-6">
+                                                            <input id="sequencialTelefone" name="sequencialTelefone" type="hidden" value="">
+                                                            <input id="descricaoExemploPrincipal" name="descricaoExemploPrincipal" type="hidden" value="">
+                                                            <input id="descricaoExemploWhatsapp" name="descricaoExemploWhatsapp" type="hidden" value="">
 
-                                                <section class="col col-3 col-auto">
-                                                    <label class="label" for="telefone">Telefone</label>
-                                                    <label class="input">
-                                                        <input id="telefone" type="tel" class="required" maxlength="200" required autocomplete="off" placeholder="9999-99999">
-                                                    </label>
-                                                    <input type="checkbox" id="scales" name="scales" checked>
-                                                    <label for="scales">Principal</label>
-                                                    <input type="checkbox" id="scales" name="scales" checked>
-                                                    <label for="scales">Whatsapp</label>
-                                                </section>
-                                                <section class="col col-3 col-auto">
-                                                    <label class="label" for="email">Email</label>
-                                                    <label class="input">
-                                                        <input id="email" type="email" class="required" maxlength="200" required autocomplete="off" placeholder=Seuemail@gmail.com>
-                                                    </label>
-                                                    <input type="checkbox" id="scales" name="scales" checked>
-                                                    <label for="scales">Principal</label>
-                                                </section>
+                                                            <div class="row">
+                                                                <section class="col col-4">
+                                                                    <label class="label" for="exemplo">Telefone</label>
+                                                                    <label class="input">
+                                                                        <input id="telefone" name="telefone" class="required">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-md-2">
+                                                                    <label class="label">Principal</label>
+                                                                    <label id="labelexemploPrincipal" class="checkbox ">
+                                                                        <input id="exemploPrincipal" name="exemploPrincipal" type="checkbox" value="true" checked="checked"><i></i>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <footer>
-                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
-                                            <span class="fa fa-trash"></span>
-                                        </button>
-                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
-                                            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                                                <span id="ui-id-2" class="ui-dialog-title">
-                                                </span>
-                                            </div>
-                                            <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
-                                                <p>CONFIRMA A EXCLUSÃO ? </p>
-                                            </div>
-                                            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                                                <div class="ui-dialog-buttonset">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-md-2">
+                                                                    <label class="label">Telefone</label>
+                                                                    <label id="labelexemploWhatsapp" class="checkbox ">
+                                                                        <input id="exemploWhatsapp" name="exemploWhatsapp" type="checkbox" value="true" checked="checked"><i></i>
+
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-md-3">
+                                                                    <label class="label">Whatsapp</label>
+                                                                    <button id="btnAddTelefone" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnRemoverTelefone" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+                                                            </div>
+                                                            <div class="table-responsive" style="min-height: 115px; width:95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 2px"></th>
+                                                                            <th class="text-center">Telefone</th>
+                                                                            <th class="text-center">Principal</th>
+                                                                            <th class="text-center">Whatsapp</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div id="formExemplo" class="col-sm-6">
+                                                            <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
+                                                            <input id="descricaoExemploPrincipal" name="descricaoExemploPrincipal" type="hidden" value="">
+                                                            <input id="descricaoExemploWhatsapp" name="descricaoExemploWhatsapp" type="hidden" value="">
+
+                                                            <div class="row">
+                                                                <section class="col col-6">
+                                                                    <label class="label" for="exemplo">Email</label>
+                                                                    <label class="input">
+                                                                        <input id="email" name="email" class="required">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-md-2">
+                                                                    <label class="label">Principal</label>
+                                                                    <label id="labelexemploPrincipal" class="checkbox ">
+                                                                        <input id="exemploPrincipal" name="exemploPrincipal" type="checkbox" value="true" checked="checked"><i></i>
+
+                                                                    </label>
+                                                                </section>
+
+                                                                <section class="col col-md-3">
+                                                                    <label class="label">Email</label>
+                                                                    <button id="btnAddEmail" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnRemoverEmail" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
+                                                            </div>
+                                                            <div class="table-responsive" style="min-height: 115px; width:95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 2px"></th>
+                                                                            <th class="text-center">Email</th>
+                                                                            <th class="text-center">Principal</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-floppy-o"></span>
-                                        </button>
-                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-file-o"></span>
-                                        </button>
-                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                            <span class="fa fa-backward "></span>
-                                        </button>
-                                    </footer>
+                                            <footer>
+                                                <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                                <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                                    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                        <span id="ui-id-2" class="ui-dialog-title">
+                                                        </span>
+                                                    </div>
+                                                    <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                        <p>CONFIRMA A EXCLUSÃO ? </p>
+                                                    </div>
+                                                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                        <div class="ui-dialog-buttonset">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                                    <span class="fa fa-floppy-o"></span>
+                                                </button>
+                                                <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                                    <span class="fa fa-file-o"></span>
+                                                </button>
+                                                <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                                    <span class="fa fa-backward "></span>
+                                                </button>
+                                            </footer>
                                 </form>
                             </div>
                         </div>
@@ -357,11 +443,66 @@ include("inc/scripts.php");
 
         $("#rg").mask("99.999.999-9");
 
-        $("#telefone").mask("9999-99999");
+        $("#telefone").mask("(99)99999-9999");
 
-        $(function() {
-            $("#accordions").accordion();
+        sonExemploArray = JSON.parse($("#jsonExemplo").val());
+
+        $("#btnAddTelefone").on("click", function() {
+            var telefone = $("#telefone").val();
+            var existe = true;
+
+            if (!telefone) {
+                smartAlert("Atenção", "Escolha um Telefone", "error")
+                return;
+            }
+            if (validaTelefone()) {
+                addTelefone();
+            }
+
         });
+
+        $("#btnRemoverTelefone").on("click", function() {
+            excluirTelefone();
+        });
+
+        $("#btnAddEmail").on("click", function() {
+            var email = $("#email").val();
+            var existe = true;
+
+            if (!email) {
+                smartAlert("Atenção", "Escolha um Email", "error")
+                return;
+            }
+            if (validaEmail()) {
+                addEmail();
+            }
+
+        });
+
+        $("#btnRemoverEmail").on("click", function() {
+            excluirEmail();
+        });
+
+
+        $("#btnAddEmail").on("click", function() {
+            var email = $("#email").val();
+            var existe = true;
+
+            if (!email) {
+                smartAlert("Atenção", "Escolha um Email", "error")
+                return;
+            }
+            if (validaEmail()) {
+                addEmail();
+            }
+
+        });
+
+        $("#btnRemoverEmail").on("click", function() {
+            excluirEmail();
+        });
+
+
 
         carregaPagina();
 
@@ -614,6 +755,32 @@ include("inc/scripts.php");
             return true;
         }
     }
+
+    function validaTelefone() {
+        var existe = false;
+        var achou = false;
+        var telefone = $('#telefone').val();
+        var sequencial = +$('#sequencialTelefone').val();
+        var telefoneValido = false;
+        var telefonePrincipalMarcado = 0;
+
+        if ($("#telefonePrincipal").is(':checked') === true) {
+            telefonePrincipalMarcado = 1;
+        }
+    }
+    function validaEmailEmail() {
+        var existe = false;
+        var achou = false;
+        var email = $('#email').val();
+        var sequencial = +$('#sequencialEmailEmail').val();
+        var emailValido = false;
+        var emailPrincipalMarcado = 0;
+
+        if ($("#emailPrincipal").is(':checked') === true) {
+            emailPrincipalMarcado = 1;
+        }
+    }
+
 
     function validarCpfCadastrado() {
 

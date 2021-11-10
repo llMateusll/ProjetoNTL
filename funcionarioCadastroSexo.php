@@ -102,9 +102,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Sexo</label>
+                                                                <label class="label" for="nome">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off">
+                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off"class="required">
                                                                 </label>
                                                             </section>
 
