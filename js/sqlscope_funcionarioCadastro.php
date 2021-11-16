@@ -42,7 +42,72 @@ function grava(){
     $rg = "'" . $_POST['rg'] . "'";
     $sexo = (int)$_POST['sexo'];
     $estadoCivil = "'" . $_POST['estadoCivil'] . "'";
+    $strArrayTelefone = $_POST['jsonTelefoneArray'];
+    $arrayTelefone = json_decode($strArrayTelefone, true);
+    $xmlTelefone = "";
+    $nomeXml = "ArrayOfFuncionarioTelefone";
+    $nomeTabela = "funcionarioTelefone";
+    if (sizeof($arrayTelefone) > 0) {
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
 
+        foreach ($arrayTelefone as $chave) {
+            $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialTel")) {
+                    continue;
+                }
+                $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlTelefone = $xmlTelefone . "</" . $nomeTabela . ">";
+        }
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
+    } else {
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlTelefone);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de telefone";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlTelefone = "'" . $xmlTelefone . "'";
+
+    //------------------------- Funcionário Email---------------------
+    $strArrayEmail = $_POST['jsonEmailArray'];
+    $arrayEmail = json_decode($strArrayEmail, true);
+    $xmlEmail = "";
+    $nomeXml = "ArrayOfFuncionarioEmail";
+    $nomeTabela = "funcionarioEmail";
+    if (sizeof($arrayEmail) > 0) {
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+
+        foreach ($arrayEmail as $chave) {
+            $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialEmail")) {
+                    continue;
+                }
+                $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlEmail = $xmlEmail . "</" . $nomeTabela . ">";
+        }
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    } else {
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlEmail);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de telefone";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlEmail = "'" . $xmlEmail . "'";
     $sql = "dbo.funcionario_Atualiza
             $id,
             $ativo,
@@ -51,7 +116,9 @@ function grava(){
             $cpf,
             $rg,
             $sexo,
-            $estadoCivil";
+            $estadoCivil,
+            $xmlTelefone,
+            $xmlEmail";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -76,6 +143,10 @@ function recupera(){
     ,rg
     ,sexo
     ,estadoCivil
+    ,telefone
+    ,email
+    ,xmlTelefone
+    ,xmlEmail
 
     FROM dbo.funcionario WHERE (0 = 0)";
 
@@ -101,10 +172,12 @@ function recupera(){
         $rg = $row['rg'];
         $sexo = $row['sexo'];
         $estadoCivil = $row['estadoCivil'];
+        $jsonTelefone = $row['jsonTelefone'];
+        $jsonEmail = $row['jsonEmail'];
         
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil . "^" . $jsonTelefone . "^" . $jsonEmail;
 
         if ($out == "") {
             echo "failed#";

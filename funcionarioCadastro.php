@@ -243,8 +243,8 @@ include("inc/nav.php");
                                                                 <thead>
                                                                     <tr role="row">
                                                                         <th style="width: 2px"></th>
-                                                                        <th class="text-center">Principal</th>
                                                                         <th class="text-center">Telefone</th>
+                                                                        <th class="text-center">Principal</th>
                                                                         <th class="text-center">WhatsApp</th>
                                                                     </tr>
                                                                 </thead>
@@ -302,6 +302,33 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                     </div>
+                                    <footer>
+                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
+                                            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                                                <span id="ui-id-2" class="ui-dialog-title">
+                                                </span>
+                                            </div>
+                                            <div id="dlgSimpleExcluir" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+                                                <p>CONFIRMA A EXCLUSÃO ? </p>
+                                            </div>
+                                            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                                                <div class="ui-dialog-buttonset">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <span class="fa fa-floppy-o"></span>
+                                        </button>
+                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <span class="fa fa-file-o"></span>
+                                        </button>
+                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
+                                            <span class="fa fa-backward "></span>
+                                        </button>
+                                    </footer>
                                 </form>
                             </div>
                         </div>
@@ -400,7 +427,6 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             gravar();
-            gravarContatos();
         });
 
         $("#btnVoltar").on("click", function() {
@@ -505,6 +531,7 @@ include("inc/scripts.php");
                             var rg = piece[5];
                             var sexo = piece[6];
                             var estadoCivil = piece[7];
+                            
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -515,6 +542,8 @@ include("inc/scripts.php");
                             $("#rg").val(rg);
                             $("#sexo").val(sexo);
                             $("#estadoCivil").val(estadoCivil);
+                            
+
 
                             calcularIdade()
                             return;
@@ -539,6 +568,8 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
+        var jsonTelefone = $('#jsonTelefone').val();
+        var jsonEmail = $('#jsonEmail').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
@@ -578,7 +609,7 @@ include("inc/scripts.php");
         }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil,jsonTelefone,jsonEmail,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -843,7 +874,6 @@ include("inc/scripts.php");
             jsonTelefoneArray.splice(index, 1, item);
         else
             jsonTelefoneArray.push(item);
-        console.log(jsonTelefoneArray)
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
         fillTableTelefone();
         clearFormTelefone();
@@ -1058,7 +1088,7 @@ include("inc/scripts.php");
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
             row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailWhatsapp + '</td>'));
+           
 
         }
     }
@@ -1089,29 +1119,6 @@ include("inc/scripts.php");
                 value: valorDescricaoEmailPrincipal
             };
         }
-
-        if (fieldName !== '' && (fieldId === "emailWhatsapp")) {
-            var valorEmailWhatsapp = 0;
-            if ($("#emailWhatsapp").is(':checked') === true) {
-                valorEmailWhatsapp = 1;
-            }
-            return {
-                name: fieldName,
-                value: valorEmailWhatsapp
-            };
-        }
-
-        if (fieldName !== '' && (fieldId === "descricaoEmailWhatsapp")) {
-            var valorDescricaoEmailWhatsapp = "Não";
-            if ($("#emailWhatsapp").is(':checked') === true) {
-                valorDescricaoEmailWhatsapp = "Sim";
-            }
-            return {
-                name: fieldName,
-                value: valorDescricaoEmailWhatsapp
-            };
-        }
-
         return false;
     }
 
