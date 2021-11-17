@@ -42,8 +42,10 @@ function grava(){
     $rg = "'" . $_POST['rg'] . "'";
     $sexo = (int)$_POST['sexo'];
     $estadoCivil = "'" . $_POST['estadoCivil'] . "'";
+
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
+
     $xmlTelefone = "";
     $nomeXml = "ArrayOfFuncionarioTelefone";
     $nomeTabela = "funcionarioTelefone";
@@ -54,7 +56,7 @@ function grava(){
         foreach ($arrayTelefone as $chave) {
             $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if (($campo === "sequencialTel")) {
+                if (($campo === "sequencialTelefone")) {
                     continue;
                 }
                 $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
@@ -76,8 +78,10 @@ function grava(){
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
     //------------------------- Funcionário Email---------------------
+
     $strArrayEmail = $_POST['jsonEmailArray'];
     $arrayEmail = json_decode($strArrayEmail, true);
+
     $xmlEmail = "";
     $nomeXml = "ArrayOfFuncionarioEmail";
     $nomeTabela = "funcionarioEmail";
@@ -143,10 +147,8 @@ function recupera(){
     ,rg
     ,sexo
     ,estadoCivil
-    ,telefone
-    ,email
-    ,xmlTelefone
-    ,xmlEmail
+    
+    
 
     FROM dbo.funcionario WHERE (0 = 0)";
 
@@ -172,12 +174,12 @@ function recupera(){
         $rg = $row['rg'];
         $sexo = $row['sexo'];
         $estadoCivil = $row['estadoCivil'];
-        $jsonTelefone = $row['jsonTelefone'];
-        $jsonEmail = $row['jsonEmail'];
+        
+        
         
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil . "^" . $jsonTelefone . "^" . $jsonEmail;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil;
 
         if ($out == "") {
             echo "failed#";
@@ -186,7 +188,33 @@ function recupera(){
             echo "sucess#" . $out;
         }
         return;
+        
     }
+    $sql = "SELECT codigo
+                ";
+
+    if ($condicaoId) {
+        $sql = $sql . " AND funcionario = " . $cargoIdPesquisa;
+    }
+
+    $reposit = new reposit();
+    $strArrayEmail = $reposit->RunQuery($sql);
+
+    $contadorEmail = 0;
+    $arrayEmail = array();
+    foreach ($strArrayEmail as $row) {
+        $email = $row['email'];
+        $emailPrincipal = $row['emailPrincipal'];
+       
+        $contadorEmail = $contadorEmail + 1;
+        $arrayEmail[] = array(
+            "sequencialEmail" => $contadorEmail,
+            "email" => $email,
+           
+        );
+    }
+    $strArrayEmail = json_encode($arrayEmail);
+    
 }
 
 function excluir(){

@@ -382,8 +382,6 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/form-to-json/jquery.toObject.js"></script>
 
 <script language="JavaScript" type="text/javascript">
-    jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
-    jsonEmailArray = JSON.parse($("#jsonEmail").val());
     $(document).ready(function() {
         $('#dlgSimpleExcluir').dialog({
             autoOpen: false,
@@ -459,6 +457,8 @@ include("inc/scripts.php");
 
         $("#telefone").mask("(99)99999-9999");
 
+        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+
         $("#btnAddTelefone").on("click", function() {
             var telefone = $("#telefone").val();
             var existe = true;
@@ -476,6 +476,9 @@ include("inc/scripts.php");
         $("#btnRemoverTelefone").on("click", function() {
             excluirTelefone();
         });
+
+        jsonEmailArray = JSON.parse($("#jsonEmail").val());
+
         $("#btnAddEmail").on("click", function() {
             var email = $("#email").val();
             var existe = true;
@@ -531,7 +534,9 @@ include("inc/scripts.php");
                             var rg = piece[5];
                             var sexo = piece[6];
                             var estadoCivil = piece[7];
-                            
+                            var jsonTelefoneArray = piece[8];
+                            var jsonEmailArray = piece[9];
+
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -542,7 +547,9 @@ include("inc/scripts.php");
                             $("#rg").val(rg);
                             $("#sexo").val(sexo);
                             $("#estadoCivil").val(estadoCivil);
-                            
+                            $("#jsonTelefone").val(jsonTelefoneArray);
+                            $("#jsonEmail").val(jsonEmailArray);
+
 
 
                             calcularIdade()
@@ -568,8 +575,9 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
-        var jsonTelefone = $('#jsonTelefone').val();
-        var jsonEmail = $('#jsonEmail').val();
+
+        var jsonTelefoneArray = $('#jsonTelefone').val();
+        var jsonEmailArray = $('#jsonEmail').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
@@ -609,7 +617,7 @@ include("inc/scripts.php");
         }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil,jsonTelefone,jsonEmail,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, jsonTelefoneArray, jsonEmailArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -1088,7 +1096,7 @@ include("inc/scripts.php");
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
             row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
-           
+
 
         }
     }
