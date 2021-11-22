@@ -424,7 +424,14 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            gravar();
+            var cpf = $('#cpf').val();
+
+            if (!validarCPF(cpf)) {
+
+                smartAlert("Atenção", "CPF invalido!", "error");
+                $('#cpf').val("");
+
+            }
         });
 
         $("#btnVoltar").on("click", function() {
@@ -435,15 +442,15 @@ include("inc/scripts.php");
             calcularIdade();
         });
 
-        $("#cpf").on("change", function() {
-            var cpf = $('#cpf').val();
+        // $("#cpf").on("change", function() {
+        //     var cpf = $('#cpf').val();
 
-            if (!validarCPF(cpf)) {
-                smartAlert("Atenção", "CPF invalido!", "error");
-                $('#cpf').val("");
+        //     if (!validarCPF(cpf)) {
+        //         smartAlert("Atenção", "CPF invalido!", "error");
+        //         $('#cpf').val("");
 
-            }
-        });
+        //     }
+        // });
 
         $("#cpf").mask("999.999.999-99");
 
@@ -781,7 +788,10 @@ include("inc/scripts.php");
 
                     }
 
+                }else{
+                    gravar()
                 }
+                
             }
         );
 
