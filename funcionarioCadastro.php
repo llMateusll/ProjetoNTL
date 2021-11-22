@@ -103,7 +103,7 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Nome Do Fucionario</label>
+                                                                <label class="label" for="nome">Nome</label>
                                                                 <label class="input">
                                                                     <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
                                                                 </label>
@@ -445,12 +445,6 @@ include("inc/scripts.php");
             }
         });
 
-        $("#rg").on("change", function() {
-            var cpf = $('#rg').val();
-
-            if (!validarRG(rg)) {}
-        });
-
         $("#cpf").mask("999.999.999-99");
 
         $("#rg").mask("99.999.999-9");
@@ -782,61 +776,19 @@ include("inc/scripts.php");
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                     } else {
-                        smartAlert("Atenção", "CPF já cadastrado no sistema!", "error");
+                        smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
                         $('#cpf').val("");
 
                     }
-                }
-            }
-        );
-    }
-
-    function validarEmailCadastrado() {
-
-        var email = $("#email").val();
-
-        validaEmailExistente(email,
-            function(data) {
-                if (data.indexOf('failed') > -1) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "Email já cadastrado no sistema!", "error");
-                        $('#email').val("");
-
-                    }
-                }
-            }
-        );
-    }
-    
-
-    function validarRG() {
-
-        var rg = $("#rg").val();
-
-        validaRgExistente(rg,
-            function(data) {
-                if (data.indexOf('failed') > -1) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "rg já cadastrado no sistema!", "error");
-                        $('#rg').val("");
-
-                    }
 
                 }
             }
         );
 
     }
+
+    //            //// Telefone////            //  
+
 
     function validaTelefone() {
 
@@ -1025,6 +977,9 @@ include("inc/scripts.php");
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
     }
+
+    //            //// Email////            // 
+
 
     function validaEmail() {
         var existe = false;

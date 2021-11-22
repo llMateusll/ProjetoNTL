@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFiltro" class="">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Filtro De sexo
+                                                        Filtro De Gêneros
                                                     </a>
                                                 </h4>
                                             </div>
@@ -95,7 +95,7 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
-                                                                <label class="label">Sexo</label>
+                                                                <label class="label">Gêneros</label>
                                                                 <label class="select">
                                                                     <select id="sexo" name="sexo" class="required">
                                                                         <option selected></option>

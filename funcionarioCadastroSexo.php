@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro De Sexo
+                                                        Cadastro De Gêneros
                                                     </a>
                                                 </h4>
                                             </div>
@@ -94,7 +94,7 @@ include("inc/nav.php");
                                                             <section class="col col-1">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
-                                                                    <select id="ativo" name="ativo" class="required">                                  
+                                                                    <select id="ativo" name="ativo" class="required">
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -102,9 +102,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Descrição</label>
+                                                                <label class="label" for="sexo">Gênero</label>
                                                                 <label class="input">
-                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off"class="required">
+                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off" class="required">
                                                                 </label>
                                                             </section>
 
@@ -287,6 +287,7 @@ include("inc/scripts.php");
         $("#descricao").focus();
     }
 
+
     function gravar() {
         //Botão que desabilita a gravação até que ocorra uma mensagem de erro ou sucesso.
         // $("#btnGravar").prop('disabled', true);
@@ -300,15 +301,15 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe o Ativo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
-        }    
+        }
         if (!sexo) {
             smartAlert("Atenção", "Informe o Sexo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
-        }    
+        }
         //Chama a função de gravar do business de convênio de saúde.
         gravarSexo(id, ativo, sexo,
-        function(data) {
+            function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
                     var mensagem = piece[1];
@@ -370,5 +371,28 @@ include("inc/scripts.php");
             }
         );
     }
-   
+
+    function validarSexo() {
+
+        var sexo = $("#sexo").val();
+
+        validaSexoExistente(sexo,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Gênero já cadastrado no sistema!", "error");
+                        $('#sexo').val("");
+
+                    }
+
+                }
+            }
+        );
+
+    }
 </script>

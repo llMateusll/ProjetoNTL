@@ -30,7 +30,8 @@ if ($funcao == 'validaRg') {
 
 return;
 
-function grava(){
+function grava()
+{
 
     $reposit = new reposit(); //Abre a conexão.
 
@@ -139,7 +140,8 @@ function grava(){
     return;
 }
 
-function recupera(){
+function recupera()
+{
     $codigo = $_POST["id"];
 
 
@@ -186,12 +188,12 @@ function recupera(){
 
     FROM dbo.funcionarioEmail WHERE (0 = 0)";
 
-     $sql = $sql . " AND funcionario = " . $codigo;
-     
-    $reposit = new reposit();
-    $result = $reposit->RunQuery($sql);
+        $sql = $sql . " AND funcionario = " . $codigo;
 
-    $contadorEmail = 0;
+        $reposit = new reposit();
+        $result = $reposit->RunQuery($sql);
+
+        $contadorEmail = 0;
         $arrayEmail = array();
         foreach ($result as $row) {
             $emailId = $row['codigo'];
@@ -224,9 +226,9 @@ function recupera(){
 
     FROM dbo.funcionarioTelefone WHERE (0 = 0)";
 
-     $sql = $sql . " AND funcionario = " . $codigo;
+        $sql = $sql . " AND funcionario = " . $codigo;
 
-     $reposit = new reposit();
+        $reposit = new reposit();
         $result = $reposit->RunQuery($sql);
 
         $contadorTelefone = 0;
@@ -276,7 +278,8 @@ function recupera(){
     }
 }
 
-function excluir(){
+function excluir()
+{
 
     $reposit = new reposit();
 

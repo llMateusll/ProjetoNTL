@@ -17,7 +17,28 @@ if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
 
+if ($funcao == 'validaSexo') {
+    call_user_func($funcao);
+}
 return;
+
+function validaSexo(){
+    $sexo = "'" . $_POST["sexo"] . "'";
+
+    $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+
+    if ($result[0]["sexo"] === $_POST["sexo"]) {
+        echo 'failed#';
+        return;
+    }
+
+    echo 'sucess#';
+    return;
+}
 
 function gravarSexo(){
 

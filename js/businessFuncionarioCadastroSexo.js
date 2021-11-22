@@ -1,3 +1,16 @@
+function validaSexoExistente(sexo, callback) {
+    $.ajax({
+        url: 'js/sqlscope_funcionarioCadastroSexo.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'validaSexo', sexo: sexo }, //valores enviados ao script      
+        success: function (data) {
+
+            callback(data);
+        }
+    });
+}
+
 function gravarSexo(id,ativo,sexo, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastroSexo.php',
