@@ -501,6 +501,7 @@ include("inc/scripts.php");
             $("div").removeClass('in');
         });
 
+
         carregaPagina();
 
 
@@ -523,6 +524,8 @@ include("inc/scripts.php");
                             var piece = data.split("#");
                             var mensagem = piece[0];
                             var out = piece[1];
+                            var strArrayEmail = piece[2];
+                            var strArrayTelefone = piece[3];
                             piece = out.split("^");
 
                             // Atributos de vale transporte unitário que serão recuperados: 
@@ -534,8 +537,7 @@ include("inc/scripts.php");
                             var rg = piece[5];
                             var sexo = piece[6];
                             var estadoCivil = piece[7];
-                            var jsonTelefoneArray = piece[8];
-                            var jsonEmailArray = piece[9];
+
 
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
@@ -547,11 +549,15 @@ include("inc/scripts.php");
                             $("#rg").val(rg);
                             $("#sexo").val(sexo);
                             $("#estadoCivil").val(estadoCivil);
-                            $("#jsonTelefone").val(jsonTelefoneArray);
-                            $("#jsonEmail").val(jsonEmailArray);
 
+                            $("#jsonEmail").val(strArrayEmail);
+                            jsonEmailArray = JSON.parse($("#jsonEmail").val());
 
+                            $("#jsonTelefone").val(strArrayTelefone);
+                            jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
 
+                            fillTableTelefone()
+                            fillTableEmail()
                             calcularIdade()
                             return;
 
@@ -784,6 +790,29 @@ include("inc/scripts.php");
             }
         );
     }
+
+    function validarEmailCadastrado() {
+
+        var email = $("#email").val();
+
+        validaEmailExistente(email,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Email já cadastrado no sistema!", "error");
+                        $('#email').val("");
+
+                    }
+                }
+            }
+        );
+    }
+    
 
     function validarRG() {
 

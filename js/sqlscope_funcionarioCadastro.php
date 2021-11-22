@@ -16,6 +16,10 @@ if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
 
+if ($funcao == 'validaEmail') {
+    call_user_func($funcao);
+}
+
 if ($funcao == 'validaCpf') {
     call_user_func($funcao);
 }
@@ -174,47 +178,102 @@ function recupera(){
         $rg = $row['rg'];
         $sexo = $row['sexo'];
         $estadoCivil = $row['estadoCivil'];
-        
-        
-        
+
+        $sql = "SELECT codigo
+        ,email
+        ,principal
+        ,funcionario
+
+    FROM dbo.funcionarioEmail WHERE (0 = 0)";
+
+     $sql = $sql . " AND funcionario = " . $codigo;
+     
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+    $contadorEmail = 0;
+        $arrayEmail = array();
+        foreach ($result as $row) {
+            $emailId = $row['codigo'];
+            $email = $row['email'];
+            $principal = +$row['principal'];
+
+            if ($principal === 1) {
+                $descricaoEmailPrincipal = "Sim";
+            } else {
+                $descricaoEmailPrincipal = "Não";
+            }
+
+            $contadorEmail = $contadorEmail + 1;
+            $arrayEmail[] = array(
+                "sequencialEmail" => $contadorEmail,
+                "emailId" => $emailId,
+                "email" => $email,
+                "principal" => $principal,
+                "descricaoEmailPrincipal" => $descricaoEmailPrincipal
+            );
+        }
+
+        $strArrayEmail = json_encode($arrayEmail);
+
+        $sql = "SELECT codigo
+        ,telefone
+        ,principal
+        ,whatsapp
+        ,funcionario
+
+    FROM dbo.funcionarioTelefone WHERE (0 = 0)";
+
+     $sql = $sql . " AND funcionario = " . $codigo;
+
+     $reposit = new reposit();
+        $result = $reposit->RunQuery($sql);
+
+        $contadorTelefone = 0;
+        $arrayTelefone = array();
+        foreach ($result as $row) {
+            $telefoneId = $row['codigo'];
+            $telefone = $row['telefone'];
+            $principal = +$row['principal'];
+            $whatsapp = +$row['whatsapp'];
+
+            if ($principal === 1) {
+                $descricaoPrincipal = "Sim";
+            } else {
+                $descricaoPrincipal = "Não";
+            }
+            if ($whatsapp === 1) {
+                $descricaoWhatsapp = "Sim";
+            } else {
+                $descricaoWhatsapp = "Não";
+            }
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg. "^" . $sexo . "^" . $estadoCivil;
+            $contadorTelefone = $contadorTelefone + 1;
+            $arrayTelefone[] = array(
+                "sequencialTel" => $contadorTelefone,
+                "telefoneId" => $telefoneId,
+                "telefone" => $telefone,
+                "whatsapp" => $whatsapp,
+                "descricaoTelefoneWhatsapp" => $descricaoWhatsapp,
+                "principal" => $principal,
+                "descricaoTelefonePrincipal" => $descricaoPrincipal
+            );
+        }
+
+        $strArrayTelefone = json_encode($arrayTelefone);
+
+
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $strArrayEmail . "^" . $strArrayTelefone;
 
         if ($out == "") {
             echo "failed#";
         }
         if ($out != '') {
-            echo "sucess#" . $out;
+            echo "sucess#" . $out . "#" . $strArrayEmail . "#" . $strArrayTelefone;
         }
         return;
-        
     }
-    $sql = "SELECT codigo
-                ";
-
-    if ($condicaoId) {
-        $sql = $sql . " AND funcionario = " . $cargoIdPesquisa;
-    }
-
-    $reposit = new reposit();
-    $strArrayEmail = $reposit->RunQuery($sql);
-
-    $contadorEmail = 0;
-    $arrayEmail = array();
-    foreach ($strArrayEmail as $row) {
-        $email = $row['email'];
-        $emailPrincipal = $row['emailPrincipal'];
-       
-        $contadorEmail = $contadorEmail + 1;
-        $arrayEmail[] = array(
-            "sequencialEmail" => $contadorEmail,
-            "email" => $email,
-           
-        );
-    }
-    $strArrayEmail = json_encode($arrayEmail);
-    
 }
 
 function excluir(){
@@ -250,6 +309,26 @@ function validaCpf(){
 
 
     if ($result[0]["cpf"] === $_POST["cpf"]) {
+        echo 'failed#';
+        return;
+    }
+
+    echo 'sucess#';
+    return;
+}
+
+function validaEmail(){
+    $email = "'" . $_POST["email"] . "'";
+
+    $sql = "SELECT email 
+    FROM dbo.funcionarioEmail 
+    WHERE email = $email";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+
+    if ($result[0]["email"] === $_POST["email"]) {
         echo 'failed#';
         return;
     }
