@@ -30,8 +30,7 @@ if ($funcao == 'validaRg') {
 
 return;
 
-function grava()
-{
+function grava(){
 
     $reposit = new reposit(); //Abre a conexão.
 
@@ -140,8 +139,7 @@ function grava()
     return;
 }
 
-function recupera()
-{
+function recupera(){
     $codigo = $_POST["id"];
 
 
@@ -253,7 +251,7 @@ function recupera()
 
             $contadorTelefone = $contadorTelefone + 1;
             $arrayTelefone[] = array(
-                "sequencialTel" => $contadorTelefone,
+                "sequencialTelefone" => $contadorTelefone,
                 "telefoneId" => $telefoneId,
                 "telefone" => $telefone,
                 "whatsapp" => $whatsapp,
@@ -278,8 +276,7 @@ function recupera()
     }
 }
 
-function excluir()
-{
+function excluir(){
 
     $reposit = new reposit();
 

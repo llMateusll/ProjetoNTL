@@ -97,7 +97,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Gêneros</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" class="required">
+                                                                    <select id="sexo" name="sexo" class="">
                                                                         <option selected></option>
                                                                         <?php
                                                                         $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";

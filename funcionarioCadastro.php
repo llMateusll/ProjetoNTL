@@ -442,16 +442,6 @@ include("inc/scripts.php");
             calcularIdade();
         });
 
-        // $("#cpf").on("change", function() {
-        //     var cpf = $('#cpf').val();
-
-        //     if (!validarCPF(cpf)) {
-        //         smartAlert("Atenção", "CPF invalido!", "error");
-        //         $('#cpf').val("");
-
-        //     }
-        // });
-
         $("#cpf").mask("999.999.999-99");
 
         $("#rg").mask("99.999.999-9");
@@ -527,6 +517,7 @@ include("inc/scripts.php");
                             var out = piece[1];
                             var strArrayEmail = piece[2];
                             var strArrayTelefone = piece[3];
+                            
                             piece = out.split("^");
 
                             // Atributos de vale transporte unitário que serão recuperados: 

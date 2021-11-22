@@ -236,7 +236,7 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            gravar();
+            validarSexo();
         });
 
         $("#btnVoltar").on("click", function() {
@@ -390,6 +390,9 @@ include("inc/scripts.php");
 
                     }
 
+
+                } else {
+                    gravar()
                 }
             }
         );
