@@ -723,8 +723,6 @@ include("inc/scripts.php");
         return idade;
     }
 
-    
-
     function validarCPF(cpf) {
         var cpf = cpf.replace(/[^\d]+/g, '');
         if (cpf == '') return false;
@@ -792,7 +790,7 @@ include("inc/scripts.php");
 
     }
 
-    //            //// Telefone////            //  
+//------------------------- Funcionário Telefone---------------------//
 
 
     function validaTelefone() {
@@ -983,8 +981,7 @@ include("inc/scripts.php");
             smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
     }
 
-    //            //// Email////            // 
-
+//------------------------- Funcionário Email---------------------//
 
     function validaEmail() {
         var existe = false;
