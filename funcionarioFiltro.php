@@ -301,13 +301,13 @@ include("inc/scripts.php");
         var dataValida = moment(dataFim, 'DD/MM/YYYY').isValid();
             
         if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            smartAlert("Atenção", "Data Invalida!", "error");
             $('#idade').val('');
             $('#dataFim').val('');
             return;
         }
         if (moment(dataFim, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
             $('#idade').val('');
             $('#dataFim').val('');
             return;
@@ -331,13 +331,13 @@ include("inc/scripts.php");
         var dataValida = moment(dataInicio, 'DD/MM/YYYY').isValid();
             
         if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            smartAlert("Atenção", "Data Invalida!", "error");
             $('#idade').val('');
             $('#dataInicio').val('');
             return;
         }
         if (moment(dataInicio, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
             $('#idade').val('');
             $('#dataInicio').val('');
             return;

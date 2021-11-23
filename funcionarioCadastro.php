@@ -697,13 +697,13 @@ include("inc/scripts.php");
         var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
             
         if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            smartAlert("Atenção", "Data Invalida!", "error");
             $('#idade').val('');
             $('#dataNascimento').val('');
             return;
         }
         if (moment(dataNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
             $('#idade').val('');
             $('#dataNascimento').val('');
             return;
@@ -722,7 +722,7 @@ include("inc/scripts.php");
         $('#idade').val(idade);
         return idade;
     }
-    
+
     
 
     function validarCPF(cpf) {
