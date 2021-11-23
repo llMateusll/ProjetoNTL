@@ -959,6 +959,7 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#telefone").val(item.telefone);
+            $("#sequencialTelefone").val(item.sequencialTelefone);
 
         }
     }
@@ -1126,6 +1127,7 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#email").val(item.email);
+            $("#sequencialEmail").val(item.sequencialEmail);
 
         }
     }
