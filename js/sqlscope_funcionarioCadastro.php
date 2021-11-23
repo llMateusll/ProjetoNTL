@@ -32,7 +32,6 @@ return;
 
 function grava(){
 
-    $reposit = new reposit(); //Abre a conexão.
 
 
     session_start();
@@ -45,7 +44,14 @@ function grava(){
     $cpf = "'" . $_POST['cpf'] . "'";
     $rg = "'" . $_POST['rg'] . "'";
     $sexo = (int)$_POST['sexo'];
+    $cep = "'" . $_POST['cep'] . "'";
     $estadoCivil = "'" . $_POST['estadoCivil'] . "'";
+    $logradouro = "'" . $_POST['logradouro'] . "'";
+    $numero = "'" . $_POST['numero'] . "'";
+    $complemento = "'" . $_POST['complemento'] . "'";
+    $uf = "'" . $_POST['uf'] . "'";
+    $bairro = "'" . $_POST['bairro'] . "'";
+    $cidade = "'" . $_POST['cidade'] . "'";
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -116,6 +122,7 @@ function grava(){
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
+
     $sql = "dbo.funcionario_Atualiza
             $id,
             $ativo,
@@ -125,9 +132,17 @@ function grava(){
             $rg,
             $sexo,
             $estadoCivil,
+            $cep,
+            $logradouro,
+            $numero,
+            $complemento,
+            $uf,
+            $bairro,
+            $cidade,
             $xmlTelefone,
             $xmlEmail";
 
+    $reposit = new reposit(); //Abre a conexão.
     $result = $reposit->Execprocedure($sql);
 
     $ret = 'sucess#';
@@ -140,6 +155,7 @@ function grava(){
 }
 
 function recupera(){
+
     $codigo = $_POST["id"];
 
 
@@ -151,6 +167,13 @@ function recupera(){
     ,rg
     ,sexo
     ,estadoCivil
+    ,cep
+    ,logradouro
+    ,numero
+    ,complemento
+    ,uf
+    ,bairro
+    ,cidade
     
     
 
@@ -178,6 +201,14 @@ function recupera(){
         $rg = $row['rg'];
         $sexo = $row['sexo'];
         $estadoCivil = $row['estadoCivil'];
+        $cep = $row['cep'];
+        $logradouro = $row['logradouro'];
+        $numero = $row['numero'];
+        $complemento = $row['complemento'];
+        $uf = $row['uf'];
+        $bairro = $row['bairro'];
+        $cidade = $row['cidade$cidade'];
+
 
         $sql = "SELECT codigo
         ,email
@@ -264,7 +295,8 @@ function recupera(){
         $strArrayTelefone = json_encode($arrayTelefone);
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $strArrayEmail . "^" . $strArrayTelefone;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep. "^" . 
+         $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $strArrayEmail . "^" . $strArrayTelefone;
 
         if ($out == "") {
             echo "failed#";
