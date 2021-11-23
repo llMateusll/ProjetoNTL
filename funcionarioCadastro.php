@@ -440,6 +440,7 @@ include("inc/scripts.php");
 
         $("#dataNascimento").on("change", function() {
             calcularIdade();
+            validarDataNascimento();
         });
 
         $("#cpf").mask("999.999.999-99");
@@ -694,6 +695,7 @@ include("inc/scripts.php");
 
 
         var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
+            
         if (!dataValida) {
             smartAlert("Atenção", "DATA INVALIDA!", "error");
             $('#idade').val('');
@@ -720,6 +722,8 @@ include("inc/scripts.php");
         $('#idade').val(idade);
         return idade;
     }
+    
+    
 
     function validarCPF(cpf) {
         var cpf = cpf.replace(/[^\d]+/g, '');
