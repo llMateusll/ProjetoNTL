@@ -94,25 +94,10 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Descrição</label>
-                                                                <label class="select">
-                                                                    <select id="descrição" name="descrição" class="">
-                                                                        <option selected></option>
-                                                                        <?php
-                                                                        $sql = "SELECT codigo, descrição FROM dbo.descrição WHERE (0 = 0)";
-
-                                                                        $reposit = new reposit();
-                                                                        $result = $reposit->RunQuery($sql);
-
-                                                                        foreach ($result as $row) {
-                                                                            $id = (int) $row['codigo'];
-                                                                            $descrição = $row['descrição'];
-                                                                            echo '<option value=' . $id . '>' . $descrição . '</option>';
-                                                                        }
-                                                                        ?>
-
-                                                                    </select><i></i>
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label" for="descrição">Descrição</label>
+                                                                <label class="input">
+                                                                    <input id="descrição" type="text" maxlength="200" required autocomplete="off" class="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -194,7 +179,7 @@ include("inc/scripts.php");
         var descrição = $('#descrição').val();
 
 
-        $('#resultadoBusca').load('funcionarioFiltroListagemDeDependente.php', {
+        $('#resultadoBusca').load('funcionarioFiltroListagemDependente.php', {
             codigo: codigo,
             ativo: ativo,
             descrição: descrição 

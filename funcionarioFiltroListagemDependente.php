@@ -7,7 +7,7 @@ include "js/repositorio.php";
             <thead>
                 <tr role="row">
                     <th class="text-left" style="min-width:35px;">Ativo</th>
-                    <th class="text-left" style="min-width:30px;">Generos</th>
+                    <th class="text-left" style="min-width:30px;">Dependente</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,19 +24,19 @@ include "js/repositorio.php";
                     $where = $where . " AND ativo = $ativo";
                 }
 
-                $sexo = "";
-                $sexo = $_POST["sexo"];
+                $descrição = "";
+                $descrição = $_POST["descrição"];
 
-                if ($sexo != '') {
-                    $where = $where . " AND codigo = $sexo";
+                if ($descrição != '') {
+                    $where = $where . " AND codigo = $descrição";
                 }
 
                 $sql = " SELECT  
                 codigo,
                 ativo,
-                sexo
+                descrição
                 
-                FROM  [dbo].[sexo] ";
+                FROM  [dbo].[descrição] ";
 
                 $where = $where;
 
@@ -47,7 +47,7 @@ include "js/repositorio.php";
                 foreach ($result as $row) {
                     $id = (int) $row['codigo'];
                     $ativo = $row['ativo'];
-                    $sexo = $row['sexo'];
+                    $descrição = $row['descrição'];
 
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
@@ -58,7 +58,7 @@ include "js/repositorio.php";
 
                     echo '<tr >';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $sexo . '</td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastroDependente.php?id=' . $id . '">' . $descrição . '</td>';
                     echo '</tr >';
                 }
                 ?>

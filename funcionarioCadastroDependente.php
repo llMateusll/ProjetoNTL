@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordionCadastro">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro De Gêneros
+                                                        Cadastro De Dependentes
                                                     </a>
                                                 </h4>
                                             </div>
@@ -102,9 +102,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="sexo">Gênero</label>
+                                                                <label class="label" for="descrição">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="sexo" type="text" maxlength="200" required autocomplete="off" class="required">
+                                                                    <input id="descrição" type="text" maxlength="200" required autocomplete="off" class="required">
                                                                 </label>
                                                             </section>
 
@@ -169,7 +169,7 @@ include("inc/footer.php");
 include("inc/scripts.php");
 ?>
 
-<script src="<?php echo ASSETS_URL; ?>/js/businessFuncionarioCadastroSexo.js" type="text/javascript"></script>
+<script src="<?php echo ASSETS_URL; ?>/js/businessFuncionarioCadastroDependente.js" type="text/javascript"></script>
 
 <!-- PAGE RELATED PLUGIN(S) 
 <script src="..."></script>-->
@@ -236,7 +236,7 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            validarSexo();
+            validarDescrição();
         });
 
         $("#btnVoltar").on("click", function() {
@@ -270,12 +270,12 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var sexo = piece[2];
+                            var descrição = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#sexo").val(sexo);
+                            $("#descrição").val(descrição);
 
                             return;
 
@@ -294,7 +294,7 @@ include("inc/scripts.php");
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
         var ativo = $('#ativo').val();
-        var sexo = $('#sexo').val();
+        var descrição = $('#descrição').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:   
         if (!ativo) {
@@ -302,13 +302,13 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!sexo) {
-            smartAlert("Atenção", "Informe o Sexo", "error");
+        if (!descrição) {
+            smartAlert("Atenção", "Informe o Descrição", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         //Chama a função de gravar do business de convênio de saúde.
-        gravarSexo(id, ativo, sexo,
+        gravarDescrição(id, ativo, descrição,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -337,11 +337,11 @@ include("inc/scripts.php");
     }
 
     function novo() {
-        $(location).attr('href', 'funcionarioCadastroSexo.php');
+        $(location).attr('href', 'funcionarioCadastroDependente.php');
     }
 
     function voltar() {
-        $(location).attr('href', 'funcionarioFiltroSexo.php');
+        $(location).attr('href', 'funcionarioFiltroDependente.php');
     }
 
     function excluir() {
@@ -372,11 +372,11 @@ include("inc/scripts.php");
         );
     }
 
-    function validarSexo() {
+    function validarDescrição() {
 
-        var sexo = $("#sexo").val();
+        var descrição = $("#descrição").val();
 
-        validaSexoExistente(sexo,
+        validaDescriçãoExistente(descrição,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -386,7 +386,7 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "Gênero já cadastrado no sistema!", "error");
-                        $('#sexo').val("");
+                        $('#descrição').val("");
 
                     }
 
