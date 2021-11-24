@@ -63,7 +63,7 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Usuário</h2>
+                            <h2>Gêneros</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFiltro" class="">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Filtro De Dependente
+                                                        Filtro De Gêneros
                                                     </a>
                                                 </h4>
                                             </div>
@@ -97,18 +97,18 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="select">
-                                                                    <select id="descrição" name="descrição" class="">
+                                                                    <select id="sexo" name="sexo" class="">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT codigo, descrição FROM dbo.descrição WHERE (0 = 0)";
+                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
 
                                                                         foreach ($result as $row) {
                                                                             $id = (int) $row['codigo'];
-                                                                            $descrição = $row['descrição'];
-                                                                            echo '<option value=' . $id . '>' . $descrição . '</option>';
+                                                                            $sexo = $row['sexo'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
                                                                         }
                                                                         ?>
 
@@ -191,18 +191,18 @@ include("inc/scripts.php");
     function listarFiltro() {
         var codigo = $('#codigo').val();
         var ativo = $('#ativo').val();
-        var descrição = $('#descrição').val();
+        var sexo = $('#sexo').val();
 
 
-        $('#resultadoBusca').load('funcionarioFiltroListagemDeDependente.php', {
+        $('#resultadoBusca').load('funcionarioFiltroListagemDeSexo.php', {
             codigo: codigo,
             ativo: ativo,
-            descrição: descrição 
+            sexo: sexo 
 
         });
     }
 
     function novo() {
-        $(location).attr('href', 'funcionarioCadastroDependente.php');
+        $(location).attr('href', 'funcionarioCadastroSexo.php');
     }
 </script>

@@ -642,14 +642,14 @@ include("inc/scripts.php");
                             var cpf = piece[4];
                             var rg = piece[5];
                             var sexo = piece[6];
-                            var estadoCivil = piece[8];
-                            var cep = piece[9];
-                            var logradouro = piece[10];
-                            var numero = piece[11];
-                            var complemento = piece[12];
-                            var uf = piece[13];
-                            var bairro = piece[14];
-                            var cidade = piece[15];
+                            var estadoCivil = piece[7];
+                            var cep = piece[8];
+                            var logradouro = piece[9];
+                            var numero = piece[10];
+                            var complemento = piece[11];
+                            var uf = piece[12];
+                            var bairro = piece[13];
+                            var cidade = piece[14];
 
 
 

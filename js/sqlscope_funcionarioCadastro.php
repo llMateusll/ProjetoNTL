@@ -207,7 +207,7 @@ function recupera(){
         $complemento = $row['complemento'];
         $uf = $row['uf'];
         $bairro = $row['bairro'];
-        $cidade = $row['cidade$cidade'];
+        $cidade = $row['cidade'];
 
 
         $sql = "SELECT codigo
