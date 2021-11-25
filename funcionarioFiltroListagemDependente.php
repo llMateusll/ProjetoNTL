@@ -6,16 +6,13 @@ include "js/repositorio.php";
         <table id="tableSearchResult" class="table table-bordered table-striped table-condensed table-hover dataTable">
             <thead>
                 <tr role="row">
-                    <th class="text-left" style="min-width:35px;">Ativo</th>
+                    <th class="text-left" style="min-width:10px;">Ativo</th>
                     <th class="text-left" style="min-width:30px;">Dependente</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $where = "WHERE (0 = 0)";
-
-                $codigo = "";
-                $codigo = $_POST["codigo"];
 
                 $ativo = "";
                 $ativo = $_POST["ativo"];
@@ -24,19 +21,20 @@ include "js/repositorio.php";
                     $where = $where . " AND ativo = $ativo";
                 }
 
-                $descrição = "";
-                $descrição = $_POST["descrição"];
+                $descricao = "";
+                $descricao = $_POST["descricao"];
+                $descricao = "'" . $descricao . "'";
 
-                if ($descrição != '') {
-                    $where = $where . " AND codigo = $descrição";
+                if ($descricao != '') {
+                    $where = $where . " AND descricao = $descricao";
                 }
 
                 $sql = " SELECT  
                 codigo,
                 ativo,
-                descrição
+                descricao
                 
-                FROM  [dbo].[descrição] ";
+                FROM  [dbo].[dependente] ";
 
                 $where = $where;
 
@@ -47,7 +45,7 @@ include "js/repositorio.php";
                 foreach ($result as $row) {
                     $id = (int) $row['codigo'];
                     $ativo = $row['ativo'];
-                    $descrição = $row['descrição'];
+                    $descricao = $row['descricao'];
 
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
@@ -58,7 +56,7 @@ include "js/repositorio.php";
 
                     echo '<tr >';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left"><a href="funcionarioCadastroDependente.php?id=' . $id . '">' . $descrição . '</td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastroDependente.php?id=' . $id . '">' . $descricao . '</td>';
                     echo '</tr >';
                 }
                 ?>

@@ -5,7 +5,7 @@ include "girComum.php";
 
 $funcao = $_POST["funcao"];
 
-if ($funcao == 'gravarSexo') {
+if ($funcao == 'gravarDescrição') {
     call_user_func($funcao);
 }
 
@@ -17,21 +17,21 @@ if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
 
-if ($funcao == 'validaSexo') {
+if ($funcao == 'validaDescrição') {
     call_user_func($funcao);
 }
 return;
 
-function validaSexo(){
-    $sexo = "'" . $_POST["sexo"] . "'";
+function validaDescrição(){
+    $descrição = "'" . $_POST["descrição"] . "'";
 
-    $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo";
+    $sql = "SELECT descrição FROM dbo.dependente WHERE descrição = $descrição";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
 
-    if ($result[0]["sexo"] === $_POST["sexo"]) {
+    if ($result[0]["descrição"] === $_POST["descrição"]) {
         echo 'failed#';
         return;
     }
@@ -40,7 +40,7 @@ function validaSexo(){
     return;
 }
 
-function gravarSexo(){
+function gravarDescrição(){
 
     $reposit = new reposit(); //Abre a conexão.
 
@@ -48,12 +48,12 @@ function gravarSexo(){
     session_start();
     $id = (int)$_POST['id'];
     $ativo = $_POST['ativo'];
-    $sexo = "'" . $_POST['sexo'] . "'";
+    $descrição = "'" . $_POST['descrição'] . "'";
 
-    $sql = "dbo.sexo_Atualiza
+    $sql = "dbo.dependente_Atualiza
             $id,
             $ativo,
-            $sexo";
+            $descrição";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -70,7 +70,7 @@ function recupera(){
     $codigo = $_POST["id"];
 
 
-    $sql = "SELECT * FROM dbo.sexo WHERE (0 = 0)";
+    $sql = "SELECT * FROM dbo.dependente WHERE (0 = 0)";
 
 
     $sql = $sql . " AND codigo = " . $codigo;
@@ -85,10 +85,10 @@ function recupera(){
 
         $id = +$row['codigo'];
         $ativo = $row['ativo'];
-        $sexo = $row['sexo'];
+        $descrição = $row['descrição'];
 
 
-        $out = $id . "^" . $ativo . "^" . $sexo;
+        $out = $id . "^" . $ativo . "^" . $descrição;
 
         if ($out == "") {
             echo "failed#";
@@ -112,7 +112,7 @@ function excluir(){
         return;
     }
 
-    $result = $reposit->update('dbo.sexo' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
+    $result = $reposit->update('dbo.dependente' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
 
     if ($result < 1) {
         echo ('failed#');

@@ -501,18 +501,21 @@ include("inc/scripts.php");
         $("#btnGravar").on("click", function() {
             var cpf = $('#cpf').val();
 
-            if (!validarCPF(cpf)) {
-
+            if(!validarCPF(cpf)) {
                 smartAlert("Atenção", "CPF invalido!", "error");
                 $('#cpf').val("");
-
+                return;
             }
+            else{
+                gravar()
+            }
+
+
         });
 
         $("#btnVoltar").on("click", function() {
             voltar();
         });
-
         $("#dataNascimento").on("change", function() {
             calcularIdade();
         });
@@ -541,7 +544,7 @@ include("inc/scripts.php");
 
         });
 
-        $("#cep").on("change",function() {
+        $("#cep").on("change", function() {
 
             //Nova variável "cep" somente com dígitos.
             var cep = $("#cep").val().replace(/\D/g, '');
@@ -567,12 +570,12 @@ include("inc/scripts.php");
                         } //end if.
                         else {
                             //CEP pesquisado não foi encontrado.
-                            smartAlert("Atenção","CEP não encontrado.", "error");
+                            smartAlert("Atenção", "CEP não encontrado.", "error");
                         }
                     });
                 } //end if.
                 else {
-                    smartAlert("Atenção","Formato de CEP inválido.", "error");
+                    smartAlert("Atenção", "Formato de CEP inválido.", "error");
                 }
             } //end if.
         });
@@ -948,12 +951,11 @@ include("inc/scripts.php");
                     } else {
                         smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
                         $('#cpf').val("");
+                        return;
 
                     }
 
-                } else {
-                    gravar()
-                }
+                } 
 
             }
         );

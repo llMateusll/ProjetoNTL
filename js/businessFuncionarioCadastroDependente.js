@@ -1,9 +1,9 @@
-function validaSexoExistente(sexo, callback) {
+function validaDescriçãoExistente(descrição, callback) {
     $.ajax({
-        url: 'js/sqlscope_funcionarioCadastroSexo.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_funcionarioCadastroDependente.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'validaSexo', sexo: sexo }, //valores enviados ao script      
+        data: { funcao: 'validaDescrição', descrição: descrição }, //valores enviados ao script      
         success: function (data) {
 
             callback(data);
@@ -11,20 +11,21 @@ function validaSexoExistente(sexo, callback) {
     });
 }
 
-function gravarSexo(id,ativo,sexo, callback) {
+function gravarDescrição(id,ativo,descrição, callback) {
     $.ajax({
-        url: 'js/sqlscope_funcionarioCadastroSexo.php',
+        url: 'js/sqlscope_funcionarioCadastroDependente.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "gravarSexo",id: id, ativo: ativo, sexo: sexo},   
+        data: {funcao: "gravarDescrição",id: id, ativo: ativo, descrição: descrição},   
         success: function (data) {
-        callback(data);
+
+            callback(data);
         } 
     }); 
 }
 function recuperaFuncionario(id, callback) {
     $.ajax({
-        url: 'js/sqlscope_funcionarioCadastroSexo.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_funcionarioCadastroDependente.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'recupera', id: id}, //valores enviados ao script      
@@ -37,7 +38,7 @@ function recuperaFuncionario(id, callback) {
 }
 function excluirGrupo(id, callback) {
     $.ajax({
-        url: 'js/sqlscope_funcionarioCadastroSexo.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_funcionarioCadastroDependente.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: {funcao: 'excluir', id: id}, //valores enviados ao script      

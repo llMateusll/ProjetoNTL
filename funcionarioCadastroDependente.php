@@ -102,9 +102,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="descrição">Descrição</label>
+                                                                <label class="label" for="descricao">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="descrição" type="text" maxlength="200" required autocomplete="off" class="required">
+                                                                    <input id="descricao" type="text" maxlength="200" required autocomplete="off" class="required">
                                                                 </label>
                                                             </section>
 
@@ -270,12 +270,12 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var descrição = piece[2];
+                            var descricao = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#descrição").val(descrição);
+                            $("#descricao").val(descricao);
 
                             return;
 
@@ -294,7 +294,7 @@ include("inc/scripts.php");
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
         var ativo = $('#ativo').val();
-        var descrição = $('#descrição').val();
+        var descricao = $('#descricao').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:   
         if (!ativo) {
@@ -302,13 +302,13 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!descrição) {
-            smartAlert("Atenção", "Informe o Descrição", "error");
+        if (!descricao) {
+            smartAlert("Atenção", "Informe a Descrição", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         //Chama a função de gravar do business de convênio de saúde.
-        gravarDescrição(id, ativo, descrição,
+        gravarDescrição(id, ativo, descricao,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -374,9 +374,9 @@ include("inc/scripts.php");
 
     function validarDescrição() {
 
-        var descrição = $("#descrição").val();
+        var descricao = $("#descricao").val();
 
-        validaDescriçãoExistente(descrição,
+        validaDescriçãoExistente(descricao,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -385,8 +385,8 @@ include("inc/scripts.php");
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                     } else {
-                        smartAlert("Atenção", "Gênero já cadastrado no sistema!", "error");
-                        $('#descrição').val("");
+                        smartAlert("Atenção", "Descrição já cadastrado no sistema!", "error");
+                        $('#descricao').val("");
 
                     }
 

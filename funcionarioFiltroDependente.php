@@ -95,9 +95,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="descrição">Descrição</label>
+                                                                <label class="label" for="descricao">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="descrição" type="text" maxlength="200" required autocomplete="off" class="">
+                                                                    <input id="descricao" type="text" maxlength="200" required autocomplete="off" class="">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -174,15 +174,13 @@ include("inc/scripts.php");
     });
 
     function listarFiltro() {
-        var codigo = $('#codigo').val();
         var ativo = $('#ativo').val();
-        var descrição = $('#descrição').val();
+        var descricao = $('#descricao').val();
 
 
         $('#resultadoBusca').load('funcionarioFiltroListagemDependente.php', {
-            codigo: codigo,
             ativo: ativo,
-            descrição: descrição 
+            descricao: descricao 
 
         });
     }
