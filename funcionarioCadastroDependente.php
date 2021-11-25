@@ -236,8 +236,14 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            validarDescrição();
+            gravar();
         });
+
+        $("#descricao").on("change", function() {
+           validarDescrição();
+        });
+  
+
 
         $("#btnVoltar").on("click", function() {
             voltar();
@@ -389,10 +395,7 @@ include("inc/scripts.php");
                         $('#descricao').val("");
 
                     }
-
-
-                } else {
-                    gravar()
+               
                 }
             }
         );

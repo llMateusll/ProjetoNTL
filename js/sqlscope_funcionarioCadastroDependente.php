@@ -17,21 +17,21 @@ if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
 
-if ($funcao == 'validaDescrição') {
+if ($funcao == 'validarDescrição') {
     call_user_func($funcao);
 }
 return;
 
-function validaDescrição(){
-    $descrição = "'" . $_POST["descrição"] . "'";
+function validarDescrição(){
+    $descricao = "'" . $_POST["descricao"] . "'";
 
-    $sql = "SELECT descrição FROM dbo.dependente WHERE descrição = $descrição";
+    $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao";
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
 
-    if ($result[0]["descrição"] === $_POST["descrição"]) {
+    if ($result[0]["descricao"] === $_POST["descricao"]) {
         echo 'failed#';
         return;
     }
@@ -48,12 +48,12 @@ function gravarDescrição(){
     session_start();
     $id = (int)$_POST['id'];
     $ativo = $_POST['ativo'];
-    $descrição = "'" . $_POST['descrição'] . "'";
+    $descricao = "'" . $_POST['descricao'] . "'";
 
     $sql = "dbo.dependente_Atualiza
             $id,
             $ativo,
-            $descrição";
+            $descricao";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -85,10 +85,10 @@ function recupera(){
 
         $id = +$row['codigo'];
         $ativo = $row['ativo'];
-        $descrição = $row['descrição'];
+        $descricao = $row['descricao'];
 
 
-        $out = $id . "^" . $ativo . "^" . $descrição;
+        $out = $id . "^" . $ativo . "^" . $descricao;
 
         if ($out == "") {
             echo "failed#";

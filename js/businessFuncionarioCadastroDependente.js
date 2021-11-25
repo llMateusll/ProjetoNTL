@@ -1,9 +1,9 @@
-function validaDescriçãoExistente(descrição, callback) {
+function validaDescriçãoExistente(descricao, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastroDependente.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'validaDescrição', descrição: descrição }, //valores enviados ao script      
+        data: { funcao: 'validarDescrição', descricao: descricao }, //valores enviados ao script      
         success: function (data) {
 
             callback(data);
@@ -11,12 +11,12 @@ function validaDescriçãoExistente(descrição, callback) {
     });
 }
 
-function gravarDescrição(id,ativo,descrição, callback) {
+function gravarDescrição(id,ativo,descricao, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastroDependente.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: {funcao: "gravarDescrição",id: id, ativo: ativo, descrição: descrição},   
+        data: {funcao: "gravarDescrição",id: id, ativo: ativo, descricao: descricao},   
         success: function (data) {
 
             callback(data);

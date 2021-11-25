@@ -13,6 +13,7 @@ include "js/repositorio.php";
             <tbody>
                 <?php
                 $where = "WHERE (0 = 0)";
+                
 
                 $ativo = "";
                 $ativo = $_POST["ativo"];
@@ -25,7 +26,7 @@ include "js/repositorio.php";
                 $descricao = $_POST["descricao"];
                 $descricao = "'" . $descricao . "'";
 
-                if ($descricao != '') {
+                if ($descricao != "''") {
                     $where = $where . " AND descricao = $descricao";
                 }
 
