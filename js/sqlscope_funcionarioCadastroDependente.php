@@ -31,7 +31,7 @@ function validarDescrição(){
     $result = $reposit->RunQuery($sql);
 
 
-    if ($result[0]["descricao"] === $_POST["descricao"]) {
+    if ( $result[0] > 0 ) {
         echo 'failed#';
         return;
     }

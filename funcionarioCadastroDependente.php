@@ -107,7 +107,6 @@ include("inc/nav.php");
                                                                     <input id="descricao" type="text" maxlength="200" required autocomplete="off" class="required">
                                                                 </label>
                                                             </section>
-
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -230,20 +229,14 @@ include("inc/scripts.php");
                 $('#dlgSimpleExcluir').dialog('open');
             }
         });
-
+        
         $("#btnNovo").on("click", function() {
             novo();
         });
 
         $("#btnGravar").on("click", function() {
-            gravar();
+            validarDescrição();
         });
-
-        $("#descricao").on("change", function() {
-           validarDescrição();
-        });
-  
-
 
         $("#btnVoltar").on("click", function() {
             voltar();
@@ -395,7 +388,10 @@ include("inc/scripts.php");
                         $('#descricao').val("");
 
                     }
-               
+
+                }
+                else{
+                    gravar()
                 }
             }
         );

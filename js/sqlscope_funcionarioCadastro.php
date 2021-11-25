@@ -30,7 +30,8 @@ if ($funcao == 'validaRg') {
 
 return;
 
-function grava(){
+function grava()
+{
 
 
 
@@ -154,7 +155,8 @@ function grava(){
     return;
 }
 
-function recupera(){
+function recupera()
+{
 
     $codigo = $_POST["id"];
 
@@ -295,8 +297,8 @@ function recupera(){
         $strArrayTelefone = json_encode($arrayTelefone);
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep. "^" . 
-         $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $strArrayEmail . "^" . $strArrayTelefone;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep . "^" .
+            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $strArrayEmail . "^" . $strArrayTelefone;
 
         if ($out == "") {
             echo "failed#";
@@ -308,7 +310,8 @@ function recupera(){
     }
 }
 
-function excluir(){
+function excluir()
+{
 
     $reposit = new reposit();
 
@@ -331,7 +334,8 @@ function excluir(){
     return;
 }
 
-function validaCpf(){
+function validaCpf()
+{
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
@@ -340,16 +344,17 @@ function validaCpf(){
     $result = $reposit->RunQuery($sql);
 
 
-    if ($result[0]["cpf"] === $_POST["cpf"]) {
+    if ($result[0]) {
         echo 'failed#';
         return;
+    } else {
+        echo 'sucess#';
+        return;
     }
-
-    echo 'sucess#';
-    return;
 }
 
-function validaEmail(){
+function validaEmail()
+{
     $email = "'" . $_POST["email"] . "'";
 
     $sql = "SELECT email 
@@ -369,7 +374,8 @@ function validaEmail(){
     return;
 }
 
-function validaRg(){
+function validaRg()
+{
     $rg = "'" . $_POST["rg"] . "'";
 
     $sql = "SELECT rg FROM dbo.funcionario WHERE rg = $rg";
