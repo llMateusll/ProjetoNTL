@@ -181,7 +181,8 @@ include("inc/nav.php");
                                                                 <label class="label">Primeiro Emprego</label>
                                                                 <label class="select">
                                                                     <select id="primeiroEmprego" name="primeiroEmprego" class="required">
-                                                                        <option value="1" selected>Sim</option>
+                                                                        <option selected></option>
+                                                                        <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
                                                                 </label>
@@ -529,15 +530,6 @@ include("inc/scripts.php");
             voltar();
         });
 
-        $("#primeiroEmprego").on("change", function() {
-
-            var primeiroEmprego = $("#primeiroEmprego").val();
-            if (primeiroEmprego === 1) {
-
-            }
-
-        });
-
         $("#dataNascimento").on("change", function() {
             calcularIdade();
         });
@@ -564,6 +556,10 @@ include("inc/scripts.php");
                 addTelefone();
             }
 
+        });
+
+        $("#primeiroEmprego").on("change", function() {
+            validaPrimeiroEmprego()
         });
 
         $("#cep").on("change", function() {
@@ -675,6 +671,8 @@ include("inc/scripts.php");
                             var uf = piece[12];
                             var bairro = piece[13];
                             var cidade = piece[14];
+                            var primeiroEmprego = piece[15];
+                            var pispasep = piece[16];
 
 
 
@@ -694,6 +692,8 @@ include("inc/scripts.php");
                             $("#uf").val(uf);
                             $("#bairro").val(bairro);
                             $("#cidade").val(cidade);
+                            $("#primeiroEmprego").val(primeiroEmprego);
+                            $("#pispasep").val(pispasep);
 
 
                             $("#jsonEmail").val(strArrayEmail);
@@ -701,7 +701,8 @@ include("inc/scripts.php");
 
                             $("#jsonTelefone").val(strArrayTelefone);
                             jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
-
+                            
+                            validaPrimeiroEmprego()
                             fillTableTelefone()
                             fillTableEmail()
                             calcularIdade()
@@ -734,6 +735,8 @@ include("inc/scripts.php");
         var uf = $('#uf').val();
         var bairro = $('#bairro').val();
         var cidade = $('#cidade').val();
+        var primeiroEmprego = $('#primeiroEmprego').val();
+        var pispasep = $('#pispasep').val();
 
         var jsonTelefoneArray = $('#jsonTelefone').val();
         var jsonEmailArray = $('#jsonEmail').val();
@@ -789,11 +792,6 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!complemento) {
-            smartAlert("Atenção", "Informe Seu Complemento", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
         if (!uf) {
             smartAlert("Atenção", "Informe Seu UF", "error");
             $("#btnGravar").prop('disabled', false);
@@ -809,9 +807,14 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+        if (!primeiroEmprego) {
+            smartAlert("Atenção", "Informe Seu é seu Primeiro Emprego", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pispasep, jsonTelefoneArray, jsonEmailArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -973,7 +976,7 @@ include("inc/scripts.php");
                     } else {
                         smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
                         $('#cpf').val("");
-                        
+
 
                     }
                 }
@@ -981,6 +984,22 @@ include("inc/scripts.php");
             }
         );
 
+    }
+
+    function validaPrimeiroEmprego() {
+        var optionSelect = document.getElementById("primeiroEmprego").value;
+
+        if (optionSelect == "0") {
+            var i = document.getElementById("pispasep");
+            i.classList.remove('readonly') 
+            i.disabled = false;
+        } else {
+            var i =document.getElementById("pispasep");
+            i.classList.add('readonly')
+            i.disabled = true;
+            $('#pispasep').val("");
+
+        }
     }
 
 

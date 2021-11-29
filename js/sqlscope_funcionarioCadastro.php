@@ -53,6 +53,8 @@ function grava()
     $uf = "'" . $_POST['uf'] . "'";
     $bairro = "'" . $_POST['bairro'] . "'";
     $cidade = "'" . $_POST['cidade'] . "'";
+    $primeiroEmprego = "'" . $_POST['primeiroEmprego'] . "'";
+    $pispasep = "'" . $_POST['pispasep'] . "'";
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -140,6 +142,8 @@ function grava()
             $uf,
             $bairro,
             $cidade,
+            $primeiroEmprego,
+            $pispasep,
             $xmlTelefone,
             $xmlEmail";
 
@@ -176,6 +180,8 @@ function recupera()
     ,uf
     ,bairro
     ,cidade
+    ,primeiroEmprego
+    ,pispasep
     
     
 
@@ -210,6 +216,8 @@ function recupera()
         $uf = $row['uf'];
         $bairro = $row['bairro'];
         $cidade = $row['cidade'];
+        $primeiroEmprego = $row['primeiroEmprego'];
+        $pispasep = $row['pispasep'];
 
 
         $sql = "SELECT codigo
@@ -298,7 +306,7 @@ function recupera()
 
 
         $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep . "^" .
-            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $strArrayEmail . "^" . $strArrayTelefone;
+            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pispasep . "^" . $strArrayEmail . "^" . $strArrayTelefone;
 
         if ($out == "") {
             echo "failed#";
