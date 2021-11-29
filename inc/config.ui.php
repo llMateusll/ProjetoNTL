@@ -90,84 +90,28 @@ if ($condicaoConfiguracoesOK) {
 $condicaoOperacaoOk = true;
 
 // TABELAS BÁSICAS
-$condicaoTabelaBasicaOk = (in_array('TABELABASICA_ACESSAR', $arrayPermissao, true));
+$condicaoTabelaBasicaOk =true;
 
 if ($condicaoTabelaBasicaOk) {
     $page_nav['tabelaBasica'] = array("title" => "Tabela Básica", "icon" => "fa fa-table");
     $page_nav['tabelaBasica']['sub'] = array();
 
-    if (in_array('ESCALA_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("escala" => array("title" => "Escala", "url" => APP_URL . "/tabelaBasica_escalaFiltro.php")); //SYSCC  
-    }
-    if (in_array('ESPECIALIZACAO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("especializacao" => array("title" => "Especialização", "url" => APP_URL . "/tabelaBasica_especializacaoFiltro.php")); //SYSCB 
-    }
-
-    if (in_array('GRUPO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("grupo" => array("title" => "Grupo", "url" => APP_URL . "/tabelaBasica_grupoFiltro.php")); //SYSGC //Faturamento
-    }
-
-    if (in_array('LANCAMENTO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("lancamento" => array("title" => "Lançamento/Ocorrências", "url" => APP_URL . "/tabelaBasica_lancamentoFiltro.php")); //SYSCB
-    }
-
-    if (in_array('LOCALIZACAO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("localizacao" => array("title" => "Localização", "url" => APP_URL . "/tabelaBasica_localizacaoFiltro.php"));
-    }
-
-    if (in_array('PRODUTOSERVICO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("produtoServico" => array("title" => "Produto Serviço", "url" => APP_URL . "/tabelaBasica_produtoServicoFiltro.php")); //SYSGC //Faturamento
-    }
-
-    if (in_array('MUNICIPIO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("municipio" => array("title" => "Município", "url" => APP_URL . "/tabelaBasica_municipioFiltro.php")); //SYSCB 
-    }
-
-    if (in_array('STATUS_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['tabelaBasica']['sub'] += array("status" => array("title" => "Status", "url" => APP_URL . "/tabelaBasica_statusFiltro.php")); //SYSCB 
-    }
+ 
+        $page_nav['tabelaBasica']['sub'] += array("Dependente" => array("title" => "Dependente", "url" => APP_URL . "/funcionarioFiltroDependente.php")); //SYSCB 
+    
+        $page_nav['tabelaBasica']['sub'] += array("Gêneros" => array("title" => "Gêneros", "url" => APP_URL . "/funcionarioFiltroSexo.php")); //SYSCB 
+    
 }
 
 // CADASTROS
-$condicaoCadastroOk = (in_array('CADASTRO_ACESSAR', $arrayPermissao, true));
+$condicaoCadastroOk = true;
 if ($condicaoCadastroOk) {
     $page_nav['cadastro'] = array("title" => "Cadastro", "icon" => "fa-pencil-square-o");
     $page_nav['cadastro']['sub'] = array();
 
-    if (in_array('CARGO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("cargo" => array("title" => "Cargo", "url" => APP_URL . "/cadastro_cargoFiltro.php")); //SYSCB   
-    }
 
-    if (in_array('DIASUTEISMUNICIPIO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("diasUteisPorMunicipio" => array("title" => "Dias Úteis por Município", "url" => APP_URL . "/cadastro_diasUteisPorMunicipioFiltro.php")); //SYSCB 
-    }
+    $page_nav['cadastro']['sub'] += array("funcionario" => array("title" => "Funcionário", "url" => APP_URL . "/funcionarioFiltro.php")); //SYSCB 
 
-    if (in_array('FERIADO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("feriado" => array("title" => "Feriado", "url" => APP_URL . "/cadastro_feriadoFiltro.php")); //SYSCB 
-    }
-    if (in_array('EMPRESA_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("empresa" => array("title" => "Empresa", "url" => APP_URL . "/cadastro_empresaCadastro.php?codigo=1")); //SYSCB 
-    }
-    if (in_array('FORNECEDOR_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("fornecedor" => array("title" => "Fornecedor", "url" => APP_URL . "/cadastro_fornecedorFiltro.php")); //SYSCB
-    }
-    if (in_array('FUNCIONARIO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("funcionario" => array("title" => "Funcionário", "url" => APP_URL . "/cadastro_funcionarioFiltro.php")); //SYSCB 
-    }
-
-    if (in_array('PROJETO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("projeto" => array("title" => "Projeto", "url" => APP_URL . "/cadastro_projetoFiltro.php")); //SYSCB
-    }
-    if (in_array('SINDICATO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("sindicato" => array("title" => "Sindicato", "url" => APP_URL . "/cadastro_sindicatoFiltro.php")); //SYSCB  
-    }
-
-    // if (in_array('VALORPOSTO_ACESSAR', $arrayPermissao, true)) {
-    //     $page_nav['cadastro']['sub'] += array("valorPosto" => array("title" => "Valor do Posto", "url" => APP_URL . "/cadastro_valorPostoFiltro.php")); //SYSCB  
-    // }
-    if (in_array('BENEFICIOPROJETO_ACESSAR', $arrayPermissao, true)) {
-        $page_nav['cadastro']['sub'] += array("beneficioProjeto" => array("title" => "Vínculos e Benefícios", "url" => APP_URL . "/cadastro_beneficioPessoalPorProjetoFiltro.php")); //SYSCB 
-    }
 }
 
 // OPERAÇÔES // A pedido do Márcio no dia 08/01/2020 foi pedido para colocar todos os módulos dentro de operação.
@@ -546,7 +490,7 @@ if ($condicaoFuncionarioOk) {
     if (array_intersect(array('FUNCIONARIOSOLICITACAOFOLHA_ACESSAR', 'GESTORSOLICITACAOFOLHA_ACESSAR'), $arrayPermissao)) {
         $page_nav['funcionario']['sub'] += array("solicitacaoFolha" => array("title" => "Solicitação de alteração", "url" => APP_URL . "/funcionario_solicitacaoFolha.php"));
     }
-    
+
     if (in_array('TRIAGEMPONTOELETRONICOMENSALGESTOR_ACESSAR', $arrayPermissao, true)) {
         $page_nav['funcionario']['sub'] += array("triagemPontoEletronicoGestorFiltro" => array("title" => "Triagem Ponto Eletrônico Filtro", "url" => APP_URL . "/funcionario_triagemPontoMensalGestorFiltro.php"));
     }

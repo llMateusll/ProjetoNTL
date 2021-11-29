@@ -28,7 +28,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Grupo";
+$page_title = "Dependente";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -40,7 +40,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav['configuracao']['sub']["grupo"]["active"] = true;
+$page_nav['tabelaBasica']['sub']["Dependente"]["active"] = true;
 
 include("inc/nav.php");
 ?>
