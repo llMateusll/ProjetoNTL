@@ -49,6 +49,18 @@ function validaCpfExistente(cpf, callback) {
         }
     });
 }
+function validaCpfExistenteDependente(cpf, callback) {
+    $.ajax({
+        url: 'js/sqlscope_funcionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'validaCpfDependente', cpf: cpf }, //valores enviados ao script      
+        success: function (data) {
+
+            callback(data);
+        }
+    });
+}
 
 function validaEmailExistente(email, callback) {
     $.ajax({

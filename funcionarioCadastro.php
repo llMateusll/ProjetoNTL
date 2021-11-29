@@ -335,57 +335,109 @@ include("inc/nav.php");
                                             </div>
 
                                         </div>
+                                        <div class="panel">
+                                            <div id="collapseEndereço" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
 
-                                        <div id="collapseEndereço" class="panel-collapse collapse">
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="cep">CEP</label>
+                                                            <label class="input">
+                                                                <input id="cep" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00000-000">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-4 col-auto">
+                                                            <label class="label" for="logradouro">Rua</label>
+                                                            <label class="input">
+                                                                <input id="logradouro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="bairro">Bairro</label>
+                                                            <label class="input">
+                                                                <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="numero">Número</label>
+                                                            <label class="input">
+                                                                <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="cidade">Cidade</label>
+                                                            <label class="input">
+                                                                <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="uf">Estado</label>
+                                                            <label class="input">
+                                                                <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+                                                        <section class="col col-3 col-auto">
+                                                            <label class="label" for="complemento">Complemento</label>
+                                                            <label class="input">
+                                                                <input id="complemento" type="text" class="" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
+
+
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-group smart-accordion-default" id="accordion">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDependente" class="" id="accordion">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Dependentes
+                                                    </a>
+
+                                                </h4>
+                                            </div>
+
+                                        </div>
+
+                                        <div id="collapseDependente" class="panel-collapse collapse">
                                             <div class="panel-body no-padding">
                                                 <fieldset>
 
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label" for="cep">CEP</label>
+                                                    <section class="col col-3 col-auto">
+                                                        <label class="label" for="nome">Nome</label>
                                                         <label class="input">
-                                                            <input id="cep" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00000-000">
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-4 col-auto">
-                                                        <label class="label" for="logradouro">Rua</label>
-                                                        <label class="input">
-                                                            <input id="logradouro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
                                                         </label>
                                                     </section>
 
                                                     <section class="col col-2 col-auto">
-                                                        <label class="label" for="bairro">Bairro</label>
+                                                        <label class="label" for="cpfDependente">CPF</label>
                                                         <label class="input">
-                                                            <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            <input id="cpfDependente" name="cpfDependente" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
                                                         </label>
                                                     </section>
 
                                                     <section class="col col-2 col-auto">
-                                                        <label class="label" for="numero">Número</label>
+                                                        <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
                                                         <label class="input">
-                                                            <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label" for="cidade">Cidade</label>
-                                                        <label class="input">
-                                                            <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                        </label>
-                                                    </section>
-
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label" for="uf">Estado</label>
-                                                        <label class="input">
-                                                            <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
                                                         </label>
                                                     </section>
 
                                                     <section class="col col-3 col-auto">
-                                                        <label class="label" for="complemento">Complemento</label>
+                                                        <label class="label" for="dependentes ">Dependentes </label>
                                                         <label class="input">
-                                                            <input id="complemento" type="text" class="" maxlength="200" required autocomplete="off" placeholder="">
+                                                            <input id="dependentes " type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                         </label>
                                                     </section>
 
@@ -522,6 +574,11 @@ include("inc/scripts.php");
             validarCPF(cpf)
         });
 
+        $("#cpfDependente").on("change", function() {
+            var cpf = $("#cpfDependente").val();
+            validarCPFDependente(cpf)
+        });
+
         $("#btnGravar").on("click", function() {
             gravar()
         });
@@ -533,8 +590,14 @@ include("inc/scripts.php");
         $("#dataNascimento").on("change", function() {
             calcularIdade();
         });
+        $("#dataNascimentoDependente").on("change", function() {
+            calcularIdadeDependente();
+        });
+        
 
         $("#cpf").mask("999.999.999-99");
+
+        $("#cpfDependente").mask("999.999.999-99");
 
         $("#rg").mask("99.999.999-9");
 
@@ -701,7 +764,7 @@ include("inc/scripts.php");
 
                             $("#jsonTelefone").val(strArrayTelefone);
                             jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
-                            
+
                             validaPrimeiroEmprego()
                             fillTableTelefone()
                             fillTableEmail()
@@ -921,6 +984,37 @@ include("inc/scripts.php");
         return idade;
     }
 
+    function calcularIdadeDependente() {
+        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
+        var y = (parseInt(dataNascimentoDependente.split('/')[2]));
+        var m = (parseInt(dataNascimentoDependente.split('/')[1]));
+        var d = (parseInt(dataNascimentoDependente.split('/')[0]));
+
+
+        var dataHoje = moment().format('DD/MM/YYYY');
+        var yH = (parseInt(dataHoje.split('/')[2]));
+        var mH = (parseInt(dataHoje.split('/')[1]));
+        var dH = (parseInt(dataHoje.split('/')[0]));
+
+
+
+        var dataValida = moment(dataNascimentoDependente, 'DD/MM/YYYY').isValid();
+
+        if (!dataValida) {
+            smartAlert("Atenção", "Data Invalida!", "error");
+            $('#idade').val('');
+            $('#dataNascimentoDependente').val('');
+            return;
+        }
+        if (moment(dataNascimentoDependente, 'DD/MM/YYYY').diff(moment()) > 0) {
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
+            $('#idade').val('');
+            $('#dataNascimentoDependente').val('');
+            return;
+
+        }
+    }
+
     function validarCPF(cpf) {
         var cpf = cpf.replace(/[^\d]+/g, '');
         if (cpf == '') return false;
@@ -986,15 +1080,80 @@ include("inc/scripts.php");
 
     }
 
+    function validarCPFDependente(cpf) {
+        var cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf == '') return false;
+        // Elimina CPFs invalidos conhecidos	
+        if (cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999")
+            return false;
+        // Valida 1o digito	
+        add = 0;
+        for (i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(9)))
+            return false;
+        // Valida 2o digito	
+        add = 0;
+        for (i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(10))) {
+            return false;
+        } else {
+            validarCpfCadastradoDependente();
+            return true;
+        }
+    }
+
+    function validarCpfCadastradoDependente() {
+
+        var cpf = $("#cpfDependente").val();
+
+        validaCpfExistenteDependente(cpf,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
+                        $('#cpf').val("");
+
+
+                    }
+                }
+
+            }
+        );
+
+    }
+
     function validaPrimeiroEmprego() {
         var optionSelect = document.getElementById("primeiroEmprego").value;
 
         if (optionSelect == "0") {
             var i = document.getElementById("pispasep");
-            i.classList.remove('readonly') 
+            i.classList.remove('readonly')
             i.disabled = false;
         } else {
-            var i =document.getElementById("pispasep");
+            var i = document.getElementById("pispasep");
             i.classList.add('readonly')
             i.disabled = true;
             $('#pispasep').val("");

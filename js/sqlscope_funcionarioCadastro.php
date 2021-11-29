@@ -361,6 +361,25 @@ function validaCpf()
     }
 }
 
+function validaCpfDependente()
+{
+    $cpf = "'" . $_POST["cpf"] . "'";
+
+    $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+
+    if ($result[0]) {
+        echo 'failed#';
+        return;
+    } else {
+        echo 'sucess#';
+        return;
+    }
+}
+
 function validaEmail()
 {
     $email = "'" . $_POST["email"] . "'";
