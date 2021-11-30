@@ -1429,6 +1429,8 @@ include("inc/scripts.php");
         var achou = false;
         var dependente = $('#dependente').val();
         var sequencial = +$('#sequencialDependente').val();
+        var descricaoNomeDependente = $('#nomeDependente').val();
+        var descricaoCpfDependente = $('#cpfDependente').val();
         var dependenteValido = false;
        
         if (dependente === '') {
@@ -1492,10 +1494,10 @@ include("inc/scripts.php");
     function clearFormDependente() {
         $("#dependente").val('');
         $("#sequencialDependente").val('');
-        $("#DependentePrincipal").val('');
-        $("#descricaoDependentePrincipal").val('');
-        $("#DependenteWhatsapp").val('');
-        $("#descricaoDependenteWhatsapp").val('');
+        $("#nomeDependente").val('');
+        $("#cpfDependente").val('');
+        $("#dataNascimentoDependente").val('');
+       
 
     }
 
@@ -1508,8 +1510,8 @@ include("inc/scripts.php");
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].Dependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoDependentePrincipal + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoDependenteWhatsapp + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoNomeDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoCpfDependente + '</td>'));
 
         }
     }
@@ -1517,51 +1519,6 @@ include("inc/scripts.php");
     function processDataDependente(node) {
         var fieldId = node.getAttribute ? node.getAttribute('id') : '';
         var fieldName = node.getAttribute ? node.getAttribute('name') : '';
-
-
-        if (fieldName !== '' && (fieldId === "DependentePrincipal")) {
-            var valorDependentePrincipal = 0;
-            if ($("#DependentePrincipal").is(':checked') === true) {
-                valorDependentePrincipal = 1;
-            }
-            return {
-                name: fieldName,
-                value: valorDependentePrincipal
-            };
-        }
-
-        if (fieldName !== '' && (fieldId === "descricaoDependentePrincipal")) {
-            var valorDescricaoDependentePrincipal = "Não";
-            if ($("#DependentePrincipal").is(':checked') === true) {
-                valorDescricaoDependentePrincipal = "Sim";
-            }
-            return {
-                name: fieldName,
-                value: valorDescricaoDependentePrincipal
-            };
-        }
-
-        if (fieldName !== '' && (fieldId === "DependenteWhatsapp")) {
-            var valorDependenteWhatsapp = 0;
-            if ($("#DependenteWhatsapp").is(':checked') === true) {
-                valorDependenteWhatsapp = 1;
-            }
-            return {
-                name: fieldName,
-                value: valorDependenteWhatsapp
-            };
-        }
-
-        if (fieldName !== '' && (fieldId === "descricaoDependenteWhatsapp")) {
-            var valorDescricaoDependenteWhatsapp = "Não";
-            if ($("#DependenteWhatsapp").is(':checked') === true) {
-                valorDescricaoDependenteWhatsapp = "Sim";
-            }
-            return {
-                name: fieldName,
-                value: valorDescricaoDependenteWhatsapp
-            };
-        }
 
         return false;
     }
@@ -1599,7 +1556,7 @@ include("inc/scripts.php");
             smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
     }
 
-    //------------------------- Funcionário Email---------------------//
+    //------------------------- Funcionário Email---------------------{
 
     function validaEmail() {
         var existe = false;
@@ -1766,4 +1723,5 @@ include("inc/scripts.php");
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Email para excluir.", "error");
     }
+    
 </script>

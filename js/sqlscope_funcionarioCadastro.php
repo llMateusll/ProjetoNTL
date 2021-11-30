@@ -90,8 +90,9 @@ function grava()
     }
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
-    
+
     //------------------------- Funcionário Email---------------------
+    
 
 
     $strArrayEmail = $_POST['jsonEmailArray'];
@@ -127,8 +128,12 @@ function grava()
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
+    
+
 
 //------------------------- Funcionário Dependente---------------------
+
+
 
     $strArrayDependente = $_POST['jsonDependenteArray'];
     $arrayDependente = json_decode($strArrayDependente, true);
@@ -196,10 +201,10 @@ function grava()
 
     echo $ret;
     return;
+
+
+
 }
-
-
-
 function recupera()
 {
 
