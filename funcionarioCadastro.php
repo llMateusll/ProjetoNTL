@@ -229,7 +229,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
-                                                                        <input id="telefone" name="telefone" class="required">
+                                                                        <input id="telefone" name="telefone" class="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -282,7 +282,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label" for="email">Email</label>
                                                                     <label class="input">
-                                                                        <input id="email" name="email" class="required">
+                                                                        <input id="email" name="email" class="">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -406,40 +406,87 @@ include("inc/nav.php");
 
                                                 </h4>
                                             </div>
-
                                         </div>
 
                                         <div id="collapseDependente" class="panel-collapse collapse">
                                             <div class="panel-body no-padding">
                                                 <fieldset>
 
-                                                    <section class="col col-3 col-auto">
-                                                        <label class="label" for="nome">Nome</label>
-                                                        <label class="input">
-                                                            <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
-                                                        </label>
-                                                    </section>
+                                                    <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
+                                                    <div id="formDependente" class="col-sm-11">
+                                                        <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
+                                                        <div class="row">
 
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label" for="cpfDependente">CPF</label>
-                                                        <label class="input">
-                                                            <input id="cpfDependente" name="cpfDependente" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
-                                                        </label>
-                                                    </section>
+                                                            <section class="col col-4 col-auto">
+                                                                <label class="label" for="nomeDependente">Nome</label>
+                                                                <label class="input">
+                                                                    <input id="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder=Nome>
+                                                                </label>
+                                                            </section>
 
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
-                                                        <label class="input">
-                                                            <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
-                                                        </label>
-                                                    </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cpfDependente">CPF</label>
+                                                                <label class="input">
+                                                                    <input id="cpfDependente" name="cpfDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="000.000.000-00">
+                                                                </label>
+                                                            </section>
 
-                                                    <section class="col col-3 col-auto">
-                                                        <label class="label" for="dependentes ">Dependentes </label>
-                                                        <label class="input">
-                                                            <input id="dependentes " type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                        </label>
-                                                    </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
+                                                                <label class="input">
+                                                                    <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker " style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label">Dependentes</label>
+                                                                <label class="select">
+                                                                    <select id="dependente" name="dependente" class="">
+                                                                        <option selected></option>
+                                                                        <?php
+                                                                        $sql = "SELECT * FROM dbo.dependente WHERE ativo = 1";
+
+                                                                        $reposit = new reposit();
+                                                                        $result = $reposit->RunQuery($sql);
+
+                                                                        foreach ($result as $row) {
+                                                                            $id = (int) $row['codigo'];
+                                                                            $ativo = +$row['ativo'];
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
+                                                                        }
+                                                                        ?>
+
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+
+
+                                                            <label class="label">&nbsp;</label>
+                                                            <button id="btnAddDependente" type="button" class="btn btn-primary">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                            <button id="btnRemoverDependente" type="button" class="btn btn-danger">
+                                                                <i class="fa fa-minus"></i>
+                                                            </button>
+
+                                                        </div>
+                                                        <div class="table-responsive" style="min-height: 115px; width:110%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                            <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                <thead>
+                                                                    <tr role="row">
+                                                                        <th style="width: 2px"></th>
+                                                                        <th class="text-center">Nome</th>
+                                                                        <th class="text-center">CPF</th>
+                                                                        <th class="text-center">Data De Nascimento</th>
+                                                                        <th class="text-center">Depedente</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
 
 
                                                 </fieldset>
@@ -571,12 +618,22 @@ include("inc/scripts.php");
 
         $("#cpf").on("change", function() {
             var cpf = $("#cpf").val();
-            validarCPF(cpf)
+
+            if (!validarCPF(cpf)) {
+
+                smartAlert("Atenção", "CPF Invalido", "error")
+                $('#cpf').val("");
+            }
         });
 
         $("#cpfDependente").on("change", function() {
             var cpf = $("#cpfDependente").val();
-            validarCPFDependente(cpf)
+
+            if (!validarCPFDependente(cpf)) {
+
+                smartAlert("Atenção", "CPF Invalido", "error")
+                $('#cpfDependente').val("");
+            }
         });
 
         $("#btnGravar").on("click", function() {
@@ -593,7 +650,7 @@ include("inc/scripts.php");
         $("#dataNascimentoDependente").on("change", function() {
             calcularIdadeDependente();
         });
-        
+
 
         $("#cpf").mask("999.999.999-99");
 
@@ -715,6 +772,7 @@ include("inc/scripts.php");
                             var out = piece[1];
                             var strArrayEmail = piece[2];
                             var strArrayTelefone = piece[3];
+                            var strArrayDependente = piece[3];
 
                             piece = out.split("^");
 
@@ -765,6 +823,9 @@ include("inc/scripts.php");
                             $("#jsonTelefone").val(strArrayTelefone);
                             jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
 
+                            $("#jsonDependente").val(strArrayDependente);
+                            jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
                             validaPrimeiroEmprego()
                             fillTableTelefone()
                             fillTableEmail()
@@ -803,6 +864,8 @@ include("inc/scripts.php");
 
         var jsonTelefoneArray = $('#jsonTelefone').val();
         var jsonEmailArray = $('#jsonEmail').val();
+        var jsonDependenteArray = $('#jsonDependente').val();
+
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
@@ -877,7 +940,7 @@ include("inc/scripts.php");
         }
 
         //Chama a função de gravar do business de convênio de saúde.
-        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pispasep, jsonTelefoneArray, jsonEmailArray,
+        gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pispasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -1162,7 +1225,9 @@ include("inc/scripts.php");
     }
 
 
+
     //------------------------- Funcionário Telefone---------------------//
+
 
 
     function validaTelefone() {
@@ -1352,6 +1417,186 @@ include("inc/scripts.php");
             fillTableTelefone();
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
+    }
+
+
+    //------------------------- Funcionário Dependente---------------------//
+
+
+    function validaDependente() {
+
+        var existe = false;
+        var achou = false;
+        var dependente = $('#dependente').val();
+        var sequencial = +$('#sequencialDependente').val();
+        var dependenteValido = false;
+       
+        if (dependente === '') {
+            smartAlert("Erro", "Informe um Dependente.", "error");
+            return false;
+        }
+
+        for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+
+            if ((jsonDependenteArray[i].dependente === dependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
+                existe = true;
+                break;
+            }
+        }
+        if (existe === true) {
+            smartAlert("Erro", "Dependente já cadastrado.", "error");
+            return false;
+        }
+        return true;
+    }
+
+    function addDependente() {
+
+        var item = $("#formDependente").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataDependente
+        });
+
+        if (item["sequencialDependente"] === '') {
+            if (jsonDependenteArray.length === 0) {
+                item["sequencialDependente"] = 1;
+            } else {
+                item["sequencialDependente"] = Math.max.apply(Math, jsonDependenteArray.map(function(o) {
+                    return o.sequencialDependente;
+                })) + 1;
+            }
+            item["dependenteId"] = 0;
+        } else {
+            item["sequencialDependente"] = +item["sequencialDependente"];
+        }
+
+        var index = -1;
+        $.each(jsonDependenteArray, function(i, obj) {
+            if (+$('#sequencialDependente').val() === obj.sequencialDependente) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonDependenteArray.splice(index, 1, item);
+        else
+            jsonDependenteArray.push(item);
+        $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
+        fillTableDependente();
+        clearFormDependente();
+
+    }
+
+    function clearFormDependente() {
+        $("#dependente").val('');
+        $("#sequencialDependente").val('');
+        $("#DependentePrincipal").val('');
+        $("#descricaoDependentePrincipal").val('');
+        $("#DependenteWhatsapp").val('');
+        $("#descricaoDependenteWhatsapp").val('');
+
+    }
+
+    function fillTableDependente() {
+        $("#tableDependente tbody").empty();
+
+        for (var i = 0; i < jsonDependenteArray.length; i++) {
+
+            var row = $('<tr />');
+            $("#tableDependente tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].Dependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoDependentePrincipal + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoDependenteWhatsapp + '</td>'));
+
+        }
+    }
+
+    function processDataDependente(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+
+        if (fieldName !== '' && (fieldId === "DependentePrincipal")) {
+            var valorDependentePrincipal = 0;
+            if ($("#DependentePrincipal").is(':checked') === true) {
+                valorDependentePrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorDependentePrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoDependentePrincipal")) {
+            var valorDescricaoDependentePrincipal = "Não";
+            if ($("#DependentePrincipal").is(':checked') === true) {
+                valorDescricaoDependentePrincipal = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoDependentePrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "DependenteWhatsapp")) {
+            var valorDependenteWhatsapp = 0;
+            if ($("#DependenteWhatsapp").is(':checked') === true) {
+                valorDependenteWhatsapp = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorDependenteWhatsapp
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoDependenteWhatsapp")) {
+            var valorDescricaoDependenteWhatsapp = "Não";
+            if ($("#DependenteWhatsapp").is(':checked') === true) {
+                valorDescricaoDependenteWhatsapp = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoDependenteWhatsapp
+            };
+        }
+
+        return false;
+    }
+
+    function carregaDependente(sequencialDependente) {
+        var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
+            return (item.sequencialDependente === sequencialDependente);
+        });
+
+        clearFormDependente();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#Dependente").val(item.Dependente);
+            $("#sequencialDependente").val(item.sequencialDependente);
+
+        }
+    }
+
+    function excluirDependente() {
+        var arrSequencial = [];
+        $('#tableDependente input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+                var obj = jsonDependenteArray[i];
+                if (jQuery.inArray(obj.sequencialDependente, arrSequencial) > -1) {
+                    jsonDependenteArray.splice(i, 1);
+                }
+            }
+            $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
+            fillTableDependente();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
     }
 
     //------------------------- Funcionário Email---------------------//

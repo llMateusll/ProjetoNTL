@@ -90,7 +90,9 @@ function grava()
     }
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
+    
     //------------------------- Funcionário Email---------------------
+
 
     $strArrayEmail = $_POST['jsonEmailArray'];
     $arrayEmail = json_decode($strArrayEmail, true);
@@ -126,6 +128,42 @@ function grava()
     }
     $xmlEmail = "'" . $xmlEmail . "'";
 
+//------------------------- Funcionário Dependente---------------------
+
+    $strArrayDependente = $_POST['jsonDependenteArray'];
+    $arrayDependente = json_decode($strArrayDependente, true);
+
+    $xmlDependente = "";
+    $nomeXml = "ArrayOfFuncionarioDependente";
+    $nomeTabela = "funcionarioDependente";
+    if (sizeof($arrayDependente) > 0) {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+
+        foreach ($arrayDependente as $chave) {
+            $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialDependente")) {
+                    continue;
+                }
+                $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlDependente = $xmlDependente . "</" . $nomeTabela . ">";
+        }
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    } else {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlDependente);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de dependente";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlDependente = "'" . $xmlDependente . "'";
+
     $sql = "dbo.funcionario_Atualiza
             $id,
             $ativo,
@@ -145,7 +183,8 @@ function grava()
             $primeiroEmprego,
             $pispasep,
             $xmlTelefone,
-            $xmlEmail";
+            $xmlEmail
+            $xmlDependente";
 
     $reposit = new reposit(); //Abre a conexão.
     $result = $reposit->Execprocedure($sql);
@@ -158,6 +197,8 @@ function grava()
     echo $ret;
     return;
 }
+
+
 
 function recupera()
 {
