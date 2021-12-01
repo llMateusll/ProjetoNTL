@@ -420,7 +420,7 @@ include("inc/nav.php");
                                                             <section class="col col-4 col-auto">
                                                                 <label class="label" for="nomeDependente">Nome</label>
                                                                 <label class="input">
-                                                                    <input id="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder=Nome>
+                                                                    <input id="nomeDependente" name="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="Nome">
                                                                 </label>
                                                             </section>
 
@@ -576,6 +576,10 @@ include("inc/scripts.php");
 
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function() {
+        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+        jsonEmailArray = JSON.parse($("#jsonEmail").val());
+        jsonDependenteArray = JSON.parse($("#jsonDependente").val());
+
         $('#dlgSimpleExcluir').dialog({
             autoOpen: false,
             width: 400,
@@ -651,7 +655,6 @@ include("inc/scripts.php");
             calcularIdadeDependente();
         });
 
-
         $("#cpf").mask("999.999.999-99");
 
         $("#cpfDependente").mask("999.999.999-99");
@@ -661,8 +664,28 @@ include("inc/scripts.php");
         $("#cep").mask("99999-999");
 
         $("#telefone").mask("(99)99999-9999");
+        
 
-        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+        $("#btnAddDependente").on("click", function() {
+            var dependente = $("#dependente").val();
+            var nomeDependente = $("#nomeDependente").val();
+            var cpfDependente = $("#cpfDependente").val();
+            var dataNascimentoDependente = $("#dataNascimentoDependente").val();
+            var existe = true;
+
+            if (!dependente) {
+                smartAlert("Atenção", "Escolha um dependente", "error")
+                return;
+            }
+            if (validaDependente()) {
+                addDependente();
+            }
+
+        });
+
+        $("#btnRemoverDependente").on("click", function() {
+            excluirDependente();
+        });
 
         $("#btnAddTelefone").on("click", function() {
             var telefone = $("#telefone").val();
@@ -678,27 +701,45 @@ include("inc/scripts.php");
 
         });
 
-        $("#primeiroEmprego").on("change", function() {
-            validaPrimeiroEmprego()
+        $("#btnRemoverTelefone").on("click", function() {
+            excluirTelefone();
         });
-
+        
+        $("#btnAddEmail").on("click", function() {
+            var email = $("#email").val();
+            var existe = true;
+            
+            if (!email) {
+                smartAlert("Atenção", "Escolha um email", "error")
+                return;
+            }
+            if (validaEmail()) {
+                addEmail();
+            }
+            
+        });
+        
+        $("#btnRemoverEmail").on("click", function() {
+            excluirEmail();
+        });
+        
         $("#cep").on("change", function() {
-
+            
             //Nova variável "cep" somente com dígitos.
             var cep = $("#cep").val().replace(/\D/g, '');
-
+            
             //Verifica se campo cep possui valor informado.
             if (cep != "") {
-
+                
                 //Expressão regular para validar o CEP.
                 var validacep = /^[0-9]{8}$/;
-
+                
                 //Valida o formato do CEP.
                 if (validacep.test(cep)) {
-
+                    
                     //Consulta o webservice viacep.com.br/
                     $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
-
+                        
                         if (!("erro" in dados)) {
                             //Atualiza os campos com os valores da consulta.
                             $("#logradouro").val(dados.logradouro);
@@ -717,42 +758,22 @@ include("inc/scripts.php");
                 }
             } //end if.
         });
-
-        $("#btnRemoverTelefone").on("click", function() {
-            excluirTelefone();
+        
+        $("#primeiroEmprego").on("change", function() {
+            validaPrimeiroEmprego()
         });
-
-        jsonEmailArray = JSON.parse($("#jsonEmail").val());
-
-        $("#btnAddEmail").on("click", function() {
-            var email = $("#email").val();
-            var existe = true;
-
-            if (!email) {
-                smartAlert("Atenção", "Escolha um email", "error")
-                return;
-            }
-            if (validaEmail()) {
-                addEmail();
-            }
-
-        });
-
-        $("#btnRemoverEmail").on("click", function() {
-            excluirEmail();
-        });
-
+        
         $("a").click(function() {
             $("div").removeClass('in');
         });
-
-
+        
+        
         carregaPagina();
-
-
+        
+        
     });
-
-
+    
+    
     function carregaPagina() {
         var urlx = window.document.URL.toString();
         var params = urlx.split("?");
@@ -1429,8 +1450,10 @@ include("inc/scripts.php");
         var achou = false;
         var dependente = $('#dependente').val();
         var sequencial = +$('#sequencialDependente').val();
-        var descricaoNomeDependente = $('#nomeDependente').val();
-        var descricaoCpfDependente = $('#cpfDependente').val();
+        var nomeDependente = $('#nomeDependente').val();
+        var cpfDependente = $('#cpfDependente').val();
+        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
+
         var dependenteValido = false;
        
         if (dependente === '') {
@@ -1509,9 +1532,10 @@ include("inc/scripts.php");
             var row = $('<tr />');
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
-            row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].Dependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoNomeDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricaoCpfDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dependente + '</td>'));         
 
         }
     }
@@ -1519,6 +1543,7 @@ include("inc/scripts.php");
     function processDataDependente(node) {
         var fieldId = node.getAttribute ? node.getAttribute('id') : '';
         var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
 
         return false;
     }
@@ -1532,8 +1557,10 @@ include("inc/scripts.php");
 
         if (arr.length > 0) {
             var item = arr[0];
+            $("#nomeDependente").val(item.nomeDependente);
+            $("#cpfDependente").val(item.cpfDependente);
+            $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
             $("#Dependente").val(item.Dependente);
-            $("#sequencialDependente").val(item.sequencialDependente);
 
         }
     }
