@@ -229,7 +229,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
-                                                                        <input id="telefone" name="telefone" class="">
+                                                                        <input id="telefone" name="telefone" class="required">
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -472,7 +472,7 @@ include("inc/nav.php");
                                                             </button>
 
                                                         </div>
-                                                        <div class="table-responsive" style="min-height: 115px; width:110%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                        <div class="table-responsive" style="min-height: 115px; width:109%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
                                                             <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                 <thead>
                                                                     <tr role="row">
@@ -603,6 +603,96 @@ include("inc/scripts.php");
             }]
         });
 
+        $("#cpf").mask("999.999.999-99");
+
+        $("#cpfDependente").mask("999.999.999-99");
+
+        $("#rg").mask("99.999.999-9");
+
+        $("#cep").mask("99999-999");
+
+        $("#telefone").mask("(99)99999-9999");
+
+        $("#cpfDependente").on("change", function() {
+            var cpf = $("#cpfDependente").val();
+
+            if (!validarCPFDependente(cpf)) {
+
+                smartAlert("Atenção", "CPF Invalido", "error")
+                $('#cpfDependente').val("");
+            }
+        });
+
+        $("#dataNascimento").on("change", function() {
+            calcularIdade();
+        });
+
+        $("#dataNascimentoDependente").on("change", function() {
+            calcularIdadeDependente();
+        });
+
+        $("#cep").on("change", function() {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $("#cep").val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#logradouro").val(dados.logradouro);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            smartAlert("Atenção", "CEP não encontrado.", "error");
+                        }
+                    });
+                } //end if.
+                else {
+                    smartAlert("Atenção", "Formato de CEP inválido.", "error");
+                }
+            } //end if.
+        });
+
+        $("#primeiroEmprego").on("change", function() {
+            validaPrimeiroEmprego()
+        });
+
+        $("a").click(function() {
+            $("div").removeClass('in');
+        });
+
+        $("#cpf").on("change", function() {
+            var cpf = $("#cpf").val();
+
+            if (!validarCPF(cpf)) {
+
+                smartAlert("Atenção", "CPF Invalido", "error")
+                $('#cpf').val("");
+            }
+        });
+
+        $("#btnGravar").on("click", function() {
+            gravar()
+        });
+
+        $("#btnVoltar").on("click", function() {
+            voltar();
+        });
+
         $("#btnExcluir").on("click", function() {
             var id = $("#codigo").val();
 
@@ -620,52 +710,6 @@ include("inc/scripts.php");
         $("#btnNovo").on("click", function() {
             novo();
         });
-
-        $("#cpf").on("change", function() {
-            var cpf = $("#cpf").val();
-
-            if (!validarCPF(cpf)) {
-
-                smartAlert("Atenção", "CPF Invalido", "error")
-                $('#cpf').val("");
-            }
-        });
-
-        $("#cpfDependente").on("change", function() {
-            var cpf = $("#cpfDependente").val();
-
-            if (!validarCPFDependente(cpf)) {
-
-                smartAlert("Atenção", "CPF Invalido", "error")
-                $('#cpfDependente').val("");
-            }
-        });
-
-        $("#btnGravar").on("click", function() {
-            gravar()
-        });
-
-        $("#btnVoltar").on("click", function() {
-            voltar();
-        });
-
-        $("#dataNascimento").on("change", function() {
-            calcularIdade();
-        });
-        $("#dataNascimentoDependente").on("change", function() {
-            calcularIdadeDependente();
-        });
-
-        $("#cpf").mask("999.999.999-99");
-
-        $("#cpfDependente").mask("999.999.999-99");
-
-        $("#rg").mask("99.999.999-9");
-
-        $("#cep").mask("99999-999");
-
-        $("#telefone").mask("(99)99999-9999");
-
 
         $("#btnAddDependente").on("click", function() {
             var dependente = $("#dependente").val();
@@ -724,54 +768,7 @@ include("inc/scripts.php");
             excluirEmail();
         });
 
-        $("#cep").on("change", function() {
-
-            //Nova variável "cep" somente com dígitos.
-            var cep = $("#cep").val().replace(/\D/g, '');
-
-            //Verifica se campo cep possui valor informado.
-            if (cep != "") {
-
-                //Expressão regular para validar o CEP.
-                var validacep = /^[0-9]{8}$/;
-
-                //Valida o formato do CEP.
-                if (validacep.test(cep)) {
-
-                    //Consulta o webservice viacep.com.br/
-                    $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
-
-                        if (!("erro" in dados)) {
-                            //Atualiza os campos com os valores da consulta.
-                            $("#logradouro").val(dados.logradouro);
-                            $("#bairro").val(dados.bairro);
-                            $("#cidade").val(dados.localidade);
-                            $("#uf").val(dados.uf);
-                        } //end if.
-                        else {
-                            //CEP pesquisado não foi encontrado.
-                            smartAlert("Atenção", "CEP não encontrado.", "error");
-                        }
-                    });
-                } //end if.
-                else {
-                    smartAlert("Atenção", "Formato de CEP inválido.", "error");
-                }
-            } //end if.
-        });
-
-        $("#primeiroEmprego").on("change", function() {
-            validaPrimeiroEmprego()
-        });
-
-        $("a").click(function() {
-            $("div").removeClass('in');
-        });
-
-
         carregaPagina();
-
-
     });
 
 
@@ -1247,7 +1244,6 @@ include("inc/scripts.php");
     }
 
 
-
     //------------------------- Funcionário Telefone---------------------//
 
 
@@ -1442,138 +1438,9 @@ include("inc/scripts.php");
     }
 
 
-    //------------------------- Funcionário Dependente---------------------//
+    //------------------------- Funcionário Email---------------------//
 
 
-    function validaDependente() {
-
-        var existe = false;
-        var achou = false;
-        var dependente = $('#dependente').val();
-        var sequencial = +$('#sequencialDependente').val();
-        var nomeDependente = $('#nomeDependente').val();
-        var cpfDependente = $('#cpfDependente').val();
-        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
-
-        var dependenteValido = false;
-
-        if (dependente === '') {
-            smartAlert("Erro", "Informe um Dependente.", "error");
-            return false;
-        }
-        
-
-        return true;
-    }
-
-    function addDependente() {
-
-        var item = $("#formDependente").toObject({
-            mode: 'combine',
-            skipEmpty: false,
-            // nodeCallback: processDataDependente
-        });
-
-        const descricaoDependente = $("#dependente option:selected").text();
-
-
-        if (item["sequencialDependente"] === '') {
-            if (jsonDependenteArray.length === 0) {
-                item["sequencialDependente"] = 1;
-            } else {
-                item["sequencialDependente"] = Math.max.apply(Math, jsonDependenteArray.map(function(o) {
-                    return o.sequencialDependente;
-                })) + 1;
-            }
-            item["dependenteId"] = 0;
-        } else {
-            item["sequencialDependente"] = +item["sequencialDependente"];
-        }
-
-        item["descricaoDependente"] = descricaoDependente;
-
-        var index = -1;
-        $.each(jsonDependenteArray, function(i, obj) {
-            if (+$('#sequencialDependente').val() === obj.sequencialDependente) {
-                index = i;
-                return false;
-            }
-        });
-
-        if (index >= 0)
-            jsonDependenteArray.splice(index, 1, item);
-        else
-            jsonDependenteArray.push(item);
-        $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
-        fillTableDependente();
-        clearFormDependente();
-
-    }
-
-    function clearFormDependente() {
-        $("#dependente").val('');
-        $("#sequencialDependente").val('');
-        $("#nomeDependente").val('');
-        $("#cpfDependente").val('');
-        $("#dataNascimentoDependente").val('');
-        $("#descricaoDependente").val('');
-
-
-    }
-
-    function fillTableDependente() {
-        $("#tableDependente tbody").empty();
-
-        for (var i = 0; i < jsonDependenteArray.length; i++) {
-
-            var row = $('<tr />');
-            var descricaoDependente = $("#dependente option[value = '" + jsonDependenteArray[i].dependente + "']").text();
-            $("#tableDependente tbody").append(row);
-            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
-            row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + descricaoDependente + '</td>'));
-
-        }
-    }
-
-    function carregaDependente(sequencialDependente) {
-        var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
-            return (item.sequencialDependente === sequencialDependente);
-        });
-
-        clearFormDependente();
-
-        if (arr.length > 0) {
-            var item = arr[0];
-            $("#nomeDependente").val(item.nomeDependente);
-            $("#cpfDependente").val(item.cpfDependente);
-            $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
-            $("#dependente").val(item.dependente);
-
-        }
-    }
-
-    function excluirDependente() {
-        var arrSequencial = [];
-        $('#tableDependente input[type=checkbox]:checked').each(function() {
-            arrSequencial.push(parseInt($(this).val()));
-        });
-        if (arrSequencial.length > 0) {
-            for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
-                var obj = jsonDependenteArray[i];
-                if (jQuery.inArray(obj.sequencialDependente, arrSequencial) > -1) {
-                    jsonDependenteArray.splice(i, 1);
-                }
-            }
-            $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
-            fillTableDependente();
-        } else
-            smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
-    }
-
-    //------------------------- Funcionário Email---------------------{
 
     function validaEmail() {
         var existe = false;
@@ -1740,4 +1607,139 @@ include("inc/scripts.php");
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Email para excluir.", "error");
     }
+
+
+    //------------------------- Funcionário Dependente---------------------//
+
+
+
+    function validaDependente() {
+
+        var existe = false;
+        var achou = false;
+        var dependente = $('#dependente').val();
+        var sequencial = +$('#sequencialDependente').val();
+        var nomeDependente = $('#nomeDependente').val();
+        var cpfDependente = $('#cpfDependente').val();
+        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
+
+        var dependenteValido = false;
+
+        if (dependente === '') {
+            smartAlert("Erro", "Informe um Dependente.", "error");
+            return false;
+        }
+
+
+        return true;
+    }
+
+    function addDependente() {
+
+        var item = $("#formDependente").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            // nodeCallback: processDataDependente
+        });
+
+        const descricaoDependente = $("#dependente option:selected").text();
+
+
+        if (item["sequencialDependente"] === '') {
+            if (jsonDependenteArray.length === 0) {
+                item["sequencialDependente"] = 1;
+            } else {
+                item["sequencialDependente"] = Math.max.apply(Math, jsonDependenteArray.map(function(o) {
+                    return o.sequencialDependente;
+                })) + 1;
+            }
+            item["dependenteId"] = 0;
+        } else {
+            item["sequencialDependente"] = +item["sequencialDependente"];
+        }
+
+        item["descricaoDependente"] = descricaoDependente;
+
+        var index = -1;
+        $.each(jsonDependenteArray, function(i, obj) {
+            if (+$('#sequencialDependente').val() === obj.sequencialDependente) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonDependenteArray.splice(index, 1, item);
+        else
+            jsonDependenteArray.push(item);
+        $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
+        fillTableDependente();
+        clearFormDependente();
+
+    }
+
+    function clearFormDependente() {
+        $("#dependente").val('');
+        $("#sequencialDependente").val('');
+        $("#nomeDependente").val('');
+        $("#cpfDependente").val('');
+        $("#dataNascimentoDependente").val('');
+        $("#descricaoDependente").val('');
+
+
+    }
+
+    function fillTableDependente() {
+        $("#tableDependente tbody").empty();
+
+        for (var i = 0; i < jsonDependenteArray.length; i++) {
+
+            var row = $('<tr />');
+            var descricaoDependente = $("#dependente option[value = '" + jsonDependenteArray[i].dependente + "']").text();
+
+            $("#tableDependente tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + descricaoDependente + '</td>'));
+
+        }
+    }
+
+    function carregaDependente(sequencialDependente) {
+        var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
+            return (item.sequencialDependente === sequencialDependente);
+        });
+
+        clearFormDependente();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#nomeDependente").val(item.nomeDependente);
+            $("#cpfDependente").val(item.cpfDependente);
+            $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
+            $("#dependente").val(item.dependente);
+
+        }
+    }
+
+    function excluirDependente() {
+        var arrSequencial = [];
+        $('#tableDependente input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+                var obj = jsonDependenteArray[i];
+                if (jQuery.inArray(obj.sequencialDependente, arrSequencial) > -1) {
+                    jsonDependenteArray.splice(i, 1);
+                }
+            }
+            $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
+            fillTableDependente();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
+    }
+
 </script>

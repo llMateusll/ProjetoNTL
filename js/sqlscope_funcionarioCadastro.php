@@ -59,6 +59,8 @@ function grava()
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
 
+    //------------------------- Funcionário Telefone---------------------
+
     $xmlTelefone = "";
     $nomeXml = "ArrayOfFuncionarioTelefone";
     $nomeTabela = "funcionarioTelefone";
