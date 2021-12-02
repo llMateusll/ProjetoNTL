@@ -1622,11 +1622,30 @@ include("inc/scripts.php");
         var nomeDependente = $('#nomeDependente').val();
         var cpfDependente = $('#cpfDependente').val();
         var dataNascimentoDependente = $('#dataNascimentoDependente').val();
-
         var dependenteValido = false;
 
         if (dependente === '') {
             smartAlert("Erro", "Informe um Dependente.", "error");
+            return false;
+        }
+
+        for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+            if ((jsonDependenteArray[i].nomeDependente === nomeDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
+                existe = true;
+                break;
+                
+            }
+            if ((jsonDependenteArray[i].cpfDependente === cpfDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
+                achou = true;
+                break;
+            }
+        }
+        if (existe === true) {
+            smartAlert("Erro", "Dependente já cadastrado.", "error");
+            return false;
+        }
+        if (achou === true) {
+            smartAlert("Erro", "CPF já cadastrado.", "error");
             return false;
         }
 
@@ -1717,6 +1736,7 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#nomeDependente").val(item.nomeDependente);
+            $("#sequencialDependente").val(item.sequencialDependente);
             $("#cpfDependente").val(item.cpfDependente);
             $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
             $("#dependente").val(item.dependente);
@@ -1741,5 +1761,4 @@ include("inc/scripts.php");
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
     }
-
 </script>
