@@ -428,6 +428,27 @@ function validaCpfDependente()
     }
 }
 
+function validaEmail()
+{
+    $email = "'" . $_POST["email"] . "'";
+
+    $sql = "SELECT email 
+    FROM dbo.funcionarioEmail 
+    WHERE email = $email";
+
+    $reposit = new reposit();
+    $result = $reposit->RunQuery($sql);
+
+
+    if ($result[0]["email"] === $_POST["email"]) {
+        echo 'failed#';
+        return;
+    }
+
+    echo 'sucess#';
+    return;
+}
+
 function validaRg()
 {
     $rg = "'" . $_POST["rg"] . "'";

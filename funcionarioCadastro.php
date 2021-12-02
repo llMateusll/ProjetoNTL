@@ -276,7 +276,7 @@ include("inc/nav.php");
                                                         <div id="formEmail" class="col-sm-6">
                                                             <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
                                                             <input id="descricaoEmailPrincipal" name="descricaoEmailPrincipal" type="hidden" value="">
-                                                            <input id="descricaoEmailWhatsapp" name="descricaoEmailWhatsapp" type="hidden" value="">
+                                                           
 
                                                             <div class="row">
                                                                 <section class="col col-5">
@@ -1527,7 +1527,7 @@ include("inc/scripts.php");
         $("#emailPrincipal").val('');
         $("#descricaoEmailPrincipal").val('');
         $("#emailWhatsapp").val('');
-        $("#descricaoEmailWhatsapp").val('');
+
 
     }
 
