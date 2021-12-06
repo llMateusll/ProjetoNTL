@@ -871,6 +871,7 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
+        var telefone = $('#telefone').val();
         var cep = $('#cep').val();
         var logradouro = $('#logradouro').val();
         var numero = $('#numero').val();
@@ -922,6 +923,11 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+        if (jsonTelefoneArray == '[]') {
+            smartAlert("Atenção", "Informe Seu Telefone", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
         if (!cep) {
             smartAlert("Atenção", "Informe Seu Cep", "error");
             $("#btnGravar").prop('disabled', false);
@@ -957,6 +963,7 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+        
 
         //Chama a função de gravar do business de convênio de saúde.
         gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pispasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
