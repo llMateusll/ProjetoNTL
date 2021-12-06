@@ -252,7 +252,7 @@ function recupera(){
         $cpf = $row['cpf'];
         $rg = $row['rg'];
         $sexo = $row['sexo'];
-        $estadoCivil = $row['estadoCivil'];
+        $estadoCivil = +$row['estadoCivil'];
         $cep = $row['cep'];
         $logradouro = $row['logradouro'];
         $numero = $row['numero'];

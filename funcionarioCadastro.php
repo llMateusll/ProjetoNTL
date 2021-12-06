@@ -166,12 +166,12 @@ include("inc/nav.php");
                                                                 <label class="select">
 
                                                                     <select id="estadoCivil" name="estadoCivil" class="required">
-                                                                        <option></option>
-                                                                        <option>Solteiro(a)</option>
-                                                                        <option>Casado(a)</option>
-                                                                        <option>Separado(a)</option>
-                                                                        <option>Divorciado(a)</option>
-                                                                        <option>Viúvo(a)</option>
+                                                                        <option value="0"></option>
+                                                                        <option value="5">Solteiro(a)</option>
+                                                                        <option value="4">Casado(a)</option>
+                                                                        <option value="3">Separado(a)</option>
+                                                                        <option value="2">Divorciado(a)</option>
+                                                                        <option value="1">Viúvo(a)</option>
                                                                     </select><i></i>
 
                                                                 </label>
@@ -871,7 +871,7 @@ include("inc/scripts.php");
         var dataNascimento = $('#dataNascimento').val();
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
-        var estadoCivil = $('#estadoCivil').val();
+        var estadoCivil = +$('#estadoCivil').val();
         var telefone = $('#telefone').val();
         var cep = $('#cep').val();
         var logradouro = $('#logradouro').val();

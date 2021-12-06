@@ -118,7 +118,24 @@ include "js/repositorio.php";
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
                     $sexo = $row['sexo'];
-                    $estadoCivil = $row['estadoCivil'];
+                    $estadoCivil = (int) $row['estadoCivil'];
+
+                    $estadosCivil = "";
+                    if ($estadoCivil == 1) {
+                        $estadosCivil = "Viúvo(a)";
+                    } 
+                    if ($estadoCivil == 2) {
+                        $estadosCivil = "Divorciado(a)";
+                    } 
+                    if ($estadoCivil == 3) {
+                        $estadosCivil = "Separado(a)";
+                    } 
+                    if ($estadoCivil == 4) {
+                        $estadosCivil = "Casado(a)";
+                    } 
+                    if ($estadoCivil == 5) {
+                        $estadosCivil = "Solteiro(a)";
+                    } 
 
 
                     $descricaoAtivo = "";
@@ -139,7 +156,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
                     echo '<td class="text-left">' . $rg . '</td>';
                     echo '<td class="text-left">' . $sexo . '</td>';
-                    echo '<td class="text-left">' . $estadoCivil . '</td>';
+                    echo '<td class="text-left">' . $estadosCivil . '</td>';
                     echo '</tr >';
                 }
                 ?>
