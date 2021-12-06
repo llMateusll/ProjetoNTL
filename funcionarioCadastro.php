@@ -1657,7 +1657,6 @@ include("inc/scripts.php");
         var item = $("#formDependente").toObject({
             mode: 'combine',
             skipEmpty: false,
-            // nodeCallback: processDataDependente
         });
 
         const descricaoDependente = $("#tipoDependente option:selected").text();
