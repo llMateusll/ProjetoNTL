@@ -791,7 +791,7 @@ include("inc/scripts.php");
                             var out = piece[1];
                             var strArrayEmail = piece[2];
                             var strArrayTelefone = piece[3];
-                            var strArrayDependente = piece[3];
+                            var strArrayDependente = piece[4];
 
                             piece = out.split("^");
 
@@ -846,6 +846,7 @@ include("inc/scripts.php");
                             jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
                             validaPrimeiroEmprego()
+                            fillTableDependente()
                             fillTableTelefone()
                             fillTableEmail()
                             calcularIdade()

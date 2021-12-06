@@ -30,8 +30,7 @@ if ($funcao == 'validaRg') {
 
 return;
 
-function grava()
-{
+function grava(){
 
 
 
@@ -204,8 +203,8 @@ function grava()
     echo $ret;
     return;
 }
-function recupera()
-{
+
+function recupera(){
 
     $codigo = $_POST["id"];
 
@@ -349,9 +348,16 @@ function recupera()
 
         $strArrayTelefone = json_encode($arrayTelefone);
 
-        $sql = "SELECT *
-
-        FROM dbo.funcionarioDependente WHERE (0 = 0)";
+        $sql = "SELECT FD.codigo
+        ,FD.nomeDependente
+        ,FD.cpfDependente
+        ,FD.dataNascimentoDependente
+        ,FD.tipoDependente
+        ,D.descricao
+        FROM dbo.funcionarioDependente FD 
+		LEFT JOIN
+        dbo.dependente D on FD.tipoDependente = D.codigo
+		WHERE (0 = 0)";
 
         $sql = $sql . " AND funcionario = " . $codigo;
 
@@ -363,8 +369,11 @@ function recupera()
         foreach ($result as $row) {
             $dependenteId = $row['codigo'];
             $nomeDependente = $row['nomeDependente'];
-            $cpfDependente = +$row['cpfDependente'];
-            $dataNascimentoDependente = +$row['dataNascimentoDependente'];
+            $cpfDependente = $row['cpfDependente'];
+            $dataNascimentoDependente = $row['dataNascimentoDependente'];
+            $tipoDependente = $row['tipoDependente'];
+            $descricaoDependente = $row['descricao'];
+
 
 
             $contadorDependente = $contadorDependente + 1;
@@ -374,28 +383,29 @@ function recupera()
                 "nomeDependente" => $nomeDependente,
                 "cpfDependente" => $cpfDependente,
                 "dataNascimentoDependente" => $dataNascimentoDependente,
+                "tipoDependente" => $tipoDependente,
+                "descricao" => $descricaoDependente
             
             );
         }
 
-        $strArrayTelefone = json_encode($arrayTelefone);
+        $strArrayDependente = json_encode($arrayDependente);
 
 
         $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep . "^" .
-            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pispasep . "^" . $strArrayTelefone . "^" . $strArrayEmail . "^" . $strArrayTelefone;
+            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pispasep;
 
         if ($out == "") {
             echo "failed#";
         }
         if ($out != '') {
-            echo "sucess#" . $out . "#" . $strArrayTelefone . "#" . $strArrayEmail . "#" . $strArrayTelefone;
+            echo "sucess#" . $out . "#" . $strArrayEmail . "#" . $strArrayTelefone . "#" . $strArrayDependente;
         }
         return;
     }
 }
 
-function excluir()
-{
+function excluir(){
 
     $reposit = new reposit();
 
@@ -418,8 +428,7 @@ function excluir()
     return;
 }
 
-function validaCpf()
-{
+function validaCpf(){
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
@@ -437,8 +446,7 @@ function validaCpf()
     }
 }
 
-function validaCpfDependente()
-{
+function validaCpfDependente(){
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
@@ -456,8 +464,7 @@ function validaCpfDependente()
     }
 }
 
-function validaEmail()
-{
+function validaEmail(){
     $email = "'" . $_POST["email"] . "'";
 
     $sql = "SELECT email 
@@ -477,8 +484,7 @@ function validaEmail()
     return;
 }
 
-function validaRg()
-{
+function validaRg(){
     $rg = "'" . $_POST["rg"] . "'";
 
     $sql = "SELECT rg FROM dbo.funcionario WHERE rg = $rg";
