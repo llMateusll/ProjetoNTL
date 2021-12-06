@@ -442,7 +442,7 @@ include("inc/nav.php");
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label">Dependentes</label>
                                                                 <label class="select">
-                                                                    <select id="dependente" name="dependente" class="">
+                                                                    <select id="tipoDependente" name="tipoDependente" class="">
                                                                         <option selected></option>
                                                                         <?php
                                                                         $sql = "SELECT * FROM dbo.dependente WHERE ativo = 1";
@@ -712,13 +712,13 @@ include("inc/scripts.php");
         });
 
         $("#btnAddDependente").on("click", function() {
-            var dependente = $("#dependente").val();
+            var tipoDependente = $("#tipoDependente").val();
             var nomeDependente = $("#nomeDependente").val();
             var cpfDependente = $("#cpfDependente").val();
             var dataNascimentoDependente = $("#dataNascimentoDependente").val();
             var existe = true;
 
-            if (!dependente) {
+            if (!tipoDependente) {
                 smartAlert("Atenção", "Escolha um dependente", "error")
                 return;
             }
@@ -1617,32 +1617,23 @@ include("inc/scripts.php");
 
         var existe = false;
         var achou = false;
-        var dependente = $('#dependente').val();
+        var tipoDependente = $('#tipoDependente').val();
         var sequencial = +$('#sequencialDependente').val();
         var nomeDependente = $('#nomeDependente').val();
         var cpfDependente = $('#cpfDependente').val();
         var dataNascimentoDependente = $('#dataNascimentoDependente').val();
         var dependenteValido = false;
 
-        if (dependente === '') {
+        if (tipoDependente === '') {
             smartAlert("Erro", "Informe um Dependente.", "error");
             return false;
         }
 
         for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
-            if ((jsonDependenteArray[i].nomeDependente === nomeDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
-                existe = true;
-                break;
-                
-            }
             if ((jsonDependenteArray[i].cpfDependente === cpfDependente) && (jsonDependenteArray[i].sequencialDependente !== sequencial)) {
                 achou = true;
                 break;
             }
-        }
-        if (existe === true) {
-            smartAlert("Erro", "Dependente já cadastrado.", "error");
-            return false;
         }
         if (achou === true) {
             smartAlert("Erro", "CPF já cadastrado.", "error");
@@ -1661,7 +1652,7 @@ include("inc/scripts.php");
             // nodeCallback: processDataDependente
         });
 
-        const descricaoDependente = $("#dependente option:selected").text();
+        const descricaoDependente = $("#tipoDependente option:selected").text();
 
 
         if (item["sequencialDependente"] === '') {
@@ -1698,7 +1689,7 @@ include("inc/scripts.php");
     }
 
     function clearFormDependente() {
-        $("#dependente").val('');
+        $("#tipoDependente").val('');
         $("#sequencialDependente").val('');
         $("#nomeDependente").val('');
         $("#cpfDependente").val('');
@@ -1714,7 +1705,7 @@ include("inc/scripts.php");
         for (var i = 0; i < jsonDependenteArray.length; i++) {
 
             var row = $('<tr />');
-            var descricaoDependente = $("#dependente option[value = '" + jsonDependenteArray[i].dependente + "']").text();
+            var descricaoDependente = $("#tipoDependente option[value = '" + jsonDependenteArray[i].tipoDependente + "']").text();
 
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
@@ -1739,7 +1730,7 @@ include("inc/scripts.php");
             $("#sequencialDependente").val(item.sequencialDependente);
             $("#cpfDependente").val(item.cpfDependente);
             $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
-            $("#dependente").val(item.dependente);
+            $("#tipoDependente").val(item.tipoDependente);
 
         }
     }

@@ -94,7 +94,7 @@ function grava()
 
 
     //------------------------- Funcionário Email---------------------
-    
+
 
 
     $strArrayEmail = $_POST['jsonEmailArray'];
@@ -130,10 +130,10 @@ function grava()
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
-    
 
 
-//------------------------- Funcionário Dependente---------------------
+
+    //------------------------- Funcionário Dependente---------------------
 
 
 
@@ -190,7 +190,7 @@ function grava()
             $primeiroEmprego,
             $pispasep,
             $xmlTelefone,
-            $xmlEmail
+            $xmlEmail,
             $xmlDependente";
 
     $reposit = new reposit(); //Abre a conexão.
@@ -203,9 +203,6 @@ function grava()
 
     echo $ret;
     return;
-
-
-
 }
 function recupera()
 {
@@ -352,15 +349,46 @@ function recupera()
 
         $strArrayTelefone = json_encode($arrayTelefone);
 
+        $sql = "SELECT *
+
+        FROM dbo.funcionarioDependente WHERE (0 = 0)";
+
+        $sql = $sql . " AND funcionario = " . $codigo;
+
+        $reposit = new reposit();
+        $result = $reposit->RunQuery($sql);
+
+        $contadorDependente = 0;
+        $arrayDependente = array();
+        foreach ($result as $row) {
+            $dependenteId = $row['codigo'];
+            $nomeDependente = $row['nomeDependente'];
+            $cpfDependente = +$row['cpfDependente'];
+            $dataNascimentoDependente = +$row['dataNascimentoDependente'];
+
+
+            $contadorDependente = $contadorDependente + 1;
+            $arrayDependente[] = array(
+                "sequencialDependente" => $contadorDependente,
+                "dependenteId" => $dependenteId,
+                "nomeDependente" => $nomeDependente,
+                "cpfDependente" => $cpfDependente,
+                "dataNascimentoDependente" => $dataNascimentoDependente,
+            
+            );
+        }
+
+        $strArrayTelefone = json_encode($arrayTelefone);
+
 
         $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . "^" . $estadoCivil . "^" . $cep . "^" .
-            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pispasep . "^" . $strArrayEmail . "^" . $strArrayTelefone;
+            $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pispasep . "^" . $strArrayTelefone . "^" . $strArrayEmail . "^" . $strArrayTelefone;
 
         if ($out == "") {
             echo "failed#";
         }
         if ($out != '') {
-            echo "sucess#" . $out . "#" . $strArrayEmail . "#" . $strArrayTelefone;
+            echo "sucess#" . $out . "#" . $strArrayTelefone . "#" . $strArrayEmail . "#" . $strArrayTelefone;
         }
         return;
     }
