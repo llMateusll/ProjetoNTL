@@ -93,11 +93,11 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
-                                                            
+
                                                             <section class="col col-4">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" name="nome" type="text" value=""placeholder=Nome>
+                                                                    <input id="nome" maxlength="50" name="nome" type="text" value="" placeholder=Nome>
                                                                 </label>
                                                             </section>
 
@@ -111,7 +111,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" >
+                                                                    <select id="sexo" name="sexo">
                                                                         <option selected></option>
                                                                         <?php
                                                                         $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
@@ -133,14 +133,16 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
-                                                                    <select id="estadoCivil" name="estadoCivil" >
-                                                                        <option ></option>
-                                                                        <option >Solteiro(a)</option>
-                                                                        <option >Casado(a)</option>
-                                                                        <option >Separado(a)</option>
-                                                                        <option >Divorciado(a)</option>
-                                                                        <option >Viúvo(a)</option>
+
+                                                                    <select id="estadoCivil" name="estadoCivil" class="">
+                                                                        <option value="0"></option>
+                                                                        <option value="5">Solteiro(a)</option>
+                                                                        <option value="4">Casado(a)</option>
+                                                                        <option value="3">Separado(a)</option>
+                                                                        <option value="2">Divorciado(a)</option>
+                                                                        <option value="1">Viúvo(a)</option>
                                                                     </select><i></i>
+
                                                                 </label>
                                                             </section>
 
@@ -172,8 +174,17 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                         </div>
+
+                                                        <section class="col- col-md-2">
+                                                            <label class="label"> </label>
+                                                            <button type="button" id="btnPdf" class="btn btn-danger" aria-hidden="true">
+                                                                <i class="">Imprimir Folha</i>
+                                                            </button>
+                                                        </section>
+
                                                     </fieldset>
                                                 </div>
+
                                                 <footer>
                                                     <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
@@ -184,12 +195,14 @@ include("inc/nav.php");
                                                         </button>
                                                     <?php } ?>
                                                 </footer>
+
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div id="resultadoBusca"></div>
+
                         </div>
                     </div>
                 </article>
@@ -273,10 +286,10 @@ include("inc/scripts.php");
             dataNascimento: dataNascimento,
             ativo: ativo,
             rg: rg,
-            sexo : sexo,
-            dataInicio : dataInicio,
-            dataFim : dataFim,
-            estadoCivil : estadoCivil,
+            sexo: sexo,
+            dataInicio: dataInicio,
+            dataFim: dataFim,
+            estadoCivil: estadoCivil,
 
         });
     }
@@ -284,6 +297,7 @@ include("inc/scripts.php");
     function novo() {
         $(location).attr('href', 'funcionarioCadastro.php');
     }
+
     function validaDataFim() {
         var dataFim = $('#dataFim').val();
         var y = (parseInt(dataFim.split('/')[2]));
@@ -299,7 +313,7 @@ include("inc/scripts.php");
 
 
         var dataValida = moment(dataFim, 'DD/MM/YYYY').isValid();
-            
+
         if (!dataValida) {
             smartAlert("Atenção", "Data Invalida!", "error");
             $('#idade').val('');
@@ -314,6 +328,7 @@ include("inc/scripts.php");
 
         }
     }
+
     function validaDataInicio() {
         var dataInicio = $('#dataInicio').val();
         var y = (parseInt(dataInicio.split('/')[2]));
@@ -329,7 +344,7 @@ include("inc/scripts.php");
 
 
         var dataValida = moment(dataInicio, 'DD/MM/YYYY').isValid();
-            
+
         if (!dataValida) {
             smartAlert("Atenção", "Data Invalida!", "error");
             $('#idade').val('');

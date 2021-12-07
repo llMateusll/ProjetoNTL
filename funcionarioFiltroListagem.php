@@ -51,7 +51,7 @@ include "js/repositorio.php";
                 $estadoCivil = $_POST["estadoCivil"];
 
                 if ($estadoCivil != '') {
-                    $where = $where . " AND (F.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
+                    $where = $where . " AND F.estadoCivil = $estadoCivil";
                 }
 
                 $sexo = "";
@@ -118,7 +118,7 @@ include "js/repositorio.php";
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
                     $sexo = $row['sexo'];
-                    $estadoCivil = (int) $row['estadoCivil'];
+                    $estadoCivil = +$row['estadoCivil'];
 
                     $estadosCivil = "";
                     if ($estadoCivil == 1) {
