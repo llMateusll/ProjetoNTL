@@ -151,14 +151,14 @@ include "js/repositorio.php";
                     $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
-                    echo '<td class="text-left">' . $cpf . '</td>';
-                    echo '<td class="text-left">' . $dataNascimento . '</td>';
-                    echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left">' . $rg . '</td>';
-                    echo '<td class="text-left">' . $sexo . '</td>';
-                    echo '<td class="text-left">' . $estadosCivil . '</td>';
-                    echo '<td class="text-left btn btn-primary ">' . '<span class="fa fa-search pull-center"></span>' . '</td>';
+                    echo '<td class="text-center"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
+                    echo '<td class="text-center">' . $cpf . '</td>';
+                    echo '<td class="text-center">' . $dataNascimento . '</td>';
+                    echo '<td class="text-center">' . $descricaoAtivo . '</td>';
+                    echo '<td class="text-center">' . $rg . '</td>';
+                    echo '<td class="text-center">' . $sexo . '</td>';
+                    echo '<td class="text-center">' . $estadosCivil . '</td>';
+                    echo "<td class='text-center'><a class='btn btn-xs btn-default fa fa-search' href='contratacao_captacaoRecursos.php" . "'></a></td>";
                     echo '</tr >';
                 }
                 ?>
