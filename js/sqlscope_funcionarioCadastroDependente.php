@@ -31,7 +31,7 @@ function validarDescrição(){
     $result = $reposit->RunQuery($sql);
 
 
-    if ( $result[0] > 0 ) {
+    if ( $result < 1 ) {
         echo 'failed#';
         return;
     }
