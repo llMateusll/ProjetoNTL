@@ -114,7 +114,7 @@ include("inc/nav.php");
                                                                     <select id="sexo" name="sexo">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
+                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE ativo = 1";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
@@ -175,10 +175,15 @@ include("inc/nav.php");
                                                             </section>
                                                         </div>
 
+
                                                     </fieldset>
                                                 </div>
 
                                                 <footer>
+                                                    <button type="button" id="btnPdf" class="btn btn-danger" aria-hidden="true">
+                                                        <i class="">Imprimir Folha</i>
+                                                    </button>
+
                                                     <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
                                                     </button>
@@ -247,6 +252,9 @@ include("inc/scripts.php");
 
         $('#btnNovo').on("click", function() {
             novo();
+        });
+        $('#btnPdf').on("click", function() {
+            geraPdf();
         });
 
         $("#cpf").mask("999.999.999-99");
@@ -320,6 +328,16 @@ include("inc/scripts.php");
             return;
 
         }
+    }
+
+    function geraPdf() {
+
+        var sexo = $('#sexo').val();
+
+        var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
+
+        window.open("funcionarioFiltroPdf.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+
     }
 
     function validaDataInicio() {

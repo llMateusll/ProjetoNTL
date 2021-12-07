@@ -158,7 +158,7 @@ include "js/repositorio.php";
                     echo '<td class="text-center">' . $rg . '</td>';
                     echo '<td class="text-center">' . $sexo . '</td>';
                     echo '<td class="text-center">' . $estadosCivil . '</td>';
-                    echo "<td class='text-center'><a class='btn btn-xs btn-default fa fa-search' href='contratacao_captacaoRecursos.php" . "'></a></td>";
+                    echo "<td class='text-center'><a class='btn btn-xs btn-default fa fa-search' href='funcionarioFiltroPdf.php" . "'></a></td>";
                     echo '</tr >';
                 }
                 ?>
