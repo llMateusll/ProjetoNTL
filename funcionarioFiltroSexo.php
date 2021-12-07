@@ -100,7 +100,7 @@ include("inc/nav.php");
                                                                     <select id="sexo" name="sexo" class="">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE (0 = 0)";
+                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE ativo = 1";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
