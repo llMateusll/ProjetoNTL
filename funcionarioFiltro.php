@@ -135,7 +135,7 @@ include("inc/nav.php");
                                                                 <label class="select">
 
                                                                     <select id="estadoCivil" name="estadoCivil" class="">
-                                                                        <option value="0"></option>
+                                                                        <option></option>
                                                                         <option value="5">Solteiro(a)</option>
                                                                         <option value="4">Casado(a)</option>
                                                                         <option value="3">Separado(a)</option>
