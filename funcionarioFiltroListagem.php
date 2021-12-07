@@ -13,6 +13,7 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:35px;">RG</th>
                     <th class="text-left" style="min-width:35px;">Sexo</th>
                     <th class="text-left" style="min-width:35px;">Estado Civil</th>
+                    <th class="text-left" style="min-width:35px;">Relatório</th>
                 </tr>
             </thead>
             <tbody>
@@ -157,6 +158,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $rg . '</td>';
                     echo '<td class="text-left">' . $sexo . '</td>';
                     echo '<td class="text-left">' . $estadosCivil . '</td>';
+                    echo '<td class="text-left btn btn-primary ">' . '<span class="fa fa-search pull-center"></span>' . '</td>';
                     echo '</tr >';
                 }
                 ?>

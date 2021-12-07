@@ -175,13 +175,6 @@ include("inc/nav.php");
                                                             </section>
                                                         </div>
 
-                                                        <section class="col- col-md-2">
-                                                            <label class="label"> </label>
-                                                            <button type="button" id="btnPdf" class="btn btn-danger" aria-hidden="true">
-                                                                <i class="">Imprimir Folha</i>
-                                                            </button>
-                                                        </section>
-
                                                     </fieldset>
                                                 </div>
 
