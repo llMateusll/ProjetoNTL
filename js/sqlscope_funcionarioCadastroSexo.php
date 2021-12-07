@@ -31,7 +31,7 @@ function validaSexo(){
     $result = $reposit->RunQuery($sql);
 
 
-    if ($result[0]["sexo"] === $_POST["sexo"]) {
+    if ( $result[0] > 0 ) {
         echo 'failed#';
         return;
     }
