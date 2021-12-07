@@ -100,6 +100,8 @@ if ($condicaoTabelaBasicaOk) {
         $page_nav['tabelaBasica']['sub'] += array("Dependente" => array("title" => "Dependente", "url" => APP_URL . "/funcionarioFiltroDependente.php")); //SYSCB 
     
         $page_nav['tabelaBasica']['sub'] += array("Gêneros" => array("title" => "Gêneros", "url" => APP_URL . "/funcionarioFiltroSexo.php")); //SYSCB 
+
+        $page_nav['tabelaBasica']['sub'] += array("EstadoCivil" => array("title" => "EstadoCivil", "url" => APP_URL . "/funcionarioFiltroEstadoCivil.php")); //SYSCB 
     
 }
 
