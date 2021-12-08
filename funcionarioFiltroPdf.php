@@ -147,18 +147,21 @@ $pdf->Ln();
 $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(193, 12, iconv('UTF-8', 'windows-1252', "DADOS DO FUNCIONARIO"), 0, 0, "C", 0);
     $pdf->Ln(8);
+    $pdf->Line(5,38,205,38 ); #Linha na Horizontal
 $baseY = 0;
-$baseadd = 30;
+$baseadd = 55;
 $pdf->SetFont('Arial', '', 8);
+
 $contador = 0;
 foreach ($arrayFuncionario as $key) {
     $pdf->SetX(15);
     $pdf->SetY(40+$baseY);
-    $pdf->Line(5, $linha + $baseY + 40, 205, $linha + $baseY + 40); #Linha na Horizontal
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', "Funcionario :"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',$key ["nome"]), 0, 0, "L", 0);
+    
+    
 
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(9, 5, iconv('UTF-8', 'windows-1252', "CPF :"), 0, 0, "L", 0);
@@ -228,6 +231,8 @@ foreach ($arrayFuncionario as $key) {
     $pdf->Cell(13, 5, iconv('UTF-8', 'windows-1252', "Cidade :"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(90, 5, iconv('UTF-8', 'windows-1252',$key ["cidade"]), 0, 0, "L", 0);
+    $pdf->Line(5, $linha + $baseY + 70, 205, $linha + $baseY + 70); #Linha na Horizontal
+    
 
 
 
