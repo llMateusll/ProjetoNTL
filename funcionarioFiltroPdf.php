@@ -22,30 +22,32 @@ FROM dbo.funcionario WHERE (0=0) AND sexo =" . $id;
 
 $reposit = new reposit();
 $result = $reposit->RunQuery($sql);
-$out = "";
-$row = $result[0];
-if ($row) {
+
+$contadorFuncionario = 0;
+$arrayFuncionario = array();
+foreach ($result as $row) {
 
     $id = +$row['codigo'];
-    $ativo = +$row['ativo'];
-    $nome = $row['nome'];
-    $dataNascimento = $row['dataNascimento'];
-    $dataNascimento = explode(" ", $dataNascimento);
-    $dataNascimento = explode("-", $dataNascimento[0]);
-    $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
-    $cpf = $row['cpf'];
-    $rg = $row['rg'];
-    $sexo = $row['sexo'];
-    $estadoCivil = +$row['estadoCivil'];
-    $cep = $row['cep'];
-    $logradouro = $row['logradouro'];
-    $numero = $row['numero'];
-    $complemento = $row['complemento'];
-    $uf = $row['uf'];
-    $bairro = $row['bairro'];
-    $cidade = $row['cidade'];
-    $primeiroEmprego = $row['primeiroEmprego'];
-    $pispasep = $row['pispasep'];
+        $ativo = +$row['ativo'];
+        $nome = $row['nome'];
+        $dataNascimento = $row['dataNascimento'];
+        $dataNascimento = explode(" ", $dataNascimento);
+        $dataNascimento = explode("-", $dataNascimento[0]);
+        $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
+        $cpf = $row['cpf'];
+        $rg = $row['rg'];
+        $sexo = $row['sexo'];
+        $estadoCivil = +$row['estadoCivil'];
+        $cep = $row['cep'];
+        $logradouro = $row['logradouro'];
+        $numero = $row['numero'];
+        $complemento = $row['complemento'];
+        $uf = $row['uf'];
+        $bairro = $row['bairro'];
+        $cidade = $row['cidade'];
+        $primeiroEmprego = $row['primeiroEmprego'];
+        $pispasep = $row['pispasep'];
+
 
     $estadosCivil = "";
     if ($estadoCivil == 1) {
@@ -72,10 +74,28 @@ if ($row) {
         $descricaoAtivo = "Não";
     }
 
-    $dataNascimento = explode(" ", $dataNascimento);
-    $dataNascimento = explode("-", $dataNascimento[0]);
-    $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" .
-    $dataNascimento[0];
+
+    $contadorFuncionario = $contadorFuncionario + 1;
+    $arrayFuncionario[] = array(
+        "sequencialFuncionario" => $contadorFuncionario,
+        "nome" => $nome,
+        "ativo" => $descricaoAtivo,
+        "dataNascimento" => $dataNascimento,
+        "cpf" => $cpf,
+        "rg" => $rg,
+        "sexo" => $sexo,
+        "estadosCivil" => $estadosCivil,
+        "cep" => $cep,
+        "logradouro" => $logradouro,
+        "numero" => $numero,
+        "complemento" => $complemento,
+        "uf" => $uf,
+        "bairro" => $bairro,
+        "cidade" => $cidade
+        
+    );
+
+    $strArrayFuncionario = json_encode($arrayFuncionario);
 }
 
 
@@ -95,7 +115,7 @@ class PDF extends FPDF
         //        $dataAtualizada = $dataAux->format('d/m/Y H:i:s');
         //        $this->Cell(288, 0, $dataAtualizada, 0, 0, 'R', 0); #Título do Relatório
         $this->Cell(116, 1, "", 0, 1, 'C', 0); #Título do Relatório
-        $this->Image('img/images.jpg', 10, 5, 30, 20); #logo da empresa
+        $this->Image('img/logoNTLnova.png', 5, 10, 50,20); #logo da empresa
         $this->SetXY(190, 5);
         $this->SetFont('Arial', 'B', 8); #Seta a Fonte
         $this->Cell(20, 5, 'Pagina ' . $this->pageno()); #Imprime o Número das Páginas
@@ -121,60 +141,105 @@ $pdf->AddPage();
 
 
 
-$pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Line(5, $linha + 87, 205, $linha + 87); #Linha na Horizontal
-$pdf->Cell(193, 5, iconv('UTF-8', 'windows-1252', "DADOS DO FUNCIONARIOS"), 0, 0, "C", 0);
-$linha = $pdf->Ultimalinha();
-$pdf->Ln(6);
-$pdf->Line(5, $linha + 2, 205, $linha + 2); #Linha na Horizontal
-$pdf->SetFillColor(234, 234, 234);
-$pdf->SetFont('Arial', 'B', 7);
 
-
-
-
-$pdf->Cell(31, 7, iconv('UTF-8', 'windows-1252', "Funcionario"), 1, 0, "C", true);
-$pdf->Cell(15, 7, iconv('UTF-8', 'windows-1252', 'Ativo'), 1, 0, "C", true);
-$pdf->Cell(29, 7, iconv('UTF-8', 'windows-1252', 'Data De Nascimento'), 1, 0, "C", true);
-$pdf->Cell(29, 7, iconv('UTF-8', 'windows-1252', 'CPF'), 1, 0, "C", true);
-$pdf->Cell(29, 7, iconv('UTF-8', 'windows-1252', 'RG'), 1, 0, "C", true);
-$pdf->Cell(29, 7, iconv('UTF-8', 'windows-1252', 'Gêneros'), 1, 0, "C", true);
-$pdf->Cell(25, 7, iconv('UTF-8', 'windows-1252', 'Estado Civil'), 1, 0, "C", true);
 
 $pdf->Ln();
-
+$pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(193, 12, iconv('UTF-8', 'windows-1252', "DADOS DO FUNCIONARIO"), 0, 0, "C", 0);
+    $pdf->Ln(8);
+$baseY = 0;
+$baseadd = 30;
 $pdf->SetFont('Arial', '', 8);
 $contador = 0;
 foreach ($arrayFuncionario as $key) {
+    $pdf->SetX(15);
+    $pdf->SetY(40+$baseY);
+    $pdf->Line(5, $linha + $baseY + 40, 205, $linha + $baseY + 40); #Linha na Horizontal
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', "Funcionario :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252',$key ["nome"]), 0, 0, "L", 0);
 
-    $contador = $contador + 1;
-    $nome = $key["sequencialFuncionario"];
-    $trajetoFuncionario = $key["trajetoFuncionario"];
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(9, 5, iconv('UTF-8', 'windows-1252', "CPF :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252',$key ["cpf"]), 0, 0, "L", 0);
 
-    $nome = $key["nome"];
-    $nome = iconv('UTF-8', 'windows-1252', $nome);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(8, 5, iconv('UTF-8', 'windows-1252', "RG :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252',$key ["rg"]), 0, 0, "L", 0);
 
-    $descricaoAtivo = $key["descricaoAtivo"];
-    $descricaoAtivo = iconv('UTF-8', 'windows-1252', $descricaoAtivo);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(10, 5, iconv('UTF-8', 'windows-1252', "ativo :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(10, 5, iconv('UTF-8', 'windows-1252',$key ["ativo"]), 0, 0, "L", 0);
+    
+    $pdf->Ln(5);
 
-    $dataNascimento = $key["dataNascimento"];
-    $dataNascimento = iconv('UTF-8', 'windows-1252', $dataNascimento);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(33, 5, iconv('UTF-8', 'windows-1252', "Data De Nascimento :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252',$key ["dataNascimento"]), 0, 0, "L", 0);
 
-    $pdf->SetX(35);
-    $pdf->SetWidths(array(30, 35, 40, 30, 50, 33, 10, 20, 20, 20, 20, 20, 30));
-    $pdf->Row(array($trajetoFuncionario, $tipoFuncionario, $linhaFuncionario, $valorFuncionario));
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "Gênero :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252',$key ["sexo"]), 0, 0, "L", 0);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "EstadoCivil :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252',$key ["estadosCivil"]), 0, 0, "L", 0);
+    $pdf->Ln(2);
+
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(193, 12, iconv('UTF-8', 'windows-1252', "ENDEREÇO"), 0, 0, "L", 0);
+
+    $pdf->Ln(9);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(9, 5, iconv('UTF-8', 'windows-1252', "CEP :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(19, 5, iconv('UTF-8', 'windows-1252',$key ["cep"]), 0, 0, "L", 0);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(9, 5, iconv('UTF-8', 'windows-1252', "Rua :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252',$key ["logradouro"]), 0, 0, "L", 0);
+    $pdf->Ln(5);    
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "Numero :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(10, 5, iconv('UTF-8', 'windows-1252',$key ["numero"]), 0, 0, "L", 0);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "Estado :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(12, 5, iconv('UTF-8', 'windows-1252',$key ["uf"]), 0, 0, "L", 0);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(13, 5, iconv('UTF-8', 'windows-1252', "Bairro :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(90, 5, iconv('UTF-8', 'windows-1252',$key ["bairro"]), 0, 0, "L", 0);
+    $pdf->Ln(5);
+
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(13, 5, iconv('UTF-8', 'windows-1252', "Cidade :"), 0, 0, "L", 0);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(90, 5, iconv('UTF-8', 'windows-1252',$key ["cidade"]), 0, 0, "L", 0);
+
+
+
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Ln(5);
+    $pdf->SetFont('Arial', 'B', 8);
+
+   $baseY = $baseY + $baseadd;
+ 
+    
 }
-$pdf->Ln(8);
 
-
-
-
-
-
-
-
-$pdf->Ln();
 
 $pdf->SetFillColor(234, 234, 234);
 $pdf->SetFont('Arial', 'B', 8);
@@ -184,7 +249,7 @@ $pdf->Ln();
 $pdf->Ln();
 
 $pdf->SetFont('Arial', '', 8);
-$contador = 0;
+
 
 
 $pdf->Ln(8);
