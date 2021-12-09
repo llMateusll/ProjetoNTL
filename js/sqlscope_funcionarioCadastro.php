@@ -355,8 +355,8 @@ function recupera(){
         ,FD.tipoDependente
         ,D.descricao
         FROM dbo.funcionarioDependente FD 
-		LEFT JOIN
-        dbo.dependente D on FD.tipoDependente = D.codigo
+		LEFT JOIN dbo.dependente D 
+        on FD.tipoDependente = D.codigo
 		WHERE (0 = 0)";
 
         $sql = $sql . " AND funcionario = " . $codigo;
