@@ -698,7 +698,7 @@ include("inc/scripts.php");
         });
 
         $('#btnPdf').on("click", function() {
-            geraPdf();
+            gerarPdf();
         });
 
         $("#btnGravar").on("click", function() {
@@ -1047,15 +1047,15 @@ include("inc/scripts.php");
         );
     }
 
-    function geraPdf() {
+    function gerarPdf() {
+  
+        var id = $('#codigo').val();
 
-        var jsonTelefoneArray = $('#jsonTelefone').val();
-
-        var parametrosUrl = '&jsonTelefone=' + jsonTelefoneArray; // - > PASSAGEM DE PARAMETRO
+        var parametrosUrl = '&id=' + id; // - > PASSAGEM DE PARAMETRO
 
        
         
-        window.open("funcionarioFiltroPdfFuncionario.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+        window.open("funcionarioFiltroPdfContato.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
 
     }
 

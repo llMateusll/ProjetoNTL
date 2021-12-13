@@ -1916,14 +1916,14 @@ function Row($data)
 	{
                 $tipo = gettype($data[$i]);
 		$w=$this->widths[$i];
-                if( $tipo == string){
+                if( $tipo == 'string'){
 		$a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
                 }
-                if( $tipo == double){
+                if( $tipo == 'double'){
                 $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'R';
                 $data[$i] = number_format($data[$i],5,',','.');
                 }
-                if( $tipo == integer){
+                if( $tipo == 'integer'){
                 $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'C';
                 }
 		//Save the current position
