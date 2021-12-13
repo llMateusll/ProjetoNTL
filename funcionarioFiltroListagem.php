@@ -13,7 +13,6 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:35px;">RG</th>
                     <th class="text-left" style="min-width:35px;">Sexo</th>
                     <th class="text-left" style="min-width:35px;">Estado Civil</th>
-                    <th class="text-left" style="min-width:35px;">Relatório</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,19 +123,19 @@ include "js/repositorio.php";
                     $estadosCivil = "";
                     if ($estadoCivil == 1) {
                         $estadosCivil = "Viúvo(a)";
-                    } 
+                    }
                     if ($estadoCivil == 2) {
                         $estadosCivil = "Divorciado(a)";
-                    } 
+                    }
                     if ($estadoCivil == 3) {
                         $estadosCivil = "Separado(a)";
-                    } 
+                    }
                     if ($estadoCivil == 4) {
                         $estadosCivil = "Casado(a)";
-                    } 
+                    }
                     if ($estadoCivil == 5) {
                         $estadosCivil = "Solteiro(a)";
-                    } 
+                    }
 
 
                     $descricaoAtivo = "";
@@ -158,7 +157,6 @@ include "js/repositorio.php";
                     echo '<td class="text-center">' . $rg . '</td>';
                     echo '<td class="text-center">' . $sexo . '</td>';
                     echo '<td class="text-center">' . $estadosCivil . '</td>';
-                    echo "<td class='text-center'><a class='btn btn-xs btn-default fa fa-search' href='funcionarioFiltroPdf.php" . "'></a></td>";
                     echo '</tr >';
                 }
                 ?>
@@ -184,6 +182,21 @@ include "js/repositorio.php";
             tablet: 1024,
             phone: 480
         };
+        $('#btnPdfFuncionario').on("click", function() {
+            geraPdfFuncionario();
+        });
+
+        function geraPdfFuncionario1() {
+
+            var codigo = $('#codigo').val();
+
+            var parametrosUrl = '&codigo=' + codigo; // - > PASSAGEM DE PARAMETRO
+
+            window.open("funcionarioFiltroPdf.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+
+        }
+
+
 
 
 

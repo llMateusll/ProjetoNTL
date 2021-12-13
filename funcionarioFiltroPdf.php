@@ -172,7 +172,6 @@ $pdf->SetFont('Arial', '', 8);
 $contador = -1;
 foreach ($arrayFuncionario as $key) {
 
-
     $contador++;
     if ((($contador % 7) == 0) && $contador != 0) {
         $contador = 0;
