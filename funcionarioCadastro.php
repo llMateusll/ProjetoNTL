@@ -276,7 +276,7 @@ include("inc/nav.php");
                                                         <div id="formEmail" class="col-sm-6">
                                                             <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
                                                             <input id="descricaoEmailPrincipal" name="descricaoEmailPrincipal" type="hidden" value="">
-                                                           
+
 
                                                             <div class="row">
                                                                 <section class="col col-5">
@@ -292,6 +292,7 @@ include("inc/nav.php");
                                                                         Principal
                                                                     </label>
                                                                 </section>
+
                                                                 <section class="col col-md-3">
                                                                     <label class="label">&nbsp;</label>
                                                                     <button id="btnAddEmail" type="button" class="btn btn-primary">
@@ -300,8 +301,12 @@ include("inc/nav.php");
                                                                     <button id="btnRemoverEmail" type="button" class="btn btn-danger">
                                                                         <i class="fa fa-minus"></i>
                                                                     </button>
+
                                                                 </section>
+
+
                                                             </div>
+
                                                             <div class="table-responsive" style="min-height: 115px; width:95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
                                                                 <table id="tableEmail" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                     <thead>
@@ -315,7 +320,14 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+
+
                                                         </div>
+                                                        <section class="col- col-md-3">
+                                                            <button type="button" id='btnPdf' class='btn btn-danger  ' aria-hidden="true">
+                                                                <i class=""> Relatório Contato</i>
+                                                            </button>
+                                                        </section>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -685,6 +697,10 @@ include("inc/scripts.php");
             }
         });
 
+        $('#btnPdf').on("click", function() {
+            geraPdf();
+        });
+
         $("#btnGravar").on("click", function() {
             gravar()
         });
@@ -964,7 +980,7 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        
+
 
         //Chama a função de gravar do business de convênio de saúde.
         gravaFuncionario(id, ativo, nome, cpf, dataNascimento, rg, sexo, estadoCivil, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pispasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
@@ -1030,6 +1046,19 @@ include("inc/scripts.php");
             }
         );
     }
+
+    function geraPdf() {
+
+        var jsonTelefoneArray = $('#jsonTelefone').val();
+
+        var parametrosUrl = '&jsonTelefone=' + jsonTelefoneArray; // - > PASSAGEM DE PARAMETRO
+
+       
+        
+        window.open("funcionarioFiltroPdfFuncionario.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+
+    }
+
 
     function calcularIdade() {
         var dataNascimento = $('#dataNascimento').val();
