@@ -320,14 +320,17 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-
+                                                            
 
                                                         </div>
-                                                        <section class="col- col-md-3">
-                                                            <button type="button" id='btnPdf' class='btn btn-danger  ' aria-hidden="true">
+                                                        <div class="row">
+                                                        <section class="col col-md-2">
+                                                            <button type="button" id='btnPdf' style="display:none"class='btn btn-danger ' aria-hidden="true">
                                                                 <i class=""> Relatório Contato</i>
                                                             </button>
                                                         </section>
+                                                        </div>
+                                                        
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -697,12 +700,16 @@ include("inc/scripts.php");
             }
         });
 
+
         $('#btnPdf').on("click", function() {
-            gerarPdf();
+           
+                gerarPdf();
+            
         });
 
         $("#btnGravar").on("click", function() {
-            gravar()
+            var cpf = $("#cpf").val()
+            validarCPF(cpf)
         });
 
         $("#btnVoltar").on("click", function() {
@@ -861,6 +868,8 @@ include("inc/scripts.php");
                             $("#jsonDependente").val(strArrayDependente);
                             jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
+
+                            $( "#btnPdf" ).show();
                             validaPrimeiroEmprego()
                             fillTableDependente()
                             fillTableTelefone()
@@ -905,6 +914,11 @@ include("inc/scripts.php");
 
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
+        if (!ativo) {
+            smartAlert("Atenção", "Informe o Ativo", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
         if (!nome) {
             smartAlert("Atenção", "Informe Seu Nome", "error");
             $("#btnGravar").prop('disabled', false);
@@ -915,18 +929,13 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!dataNascimento) {
-            smartAlert("Atenção", "Informe a Data de Nascimento", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!ativo) {
-            smartAlert("Atenção", "Informe o Ativo", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
         if (!rg) {
             smartAlert("Atenção", "Informe Seu RG", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!dataNascimento) {
+            smartAlert("Atenção", "Informe a Data de Nascimento", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -937,6 +946,11 @@ include("inc/scripts.php");
         }
         if (!estadoCivil) {
             smartAlert("Atenção", "Informe Seu Estado Civil", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!primeiroEmprego) {
+            smartAlert("Atenção", "Informe Seu é seu Primeiro Emprego", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -955,18 +969,13 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!numero) {
-            smartAlert("Atenção", "Informe Seu Mumero", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-        if (!uf) {
-            smartAlert("Atenção", "Informe Seu UF", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
         if (!bairro) {
             smartAlert("Atenção", "Informe Seu Bairro", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!numero) {
+            smartAlert("Atenção", "Informe Seu Numero", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -975,8 +984,8 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!primeiroEmprego) {
-            smartAlert("Atenção", "Informe Seu é seu Primeiro Emprego", "error");
+        if (!uf) {
+            smartAlert("Atenção", "Informe Seu UF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -1048,13 +1057,13 @@ include("inc/scripts.php");
     }
 
     function gerarPdf() {
-  
+
         var id = $('#codigo').val();
 
         var parametrosUrl = '&id=' + id; // - > PASSAGEM DE PARAMETRO
 
-       
-        
+
+
         window.open("funcionarioFiltroPdfContato.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
 
     }
@@ -1192,6 +1201,8 @@ include("inc/scripts.php");
 
 
                     }
+                }else{
+                    gravar()
                 }
 
             }
@@ -1280,6 +1291,17 @@ include("inc/scripts.php");
         }
     }
 
+    // function btnPdfAtiva() {
+  
+
+    //     if (id == 0) {
+            
+    //     else(id == 0) {
+           
+
+    //     }
+    // }
+
 
     //------------------------- Funcionário Telefone---------------------//
 
@@ -1305,6 +1327,10 @@ include("inc/scripts.php");
         for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
             if (telefonePrincipalMarcado === 1) {
                 if ((jsonTelefoneArray[i].telefonePrincipal === 1) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+                if ((jsonTelefoneArray[i].principal === 1) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
                     achou = true;
                     break;
                 }

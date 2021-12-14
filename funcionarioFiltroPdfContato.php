@@ -173,7 +173,7 @@ $pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 $pdf->AddPage();
 $pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 12);
 $pdf->Line(5, $linha + 117, 205, $linha + 117); #Linha na Horizontal
 $pdf->Cell(193, 5, iconv('UTF-8', 'windows-1252', " CONTATOS"), 0, 0, "C", 0);
 $linha = $pdf->Ultimalinha();
@@ -184,13 +184,13 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Ln(1);
 
 $pdf->SetX(68);
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(17, 5, iconv('UTF-8', 'windows-1252', "Candidato :"), 0, 0, "L", 0);
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(50, 5, iconv('UTF-8', 'windows-1252', $nome), 0, 0, "L", 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(22, 5, iconv('UTF-8', 'windows-1252', "Funcionário :"), 0, 0, "C", 0);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(43, 5, iconv('UTF-8', 'windows-1252', $nome), 0, 0, "C", 0);
 
 $pdf->Ln(10);
-
+$pdf->SetFont('Arial', 'B', 8);
 $pdf->SetX(65);
 
 $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', "Telefone"), 1, 0, "C", true);

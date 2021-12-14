@@ -28,7 +28,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Grupo";
+$page_title = "Gêneros";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -375,8 +375,9 @@ include("inc/scripts.php");
     function validarSexo() {
 
         var sexo = $("#sexo").val();
+        var id = $("#codigo").val();
 
-        validaSexoExistente(sexo,
+        validaSexoExistente(sexo,id,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
