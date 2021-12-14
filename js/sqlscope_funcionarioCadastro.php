@@ -30,7 +30,8 @@ if ($funcao == 'validaRg') {
 
 return;
 
-function grava(){
+function grava()
+{
 
 
 
@@ -54,6 +55,7 @@ function grava(){
     $cidade = "'" . $_POST['cidade'] . "'";
     $primeiroEmprego = "'" . $_POST['primeiroEmprego'] . "'";
     $pispasep = "'" . $_POST['pispasep'] . "'";
+
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -152,6 +154,12 @@ function grava(){
                 if (($campo === "sequencialDependente")) {
                     continue;
                 }
+                if (($campo === "dataNascimentoDependente")) {
+                    $dataNascimentoDependente = 'dataNascimentoDependente';
+                    $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
+                    $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
+                    $dataNascimentoDependente = $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
+                }
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
             $xmlDependente = $xmlDependente . "</" . $nomeTabela . ">";
@@ -204,7 +212,8 @@ function grava(){
     return;
 }
 
-function recupera(){
+function recupera()
+{
 
     $codigo = $_POST["id"];
 
@@ -371,6 +380,9 @@ function recupera(){
             $nomeDependente = $row['nomeDependente'];
             $cpfDependente = $row['cpfDependente'];
             $dataNascimentoDependente = $row['dataNascimentoDependente'];
+            $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
+            $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
+            $dataNascimentoDependente = $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
             $tipoDependente = $row['tipoDependente'];
             $descricaoDependente = $row['descricao'];
 
@@ -385,7 +397,7 @@ function recupera(){
                 "dataNascimentoDependente" => $dataNascimentoDependente,
                 "tipoDependente" => $tipoDependente,
                 "descricao" => $descricaoDependente
-            
+
             );
         }
 
@@ -405,7 +417,8 @@ function recupera(){
     }
 }
 
-function excluir(){
+function excluir()
+{
 
     $reposit = new reposit();
 
@@ -428,7 +441,8 @@ function excluir(){
     return;
 }
 
-function validaCpf(){
+function validaCpf()
+{
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
@@ -446,7 +460,8 @@ function validaCpf(){
     }
 }
 
-function validaCpfDependente(){
+function validaCpfDependente()
+{
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
@@ -464,7 +479,8 @@ function validaCpfDependente(){
     }
 }
 
-function validaEmail(){
+function validaEmail()
+{
     $email = "'" . $_POST["email"] . "'";
 
     $sql = "SELECT email 
@@ -484,7 +500,8 @@ function validaEmail(){
     return;
 }
 
-function validaRg(){
+function validaRg()
+{
     $rg = "'" . $_POST["rg"] . "'";
 
     $sql = "SELECT rg FROM dbo.funcionario WHERE rg = $rg";
