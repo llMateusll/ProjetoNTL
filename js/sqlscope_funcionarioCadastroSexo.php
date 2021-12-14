@@ -22,25 +22,32 @@ if ($funcao == 'validaSexo') {
 }
 return;
 
-function validaSexo(){
+function validaSexo()
+{
     $sexo = "'" . $_POST["sexo"] . "'";
-
-    $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo";
-
+    $id = (int)$_POST["id"];
+    if ($id != 0) {
+        $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo and ativo = 0 ";
+    } else {
+        $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo";
+    }
+    
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
+    $row = $result[0];
 
 
-    if ( $result < 1) {
-        echo 'failed#';
+    if ($row == false) {
+        echo 'sucess#';
         return;
     }
-
-    echo 'sucess#';
+    echo 'failed#';
+   
     return;
 }
 
-function gravarSexo(){
+function gravarSexo()
+{
 
     $reposit = new reposit(); //Abre a conexão.
 
@@ -66,7 +73,8 @@ function gravarSexo(){
     return;
 }
 
-function recupera(){
+function recupera()
+{
     $codigo = $_POST["id"];
 
 
@@ -100,7 +108,8 @@ function recupera(){
     }
 }
 
-function excluir(){
+function excluir()
+{
 
     $reposit = new reposit();
 

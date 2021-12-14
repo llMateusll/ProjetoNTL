@@ -155,10 +155,11 @@ function grava()
                     continue;
                 }
                 if (($campo === "dataNascimentoDependente")) {
-                    $dataNascimentoDependente = 'dataNascimentoDependente';
+                    $dataNascimentoDependente = $valor;
                     $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
-                    $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
-                    $dataNascimentoDependente = $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
+                    $dataNascimentoDependente = explode("/", $dataNascimentoDependente[0]);
+                    $dataNascimentoDependente = $dataNascimentoDependente[2] . "-" . $dataNascimentoDependente[1] . "-" . $dataNascimentoDependente[0];
+                    $valor = $dataNascimentoDependente;
                 }
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -444,18 +445,22 @@ function excluir()
 function validaCpf()
 {
     $cpf = "'" . $_POST["cpf"] . "'";
-
-    $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
+    $id = (int)$_POST["id"];
+    if ($id != 0) {
+        $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf and ativo = 0";
+    } else {
+        $sql = "SELECT cpf FROM dbo.funcionario WHERE cpf = $cpf";
+    }
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
+    $row = $result[0];
 
-
-    if ($result[0]) {
-        echo 'failed#';
+    if ($row == false) {
+        echo 'sucess#';
         return;
     } else {
-        echo 'sucess#';
+        echo 'failed#';
         return;
     }
 }

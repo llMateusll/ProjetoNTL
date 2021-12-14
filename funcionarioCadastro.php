@@ -320,17 +320,17 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            
+
 
                                                         </div>
                                                         <div class="row">
-                                                        <section class="col col-md-2">
-                                                            <button type="button" id='btnPdf' style="display:none"class='btn btn-danger ' aria-hidden="true">
-                                                                <i class=""> Relatório Contato</i>
-                                                            </button>
-                                                        </section>
+                                                            <section class="col col-md-2">
+                                                                <button type="button" id='btnPdf' style="display:none" class='btn btn-danger ' aria-hidden="true">
+                                                                    <i class=""> Relatório Contato</i>
+                                                                </button>
+                                                            </section>
                                                         </div>
-                                                        
+
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -702,14 +702,11 @@ include("inc/scripts.php");
 
 
         $('#btnPdf').on("click", function() {
-           
-                gerarPdf();
-            
+            gerarPdf();
         });
 
         $("#btnGravar").on("click", function() {
-            var cpf = $("#cpf").val()
-            validarCPF(cpf)
+            gravar()
         });
 
         $("#btnVoltar").on("click", function() {
@@ -869,7 +866,7 @@ include("inc/scripts.php");
                             jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
 
-                            $( "#btnPdf" ).show();
+                            $("#btnPdf").show();
                             validaPrimeiroEmprego()
                             fillTableDependente()
                             fillTableTelefone()
@@ -1201,8 +1198,6 @@ include("inc/scripts.php");
 
 
                     }
-                }else{
-                    gravar()
                 }
 
             }
@@ -1292,12 +1287,12 @@ include("inc/scripts.php");
     }
 
     // function btnPdfAtiva() {
-  
+
 
     //     if (id == 0) {
-            
+
     //     else(id == 0) {
-           
+
 
     //     }
     // }

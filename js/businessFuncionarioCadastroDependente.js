@@ -1,9 +1,9 @@
-function validaDescriçãoExistente(descricao, callback) {
+function validaDescriçãoExistente(id,descricao, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastroDependente.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'validarDescrição', descricao: descricao }, //valores enviados ao script      
+        data: { funcao: 'validarDescrição', id: id,descricao: descricao }, //valores enviados ao script      
         success: function (data) {
 
             callback(data);

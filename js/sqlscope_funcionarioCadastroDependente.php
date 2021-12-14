@@ -24,19 +24,22 @@ return;
 
 function validarDescrição(){
     $descricao = "'" . $_POST["descricao"] . "'";
-
-    $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao";
+    $id = (int) $_POST["id"];
+    if($id != 0){
+        $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao and ativo = 0 ";
+    }else{
+        $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao";
+    }
 
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
+    $row = $result[0];
 
-
-    if ( $result < 1 ) {
-        echo 'failed#';
+    if ($row == false ) {
+        echo 'sucess#';
         return;
     }
-
-    echo 'sucess#';
+    echo 'failed#';
     return;
 }
 
@@ -68,6 +71,7 @@ function gravarDescrição(){
 
 function recupera(){
     $codigo = $_POST["id"];
+    
 
 
     $sql = "SELECT * FROM dbo.dependente WHERE (0 = 0)";
