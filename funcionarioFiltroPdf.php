@@ -9,14 +9,10 @@ require_once("inc/config.ui.php");
 
 require('./fpdf/mc_table.php');
 
-if ((empty($_GET["sexo"])) || (!isset($_GET["sexo"])) || (is_null($_GET["sexo"]))) {
-    $mensagem = "Nenhum parâmetro de pesquisa foi informado.";
-    echo "failed#" . $mensagem . ' ';
-    return;
-} else {
-    $id = +$_GET["sexo"];
-}
 
+    $id = $_GET["sexo"];
+
+if($id == ""){
 $sql = "SELECT F.codigo
 ,F.ativo
 ,F.nome
@@ -36,7 +32,31 @@ $sql = "SELECT F.codigo
 FROM dbo.funcionario F
 LEFT JOIN dbo.sexo S
 on F.sexo = S.codigo
-WHERE (0=0) AND F.sexo =" . $id;
+";
+
+}else{
+    $sql = "SELECT F.codigo
+,F.ativo
+,F.nome
+,F.dataNascimento
+,F.cpf
+,F.rg
+,F.sexo
+,F.estadoCivil
+,F.cep
+,F.logradouro
+,F.numero
+,F.complemento
+,F.uf
+,F.bairro
+,F.cidade
+,S.sexo
+FROM dbo.funcionario F
+LEFT JOIN dbo.sexo S
+on F.sexo = S.codigo
+ WHERE (0=0) AND F.sexo =" . $id;
+
+}
 
 $reposit = new reposit();
 $result = $reposit->RunQuery($sql);

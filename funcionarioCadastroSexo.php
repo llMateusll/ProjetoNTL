@@ -91,8 +91,8 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-1">
-                                                                <label class="label">Ativo</label>
+                                                            <section id="sessao" class="col col-1 hidden ">
+                                                                <label class="label ">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo" class="required">
                                                                         <option value="1" selected>Sim</option>
@@ -277,6 +277,7 @@ include("inc/scripts.php");
                             $("#ativo").val(ativo);
                             $("#sexo").val(sexo);
 
+                            $("#sessao").removeClass("hidden");
                             return;
 
                         }

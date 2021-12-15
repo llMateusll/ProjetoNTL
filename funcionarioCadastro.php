@@ -92,7 +92,7 @@ include("inc/nav.php");
                                                             </section>
 
 
-                                                            <section class="col col-2 col-auto">
+                                                            <section id="sessao" class="col col-2 hidden">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo" class="required">
@@ -370,28 +370,27 @@ include("inc/nav.php");
                                                                 <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="numero">Número</label>
-                                                            <label class="input">
-                                                                <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
-
+                                                        
                                                         <section class="col col-2 col-auto">
                                                             <label class="label" for="cidade">Cidade</label>
                                                             <label class="input">
                                                                 <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-
+                                                        
                                                         <section class="col col-2 col-auto">
                                                             <label class="label" for="uf">Estado</label>
                                                             <label class="input">
                                                                 <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-
+                                                        
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label" for="numero">Número</label>
+                                                            <label class="input">
+                                                                <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                            </label>
+                                                        </section>
                                                         <section class="col col-3 col-auto">
                                                             <label class="label" for="complemento">Complemento</label>
                                                             <label class="input">
@@ -449,7 +448,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-2 col-auto">
+                                                            <section id ="sessao"class="col col-2 col-auto hidden">
                                                                 <label class="label">Dependentes</label>
                                                                 <label class="select">
                                                                     <select id="tipoDependente" name="tipoDependente" class="">
@@ -860,7 +859,7 @@ include("inc/scripts.php");
                             $("#jsonDependente").val(strArrayDependente);
                             jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
-
+                            $("#sessao").removeClass("hidden");
                             $("#btnPdf").show();
                             validaPrimeiroEmprego()
                             fillTableDependente()
