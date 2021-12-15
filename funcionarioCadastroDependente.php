@@ -375,8 +375,9 @@ include("inc/scripts.php");
 
         var descricao = $("#descricao").val();
         var id =$("#codigo").val();
+        var ativo=$("#ativo").val();
 
-        validaDescriçãoExistente(id,descricao,
+        validaDescriçãoExistente(id,ativo,descricao,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");

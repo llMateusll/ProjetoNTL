@@ -376,8 +376,9 @@ include("inc/scripts.php");
 
         var sexo = $("#sexo").val();
         var id = $("#codigo").val();
+        var ativo = $("#ativo").val();
 
-        validaSexoExistente(sexo,id,
+        validaSexoExistente(sexo,ativo,id,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");

@@ -28,7 +28,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Funcionario";
+$page_title = "Funcionário";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -75,7 +75,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCadastro" class="" id="accordion">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Cadastro De Funcionario
+                                                        Cadastro De Funcionário
                                                     </a>
                                                 </h4>
                                             </div>
@@ -144,7 +144,7 @@ include("inc/nav.php");
                                                                     <select id="sexo" name="sexo" class="required">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT * FROM dbo.sexo WHERE (0 = 0)";
+                                                                        $sql = "SELECT * FROM dbo.sexo WHERE ativo = 1";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
@@ -256,6 +256,8 @@ include("inc/nav.php");
                                                                     </button>
                                                                 </section>
                                                             </div>
+
+
                                                             <div class="table-responsive" style="min-height: 115px; width:95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
                                                                 <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                     <thead>
@@ -280,6 +282,7 @@ include("inc/nav.php");
 
                                                             <div class="row">
                                                                 <section class="col col-5">
+
                                                                     <label class="label" for="email">Email</label>
                                                                     <label class="input">
                                                                         <input id="email" name="email" class="">
@@ -295,15 +298,13 @@ include("inc/nav.php");
 
                                                                 <section class="col col-md-3">
                                                                     <label class="label">&nbsp;</label>
-                                                                    <button id="btnAddEmail" type="button" class="btn btn-primary">
+                                                                    <button id="btnAddEmail" type="button" class="btn btn-primary ">
                                                                         <i class="fa fa-plus"></i>
                                                                     </button>
-                                                                    <button id="btnRemoverEmail" type="button" class="btn btn-danger">
+                                                                    <button id="btnRemoverEmail" type="button" class="btn btn-danger ">
                                                                         <i class="fa fa-minus"></i>
                                                                     </button>
-
                                                                 </section>
-
 
                                                             </div>
 
@@ -321,15 +322,9 @@ include("inc/nav.php");
                                                                 </table>
                                                             </div>
 
-
-                                                        </div>
-                                                        <div class="row">
-                                                            <section class="col col-md-2">
-                                                                <button type="button" id='btnPdf' style="display:none" class='btn btn-danger ' aria-hidden="true">
-                                                                    <i class=""> Relatório Contato</i>
-                                                                </button>
-                                                            </section>
-                                                        </div>
+                                                            <button type="button" id='btnPdf' style="display:none" class='btn btn-danger pull-right' title="Relatório" aria-hidden="true">
+                                                                <span class="fa fa-print"> </span>
+                                                            </button>
 
                                                     </fieldset>
                                                 </div>
@@ -362,7 +357,7 @@ include("inc/nav.php");
                                                             </label>
                                                         </section>
 
-                                                        <section class="col col-4 col-auto">
+                                                        <section class="col col-3 col-auto">
                                                             <label class="label" for="logradouro">Rua</label>
                                                             <label class="input">
                                                                 <input id="logradouro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
@@ -454,7 +449,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-3 col-auto">
+                                                            <section class="col col-2 col-auto">
                                                                 <label class="label">Dependentes</label>
                                                                 <label class="select">
                                                                     <select id="tipoDependente" name="tipoDependente" class="">
@@ -512,7 +507,7 @@ include("inc/nav.php");
                                     </div>
 
                                     <footer>
-                                        <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
+                                        <button type="button" id="btnExcluir" class="btn btn-danger pull-left" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
                                         </button>
                                         <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dlgSimpleExcluir" aria-labelledby="ui-id-1" style="height: auto; width: 600px; top: 220px; left: 262px; display: none;">
@@ -531,11 +526,11 @@ include("inc/nav.php");
                                         <button type="button" id="btnGravar" class="btn btn-success" aria-hidden="true" title="Gravar" style="display:<?php echo $esconderBtnGravar ?>">
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
-                                        <button type="button" id="btnNovo" class="btn btn-primary" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
-                                            <span class="fa fa-file-o"></span>
+                                        <button type="button" id="btnNovo" class="btn btn-primary pull-left" aria-hidden="true" title="Novo" style="display:<?php echo $esconderBtnGravar ?>">
+                                            <span class="fa fa-file"></span>
                                         </button>
-                                        <button type="button" id="btnVoltar" class="btn btn-default" aria-hidden="true" title="Voltar">
-                                            <span class="fa fa-backward "></span>
+                                        <button type="button" id="btnVoltar" class="btn btn-default pull-left" aria-hidden="true" title="Filtro">
+                                            <span class="fa fa-search "></span>
                                         </button>
                                     </footer>
                                 </form>
@@ -911,7 +906,7 @@ include("inc/scripts.php");
 
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
-        if (!ativo) {
+        if (ativo = "") {
             smartAlert("Atenção", "Informe o Ativo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
@@ -1404,8 +1399,8 @@ include("inc/scripts.php");
             $("#tableTelefone tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTelefone + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTelefone + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
+            row.append($('<td class="text-center">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
+            row.append($('<td class="text-center">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
 
         }
     }
@@ -1473,6 +1468,24 @@ include("inc/scripts.php");
             var item = arr[0];
             $("#telefone").val(item.telefone);
             $("#sequencialTelefone").val(item.sequencialTelefone);
+            $("#telefonePrincipal").val(item.principal);
+
+            if (item.principal == 1) {
+                $("#telefonePrincipal").prop('checked',true)
+                $("#descricaoTelefonePrincipal").val("Sim")
+            }else{
+                $("#telefonePrincipal").prop('checked',false)
+                $("#descricaoTelefonePrincipal").val("Não")
+            }
+            $("#telefoneWhatsapp").val(item.whatsapp);
+
+            if (item.whatsapp == 1) {
+                $("#telefoneWhatsapp").prop('checked',true)
+                $("#descricaoTelefoneWhatsapp").val("Sim") 
+            }else{
+                $("#telefoneWhatsapp").prop('checked',false)
+                $("#descricaoTelefoneWhatsapp").val("Não")
+            }
 
         }
     }
@@ -1598,7 +1611,7 @@ include("inc/scripts.php");
             $("#tableEmail tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
+            row.append($('<td class="text-center" >' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
 
 
         }
@@ -1644,6 +1657,15 @@ include("inc/scripts.php");
             var item = arr[0];
             $("#email").val(item.email);
             $("#sequencialEmail").val(item.sequencialEmail);
+            $("#emailPrincipal").val(item.principal);
+            if (item.principal == 1) {
+                $("#emailPrincipal").prop('checked',true)
+                $("#descricaoEmailPrincipal").val("Sim")
+            }else{
+                $("#emailPrincipal").prop('checked',false)
+                $("#descricaoEmailPrincipal").val("Não")
+            }
+
 
         }
     }
@@ -1767,9 +1789,9 @@ include("inc/scripts.php");
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + descricaoDependente + '</td>'));
+            row.append($('<td class="text-center" >' + jsonDependenteArray[i].cpfDependente + '</td>'));
+            row.append($('<td class="text-center" >' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
+            row.append($('<td class="text-center" >' + descricaoDependente + '</td>'));
 
         }
     }

@@ -1,9 +1,9 @@
-function validaSexoExistente(sexo,id, callback) {
+function validaSexoExistente(sexo,ativo,id, callback) {
     $.ajax({
         url: 'js/sqlscope_funcionarioCadastroSexo.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'validaSexo', sexo: sexo,id:id }, //valores enviados ao script      
+        data: { funcao: 'validaSexo', sexo: sexo,ativo: ativo,id:id }, //valores enviados ao script      
         success: function (data) {
 
             callback(data);

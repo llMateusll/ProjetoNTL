@@ -25,8 +25,9 @@ return;
 function validarDescrição(){
     $descricao = "'" . $_POST["descricao"] . "'";
     $id = (int) $_POST["id"];
+    $ativo = (int)$_POST["ativo"];
     if($id != 0){
-        $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao and ativo = 0 ";
+        $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao and ativo = $ativo ";
     }else{
         $sql = "SELECT descricao FROM dbo.dependente WHERE descricao = $descricao";
     }

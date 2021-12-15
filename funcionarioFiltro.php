@@ -17,17 +17,14 @@ if ($condicaoAcessarOK == false) {
     header("Location:login.php");
 }
 
-$esconderBtnGravar = "";
-if ($condicaoGravarOK === false) {
-    $esconderBtnGravar = "none";
-}
+
 
 /* ---------------- PHP Custom Scripts ---------
 
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Funcionario-Filtro";
+$page_title = "Funcionário";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -75,7 +72,7 @@ include("inc/nav.php");
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFiltro" class="">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                        Filtro De Funcionario
+                                                        Filtro De Funcionário
                                                     </a>
                                                 </h4>
                                             </div>
@@ -180,19 +177,19 @@ include("inc/nav.php");
                                                 </div>
 
                                                 <footer>
-                                                    <button type="button" id="btnPdf" class="btn btn-danger" aria-hidden="true">
-                                                        <i class="">Imprimir Folha</i>
-                                                    </button>
 
-
-                                                    <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
+                                                    <button id="btnSearch" type="button" class="btn btn-default pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
                                                     </button>
-                                                    <?php if ($condicaoGravarOK) { ?>
-                                                        <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
-                                                            <span class="fa fa-file"></span>
-                                                        </button>
-                                                    <?php } ?>
+
+                                                    <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
+                                                        <span class="fa fa-file"></span>
+                                                    </button>
+                                                    
+                                                    <button type="button" id="btnPdf" class="btn btn-danger pull-left"title="Imprimir" aria-hidden="true">
+                                                    <span class="fa fa-print"></span>
+                                                    </button>
+
                                                 </footer>
 
                                             </div>

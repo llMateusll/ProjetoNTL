@@ -183,7 +183,7 @@ foreach ($arrayFuncionario as $key) {
     $pdf->SetX(15);
     $pdf->SetY(34 + $baseY);
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', "Funcionario :"), 0, 0, "L", 0);
+    $pdf->Cell(21, 5, iconv('UTF-8', 'windows-1252', "Funcionário :"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(55, 5, iconv('UTF-8', 'windows-1252', $key["nome"]), 0, 0, "L", 0);
 

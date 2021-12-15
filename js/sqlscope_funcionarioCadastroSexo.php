@@ -26,10 +26,11 @@ function validaSexo()
 {
     $sexo = "'" . $_POST["sexo"] . "'";
     $id = (int)$_POST["id"];
+    $ativo = (int)$_POST["ativo"];
     if ($id != 0) {
-        $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo and ativo = 0 ";
+        $sql = "SELECT * FROM dbo.sexo WHERE (0=0) and sexo = $sexo and ativo = $ativo ";
     } else {
-        $sql = "SELECT sexo FROM dbo.sexo WHERE sexo = $sexo";
+        $sql = "SELECT * FROM dbo.sexo WHERE (0=0) and sexo = $sexo";
     }
     
     $reposit = new reposit();
