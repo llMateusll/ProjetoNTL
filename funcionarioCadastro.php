@@ -448,7 +448,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section id ="sessao"class="col col-2 col-auto hidden">
+                                                            <section id ="sessao"class="col col-2 col-auto">
                                                                 <label class="label">Dependentes</label>
                                                                 <label class="select">
                                                                     <select id="tipoDependente" name="tipoDependente" class="">
