@@ -96,8 +96,8 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo" class="required">
-                                                                        <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
+                                                                        <option value="1">Sim</option>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -905,7 +905,7 @@ include("inc/scripts.php");
 
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
-        if (ativo = "") {
+        if (!ativo) {
             smartAlert("Atenção", "Informe o Ativo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
