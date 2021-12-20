@@ -905,11 +905,6 @@ include("inc/scripts.php");
 
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
-        if (!ativo) {
-            smartAlert("Atenção", "Informe o Ativo", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
         if (!nome) {
             smartAlert("Atenção", "Informe Seu Nome", "error");
             $("#btnGravar").prop('disabled', false);
@@ -1468,6 +1463,8 @@ include("inc/scripts.php");
             $("#telefone").val(item.telefone);
             $("#sequencialTelefone").val(item.sequencialTelefone);
             $("#telefonePrincipal").val(item.principal);
+            $("#descricaoTelefonePrincipal").val(item.descricaoTelefonePrincipal);
+            $("#descricaoTelefoneWhatsapp").val(item.descricaoTelefoneWhatsapp);
 
             if (item.principal == 1) {
                 $("#telefonePrincipal").prop('checked',true)
@@ -1664,6 +1661,7 @@ include("inc/scripts.php");
                 $("#emailPrincipal").prop('checked',false)
                 $("#descricaoEmailPrincipal").val("Não")
             }
+            $("#descricaoEmailPrincipal").val(item.descricaoEmailPrincipal);
 
 
         }

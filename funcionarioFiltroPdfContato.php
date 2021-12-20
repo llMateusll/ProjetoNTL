@@ -175,10 +175,10 @@ $pdf->AddPage();
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Line(5, $linha + 117, 205, $linha + 117); #Linha na Horizontal
-$pdf->Cell(193, 5, iconv('UTF-8', 'windows-1252', " CONTATOS"), 0, 0, "C", 0);
+$pdf->Cell(193, 4, iconv('UTF-8', 'windows-1252', " CONTATOS"), 0, 0, "C", 0);
 $linha = $pdf->Ultimalinha();
 $pdf->Ln(6);
-$pdf->Line(5, $linha + 2, 205, $linha + 2); #Linha na Horizontal
+$pdf->Line(50, 33, 210-50, 33);
 $pdf->SetFillColor(234, 234, 234);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Ln(1);

@@ -183,8 +183,9 @@ $pdf->AddPage();
 
 
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(193, 12, iconv('UTF-8', 'windows-1252', "DADOS DO FUNCIONARIOS"), 0, 0, "C", 0);
+$pdf->Cell(193, 8, iconv('UTF-8', 'windows-1252', "DADOS DO FUNCIONARIOS"), 0, 0, "C", 0);
 $pdf->Ln(6);
+$pdf->Line(50, 30, 210-50, 30);
 $baseY = 0;
 $baseadd = 33;
 $pdf->SetFont('Arial', '', 8);
@@ -199,7 +200,7 @@ foreach ($arrayFuncionario as $key) {
         $baseY = 0;
     }
 
-    $pdf->Line(5, $linha + $baseY + 33, 205, $linha + $baseY + 33); #Linha na Horizontal
+    $pdf->Line(5, $linha + $baseY + 65, 205, $linha + $baseY + 65); #Linha na Horizontal
     $pdf->SetX(15);
     $pdf->SetY(34 + $baseY);
     $pdf->SetFont('Arial', 'B', 9);
@@ -276,6 +277,7 @@ foreach ($arrayFuncionario as $key) {
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(12, 5, iconv('UTF-8', 'windows-1252', $key["cidade"]), 0, 0, "L", 0);
     $pdf->Ln(5);
+    
     $baseY = $baseY + $baseadd;
 }
 $pdf->Ln();

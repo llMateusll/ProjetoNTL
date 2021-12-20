@@ -114,6 +114,7 @@ function grava()
                 if (($campo === "sequencialEmail")) {
                     continue;
                 }
+
                 $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
             $xmlEmail = $xmlEmail . "</" . $nomeTabela . ">";
