@@ -84,7 +84,7 @@ include("inc/nav.php");
                                                     <fieldset>
 
                                                         <div class="row">
-                                                            <section class="col col-1 col-auto">
+                                                            <section id="sessao" class="col col-1 col-auto hidden">
                                                                 <label class="label">Código</label>
                                                                 <label class="input">
                                                                     <input id="codigo" name="codigo" readonly class="readonly" value="" autocomplete="off">

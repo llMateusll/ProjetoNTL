@@ -108,7 +108,7 @@
             </div>                                
             <header id="header">
                 <div id="logo-group" >
-                    <img src="img/logoNTL.jpg" alt="SmartAdmin">
+                    <img src="img/logoNTLnova.png" alt="SmartAdmin">
                 </div>
                 <?php
 //                $login = $_SESSION['login'];

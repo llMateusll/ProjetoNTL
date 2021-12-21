@@ -84,10 +84,10 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
 
-                                                            <section class="col col-1 col-auto">
+                                                            <section id="sessao" class="col col-1 col-auto hidden">
                                                                 <label class="label">Código</label>
                                                                 <label class="input">
-                                                                    <input id="codigo" name="codigo" readonly class="readonly" value="" autocomplete="off">
+                                                                    <input id="codigo" name="codigo" readonly class="readonly" value="" autocomplete="off" aria-hidden="true">
                                                                 </label>
                                                             </section>
 
@@ -123,8 +123,9 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
+                                                          
 
-                                                            <section class="col col-2 col-auto">
+                                                            <section class="col col-2 col-auto pull-right=">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
                                                                     <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder=00/00/0000>
@@ -137,7 +138,9 @@ include("inc/nav.php");
                                                                     <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
-
+                                                        </div>
+                                                        
+                                                        <div class="row">
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
@@ -160,6 +163,7 @@ include("inc/nav.php");
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
+
 
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Estado Civil</label>
@@ -194,7 +198,11 @@ include("inc/nav.php");
                                                                     <input id="pispasep" type="text" maxlength="200" required autocomplete="off" class="required">
                                                                 </label>
                                                             </section>
+
                                                         </div>
+
+
+
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -370,21 +378,21 @@ include("inc/nav.php");
                                                                 <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-                                                        
+
                                                         <section class="col col-2 col-auto">
                                                             <label class="label" for="cidade">Cidade</label>
                                                             <label class="input">
                                                                 <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-                                                        
+
                                                         <section class="col col-2 col-auto">
                                                             <label class="label" for="uf">Estado</label>
                                                             <label class="input">
                                                                 <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
                                                             </label>
                                                         </section>
-                                                        
+
                                                         <section class="col col-2 col-auto">
                                                             <label class="label" for="numero">Número</label>
                                                             <label class="input">
@@ -448,7 +456,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section id ="sessao"class="col col-2 col-auto">
+                                                            <section id="sessao" class="col col-2 col-auto">
                                                                 <label class="label">Dependentes</label>
                                                                 <label class="select">
                                                                     <select id="tipoDependente" name="tipoDependente" class="">
@@ -860,6 +868,7 @@ include("inc/scripts.php");
                             jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
                             $("#sessao").removeClass("hidden");
+                            $("#codigo").removeClass("hidden");
                             $("#btnPdf").show();
                             validaPrimeiroEmprego()
                             fillTableDependente()
@@ -1467,19 +1476,19 @@ include("inc/scripts.php");
             $("#descricaoTelefoneWhatsapp").val(item.descricaoTelefoneWhatsapp);
 
             if (item.principal == 1) {
-                $("#telefonePrincipal").prop('checked',true)
+                $("#telefonePrincipal").prop('checked', true)
                 $("#descricaoTelefonePrincipal").val("Sim")
-            }else{
-                $("#telefonePrincipal").prop('checked',false)
+            } else {
+                $("#telefonePrincipal").prop('checked', false)
                 $("#descricaoTelefonePrincipal").val("Não")
             }
             $("#telefoneWhatsapp").val(item.whatsapp);
 
             if (item.whatsapp == 1) {
-                $("#telefoneWhatsapp").prop('checked',true)
-                $("#descricaoTelefoneWhatsapp").val("Sim") 
-            }else{
-                $("#telefoneWhatsapp").prop('checked',false)
+                $("#telefoneWhatsapp").prop('checked', true)
+                $("#descricaoTelefoneWhatsapp").val("Sim")
+            } else {
+                $("#telefoneWhatsapp").prop('checked', false)
                 $("#descricaoTelefoneWhatsapp").val("Não")
             }
 
@@ -1655,10 +1664,10 @@ include("inc/scripts.php");
             $("#sequencialEmail").val(item.sequencialEmail);
             $("#emailPrincipal").val(item.principal);
             if (item.principal == 1) {
-                $("#emailPrincipal").prop('checked',true)
+                $("#emailPrincipal").prop('checked', true)
                 $("#descricaoEmailPrincipal").val("Sim")
-            }else{
-                $("#emailPrincipal").prop('checked',false)
+            } else {
+                $("#emailPrincipal").prop('checked', false)
                 $("#descricaoEmailPrincipal").val("Não")
             }
             $("#descricaoEmailPrincipal").val(item.descricaoEmailPrincipal);
