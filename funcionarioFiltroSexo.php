@@ -119,7 +119,7 @@ include("inc/nav.php");
                                                     </fieldset>
                                                 </div>
                                                 <footer>
-                                                    <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
+                                                    <button id="btnSearch" type="button" class="btn btn-default pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
                                                     </button>
                                                     <?php if ($condicaoGravarOK) { ?>
