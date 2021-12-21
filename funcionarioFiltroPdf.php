@@ -10,7 +10,7 @@ require_once("inc/config.ui.php");
 require('./fpdf/mc_table.php');
 
 
-    $id = $_GET["sexo"];
+    $id = $_GET["descricao"];
 
 if($id == ""){
 $sql = "SELECT F.codigo
@@ -28,7 +28,7 @@ $sql = "SELECT F.codigo
 ,F.uf
 ,F.bairro
 ,F.cidade
-,S.sexo
+,S.descricao
 FROM dbo.funcionario F
 LEFT JOIN dbo.sexo S
 on F.sexo = S.codigo
@@ -50,7 +50,8 @@ on F.sexo = S.codigo
 ,F.uf
 ,F.bairro
 ,F.cidade
-,S.sexo
+,S.descricao
+
 FROM dbo.funcionario F
 LEFT JOIN dbo.sexo S
 on F.sexo = S.codigo
@@ -74,7 +75,7 @@ foreach ($result as $row) {
     $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
     $cpf = $row['cpf'];
     $rg = $row['rg'];
-    $sexo = $row['sexo'];
+    $sexo = $row['descricao'];
     $estadoCivil = +$row['estadoCivil'];
     $cep = $row['cep'];
     $logradouro = $row['logradouro'];

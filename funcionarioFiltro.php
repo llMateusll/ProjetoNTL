@@ -178,39 +178,42 @@ include("inc/nav.php");
 
                                                 <footer>
 
-                                                    <button id="btnSearch" type="button" class="btn btn-default pull-right" title="Buscar">
+
+                                                    <button id="btnSearch" type="button" style="MARGIN-TOP: 24px" class="btn btn-default pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
                                                     </button>
 
-                                                    <button id="btnNovo" type="button" class="btn btn-primary pull-right" title="Novo">
+                                                    <button id="btnNovo" type="button" style="MARGIN-TOP: 24px" class="btn btn-primary pull-right" title="Novo">
                                                         <span class="fa fa-file"></span>
                                                     </button>
 
-                                                    <button type="button" id="btnPdf" class="btn btn-danger pull-right" title="Imprimir" aria-hidden="true">
-                                                        <span class="fa fa-print"></span>
-                                                    </button>
+                                                    <div class="row">
+                                                        <section class="col col-2 col-auto">
+                                                            <label class="label">Relatório por Gêneros</label>
+                                                            <label class="select">
+                                                                <select id="descricaoSexo" name="descricao">
+                                                                    <option selected></option>
+                                                                    <?php
+                                                                    $sql = "SELECT codigo, descricao FROM dbo.sexo WHERE ativo = 1";
 
-                                                    <section class="col col-2 col-auto">
-                                                        <label class="label">Relatório por Gêneros</label>
-                                                        <label class="select">
-                                                            <select id="descricao" name="descricao">
-                                                                <option selected></option>
-                                                                <?php
-                                                                $sql = "SELECT codigo, descricao FROM dbo.sexo WHERE ativo = 1";
+                                                                    $reposit = new reposit();
+                                                                    $result = $reposit->RunQuery($sql);
 
-                                                                $reposit = new reposit();
-                                                                $result = $reposit->RunQuery($sql);
+                                                                    foreach ($result as $row) {
+                                                                        $id = (int) $row['codigo'];
+                                                                        $descricao = $row['descricao'];
+                                                                        echo '<option value=' . $id . '>' . $descricao . '</option>';
+                                                                    }
+                                                                    ?>
 
-                                                                foreach ($result as $row) {
-                                                                    $id = (int) $row['codigo'];
-                                                                    $descricao = $row['descricao'];
-                                                                    echo '<option value=' . $id . '>' . $descricao . '</option>';
-                                                                }
-                                                                ?>
+                                                                </select><i></i>
+                                                            </label>
+                                                        </section>
+                                                        <button type="button" id="btnPdf" style="MARGIN-TOP: 24px"class="btn btn-danger pull-left" title="Imprimir" aria-hidden="true">
+                                                            <span class="fa fa-print"></span>
+                                                        </button>
+                                                    </div>
 
-                                                            </select><i></i>
-                                                        </label>
-                                                    </section>
 
                                                 </footer>
 
@@ -352,7 +355,7 @@ include("inc/scripts.php");
 
     function geraPdf() {
 
-        var descricao = $('#descricao').val();
+        var descricao = $('#descricaoSexo').val();
 
         var parametrosUrl = '&descricao=' + descricao; // - > PASSAGEM DE PARAMETRO
 
