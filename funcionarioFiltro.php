@@ -108,18 +108,18 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo">
+                                                                    <select id="descricao" name="descricao">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE ativo = 1";
+                                                                        $sql = "SELECT codigo, descricao FROM dbo.sexo WHERE ativo = 1";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
 
                                                                         foreach ($result as $row) {
                                                                             $id = (int) $row['codigo'];
-                                                                            $sexo = $row['sexo'];
-                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
 
@@ -182,13 +182,35 @@ include("inc/nav.php");
                                                         <span class="fa fa-search"></span>
                                                     </button>
 
-                                                    <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
+                                                    <button id="btnNovo" type="button" class="btn btn-primary pull-right" title="Novo">
                                                         <span class="fa fa-file"></span>
                                                     </button>
-                                                    
-                                                    <button type="button" id="btnPdf" class="btn btn-danger pull-left"title="Imprimir" aria-hidden="true">
-                                                    <span class="fa fa-print"></span>
+
+                                                    <button type="button" id="btnPdf" class="btn btn-danger pull-right" title="Imprimir" aria-hidden="true">
+                                                        <span class="fa fa-print"></span>
                                                     </button>
+
+                                                    <section class="col col-2 col-auto">
+                                                        <label class="label">Relatório por Gêneros</label>
+                                                        <label class="select">
+                                                            <select id="descricao" name="descricao">
+                                                                <option selected></option>
+                                                                <?php
+                                                                $sql = "SELECT codigo, descricao FROM dbo.sexo WHERE ativo = 1";
+
+                                                                $reposit = new reposit();
+                                                                $result = $reposit->RunQuery($sql);
+
+                                                                foreach ($result as $row) {
+                                                                    $id = (int) $row['codigo'];
+                                                                    $descricao = $row['descricao'];
+                                                                    echo '<option value=' . $id . '>' . $descricao . '</option>';
+                                                                }
+                                                                ?>
+
+                                                            </select><i></i>
+                                                        </label>
+                                                    </section>
 
                                                 </footer>
 
@@ -273,7 +295,7 @@ include("inc/scripts.php");
         var dataNascimento = $('#dataNascimento').val();
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
-        var sexo = $('#sexo').val();
+        var descricao = $('#descricao').val();
         var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
         var estadoCivil = $('#estadoCivil').val();
@@ -285,7 +307,7 @@ include("inc/scripts.php");
             dataNascimento: dataNascimento,
             ativo: ativo,
             rg: rg,
-            sexo: sexo,
+            descricao: descricao,
             dataInicio: dataInicio,
             dataFim: dataFim,
             estadoCivil: estadoCivil,
@@ -330,9 +352,9 @@ include("inc/scripts.php");
 
     function geraPdf() {
 
-        var sexo = $('#sexo').val();
+        var descricao = $('#descricao').val();
 
-        var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
+        var parametrosUrl = '&descricao=' + descricao; // - > PASSAGEM DE PARAMETRO
 
         window.open("funcionarioFiltroPdf.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
 

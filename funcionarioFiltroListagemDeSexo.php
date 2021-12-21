@@ -24,17 +24,17 @@ include "js/repositorio.php";
                     $where = $where . " AND ativo = $ativo";
                 }
 
-                $sexo = "";
-                $sexo = $_POST["sexo"];
+                $descricao = "";
+                $descricao = $_POST["descricao"];
 
-                if ($sexo != '') {
-                    $where = $where . " AND codigo = $sexo";
+                if ($descricao != '') {
+                    $where = $where . " AND codigo = $descricao";
                 }
 
                 $sql = " SELECT  
                 codigo,
                 ativo,
-                sexo
+                descricao
                 
                 FROM  [dbo].[sexo] ";
 
@@ -47,7 +47,7 @@ include "js/repositorio.php";
                 foreach ($result as $row) {
                     $id = (int) $row['codigo'];
                     $ativo = $row['ativo'];
-                    $sexo = $row['sexo'];
+                    $descricao = $row['descricao'];
 
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
@@ -58,7 +58,7 @@ include "js/repositorio.php";
 
                     echo '<tr >';
                     echo '<td class="text-left">' . $descricaoAtivo . '</td>';
-                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $sexo . '</td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastroSexo.php?id=' . $id . '">' . $descricao . '</td>';
                     echo '</tr >';
                 }
                 ?>

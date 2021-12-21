@@ -144,7 +144,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" class="required">
+                                                                    <select id="descricao" name="descricao" class="required">
                                                                         <option selected></option>
                                                                         <?php
                                                                         $sql = "SELECT * FROM dbo.sexo WHERE ativo = 1";
@@ -155,8 +155,8 @@ include("inc/nav.php");
                                                                         foreach ($result as $row) {
                                                                             $id = (int) $row['codigo'];
                                                                             $ativo = +$row['ativo'];
-                                                                            $sexo = $row['sexo'];
-                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
 
@@ -845,7 +845,7 @@ include("inc/scripts.php");
                             $("#nome").val(nome);
                             $("#dataNascimento").val(dataNascimento);
                             $("#rg").val(rg);
-                            $("#sexo").val(sexo);
+                            $("#descricao").val(sexo);
                             $("#estadoCivil").val(estadoCivil);
                             $("#cep").val(cep);
                             $("#logradouro").val(logradouro);
@@ -895,7 +895,7 @@ include("inc/scripts.php");
         var cpf = $('#cpf').val();
         var dataNascimento = $('#dataNascimento').val();
         var rg = $('#rg').val();
-        var sexo = $('#sexo').val();
+        var sexo = $('#descricao').val();
         var estadoCivil = +$('#estadoCivil').val();
         var telefone = $('#telefone').val();
         var cep = $('#cep').val();

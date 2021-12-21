@@ -54,11 +54,11 @@ include "js/repositorio.php";
                     $where = $where . " AND F.estadoCivil = $estadoCivil";
                 }
 
-                $sexo = "";
-                $sexo = $_POST["sexo"];
+                $descricao = "";
+                $descricao = $_POST["descricao"];
 
-                if ($sexo != '') {
-                    $where = $where . " AND F.sexo = $sexo";
+                if ($descricao != '') {
+                    $where = $where . " AND F.sexo = $descricao";
                 }
 
                 $dataInicio = "";
@@ -99,7 +99,7 @@ include "js/repositorio.php";
                 ,F.dataNascimento
                 ,F.cpf
                 ,F.rg
-				,S.sexo
+				,S.descricao
                 ,F.estadoCivil
 
                 FROM  [dbo].[funcionario] F
@@ -117,7 +117,7 @@ include "js/repositorio.php";
                     $dataNascimento = $row['dataNascimento'];
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
-                    $sexo = $row['sexo'];
+                    $descricao = $row['descricao'];
                     $estadoCivil = +$row['estadoCivil'];
 
                     $estadosCivil = "";
@@ -155,7 +155,7 @@ include "js/repositorio.php";
                     echo '<td class="text-center">' . $dataNascimento . '</td>';
                     echo '<td class="text-center">' . $descricaoAtivo . '</td>';
                     echo '<td class="text-center">' . $rg . '</td>';
-                    echo '<td class="text-center">' . $sexo . '</td>';
+                    echo '<td class="text-center">' . $descricao . '</td>';
                     echo '<td class="text-center">' . $estadosCivil . '</td>';
                     echo '</tr >';
                 }

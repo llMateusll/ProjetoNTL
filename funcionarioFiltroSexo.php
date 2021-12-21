@@ -97,18 +97,18 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" class="">
+                                                                    <select id="descricao" name="descricao" class="">
                                                                         <option selected></option>
                                                                         <?php
-                                                                        $sql = "SELECT codigo, sexo FROM dbo.sexo WHERE ativo = 1";
+                                                                        $sql = "SELECT codigo, descricao FROM dbo.sexo WHERE ativo = 1";
 
                                                                         $reposit = new reposit();
                                                                         $result = $reposit->RunQuery($sql);
 
                                                                         foreach ($result as $row) {
                                                                             $id = (int) $row['codigo'];
-                                                                            $sexo = $row['sexo'];
-                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
 
@@ -191,13 +191,13 @@ include("inc/scripts.php");
     function listarFiltro() {
         var codigo = $('#codigo').val();
         var ativo = $('#ativo').val();
-        var sexo = $('#sexo').val();
+        var descricao = $('#descricao').val();
 
 
         $('#resultadoBusca').load('funcionarioFiltroListagemDeSexo.php', {
             codigo: codigo,
             ativo: ativo,
-            sexo: sexo 
+            descricao: descricao 
 
         });
     }
