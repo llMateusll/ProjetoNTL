@@ -123,7 +123,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                          
+
 
                                                             <section class="col col-2 col-auto pull-right=">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
@@ -139,7 +139,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                         </div>
-                                                        
+
                                                         <div class="row">
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
@@ -1468,31 +1468,34 @@ include("inc/scripts.php");
         clearFormTelefone();
 
         if (arr.length > 0) {
+            var id = $('#codigo').val();
+
             var item = arr[0];
             $("#telefone").val(item.telefone);
             $("#sequencialTelefone").val(item.sequencialTelefone);
             $("#telefonePrincipal").val(item.principal);
             $("#descricaoTelefonePrincipal").val(item.descricaoTelefonePrincipal);
             $("#descricaoTelefoneWhatsapp").val(item.descricaoTelefoneWhatsapp);
+           
 
-            if (item.principal == 1) {
-                $("#telefonePrincipal").prop('checked', true)
-                $("#descricaoTelefonePrincipal").val("Sim")
-            } else {
-                $("#telefonePrincipal").prop('checked', false)
-                $("#descricaoTelefonePrincipal").val("Não")
+                if (item.telefonePrincipal == 1) {
+                    $("#telefonePrincipal").prop('checked', true)
+                    $("#descricaoTelefonePrincipal").val("Sim")
+                } else {
+                    $("#telefonePrincipal").prop('checked', false)
+                    $("#descricaoTelefonePrincipal").val("Não")
+                }
+                $("#telefoneWhatsapp").val(item.whatsapp);
+
+                if (item.telefoneWhatsapp == 1) {
+                    $("#telefoneWhatsapp").prop('checked', true)
+                    $("#descricaoTelefoneWhatsapp").val("Sim")
+                } else {
+                    $("#telefoneWhatsapp").prop('checked', false)
+                    $("#descricaoTelefoneWhatsapp").val("Não")
+                }
             }
-            $("#telefoneWhatsapp").val(item.whatsapp);
-
-            if (item.whatsapp == 1) {
-                $("#telefoneWhatsapp").prop('checked', true)
-                $("#descricaoTelefoneWhatsapp").val("Sim")
-            } else {
-                $("#telefoneWhatsapp").prop('checked', false)
-                $("#descricaoTelefoneWhatsapp").val("Não")
-            }
-
-        }
+        
     }
 
     function excluirTelefone() {

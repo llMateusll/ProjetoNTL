@@ -350,7 +350,8 @@ function recupera()
                 "sequencialTelefone" => $contadorTelefone,
                 "telefoneId" => $telefoneId,
                 "telefone" => $telefone,
-                "whatsapp" => $whatsapp,
+                "telefonePrincipal" => $principal,
+                "telefoneWhatsapp" => $whatsapp,
                 "descricaoTelefoneWhatsapp" => $descricaoWhatsapp,
                 "principal" => $principal,
                 "descricaoTelefonePrincipal" => $descricaoPrincipal
