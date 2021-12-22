@@ -801,6 +801,10 @@ include("inc/scripts.php");
             var nomeDependenteFormatado = $("#nomeDependente").val().trim()
             $("#nomeDependente").val(nomeDependenteFormatado)
         });
+        $('#email').on('change', function() {
+            var emailFormatado = $("#email").val().trim()
+            $("#email").val(emailFormatado)
+        });
 
         carregaPagina();
     });
