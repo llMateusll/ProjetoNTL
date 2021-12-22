@@ -1666,7 +1666,7 @@ include("inc/scripts.php");
             $("#email").val(item.email);
             $("#sequencialEmail").val(item.sequencialEmail);
             $("#emailPrincipal").val(item.principal);
-            if (item.principal == 1) {
+            if (item.emailPrincipal == 1) {
                 $("#emailPrincipal").prop('checked', true)
                 $("#descricaoEmailPrincipal").val("Sim")
             } else {

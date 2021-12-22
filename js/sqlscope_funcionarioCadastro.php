@@ -305,7 +305,7 @@ function recupera()
                 "sequencialEmail" => $contadorEmail,
                 "emailId" => $emailId,
                 "email" => $email,
-                "principal" => $principal,
+                "emailPrincipal" => $principal,
                 "descricaoEmailPrincipal" => $descricaoEmailPrincipal
             );
         }
