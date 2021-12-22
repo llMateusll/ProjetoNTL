@@ -290,6 +290,10 @@ include("inc/scripts.php");
         $("#dataInicio").on("change", function() {
             validaDataInicio();
         });
+        $('#nome').on('change', function() {
+            var nomeFormatado = $("#nome").val().trim()
+            $("#nome").val(nomeFormatado)
+        });
     });
 
     function listarFiltro() {

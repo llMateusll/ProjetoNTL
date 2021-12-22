@@ -171,6 +171,10 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
+        $('#descricao').on('change', function() {
+            var descricaoFormatado = $("#descricao").val().trim()
+            $("#descricao").val(descricaoFormatado)
+        });
     });
 
     function listarFiltro() {
