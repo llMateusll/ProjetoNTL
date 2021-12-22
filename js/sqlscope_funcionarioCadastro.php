@@ -31,10 +31,11 @@ if ($funcao == 'validaRg') {
 return;
 
 function grava()
-{
-
-
-
+{if ((empty($_POST['nome'])) || (!isset($_POST['nome'])) || (is_null($_POST['nome']))) {
+    $mensagem = "Informe o nome.";
+    echo "failed#" . $mensagem;
+    return;
+} else {
     session_start();
     $id = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
@@ -55,6 +56,7 @@ function grava()
     $cidade = "'" . $_POST['cidade'] . "'";
     $primeiroEmprego = "'" . $_POST['primeiroEmprego'] . "'";
     $pispasep = "'" . $_POST['pispasep'] . "'";
+
 
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
@@ -212,6 +214,7 @@ function grava()
 
     echo $ret;
     return;
+}
 }
 
 function recupera()

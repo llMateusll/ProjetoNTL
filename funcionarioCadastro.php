@@ -232,9 +232,9 @@ include("inc/nav.php");
                                                             <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
                                                             <input id="descricaoTelefoneWhatsapp" name="descricaoTelefoneWhatsapp" type="hidden" value="">
 
-                                                            <div class="row">
+                                                            <div class="row ">
 
-                                                                <section class="col col-5">
+                                                                <section class="col col-5 ">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
                                                                         <input id="telefone" name="telefone" class="required">
@@ -357,56 +357,56 @@ include("inc/nav.php");
                                             <div id="collapseEndereço" class="panel-collapse collapse">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cep">CEP</label>
+                                                                <label class="input">
+                                                                    <input id="cep" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00000-000">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="cep">CEP</label>
-                                                            <label class="input">
-                                                                <input id="cep" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="00000-000">
-                                                            </label>
-                                                        </section>
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label" for="logradouro">Rua</label>
+                                                                <label class="input">
+                                                                    <input id="logradouro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-3 col-auto">
-                                                            <label class="label" for="logradouro">Rua</label>
-                                                            <label class="input">
-                                                                <input id="logradouro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="bairro">Bairro</label>
+                                                                <label class="input">
+                                                                    <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="bairro">Bairro</label>
-                                                            <label class="input">
-                                                                <input id="bairro" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cidade">Cidade</label>
+                                                                <label class="input">
+                                                                    <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="cidade">Cidade</label>
-                                                            <label class="input">
-                                                                <input id="cidade" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="uf">Estado</label>
+                                                                <label class="input">
+                                                                    <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="uf">Estado</label>
-                                                            <label class="input">
-                                                                <input id="uf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="numero">Número</label>
+                                                                <label class="input">
+                                                                    <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label" for="complemento">Complemento</label>
+                                                                <label class="input">
+                                                                    <input id="complemento" type="text" class="" maxlength="200" required autocomplete="off" placeholder="">
+                                                                </label>
+                                                            </section>
 
-                                                        <section class="col col-2 col-auto">
-                                                            <label class="label" for="numero">Número</label>
-                                                            <label class="input">
-                                                                <input id="numero" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
-                                                        <section class="col col-3 col-auto">
-                                                            <label class="label" for="complemento">Complemento</label>
-                                                            <label class="input">
-                                                                <input id="complemento" type="text" class="" maxlength="200" required autocomplete="off" placeholder="">
-                                                            </label>
-                                                        </section>
-
-
+                                                        </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -754,6 +754,8 @@ include("inc/scripts.php");
             excluirDependente();
         });
 
+
+
         $("#btnAddTelefone").on("click", function() {
             var telefone = $("#telefone").val();
             var existe = true;
@@ -788,6 +790,16 @@ include("inc/scripts.php");
 
         $("#btnRemoverEmail").on("click", function() {
             excluirEmail();
+        });
+
+        $('#nome').on('change', function() {
+            var nomeFormatado = $("#nome").val().trim()
+            $("#nome").val(nomeFormatado)
+        });
+
+        $('#nomeDependente').on('change', function() {
+            var nomeDependenteFormatado = $("#nomeDependente").val().trim()
+            $("#nomeDependente").val(nomeDependenteFormatado)
         });
 
         carregaPagina();
@@ -1476,26 +1488,26 @@ include("inc/scripts.php");
             $("#telefonePrincipal").val(item.principal);
             $("#descricaoTelefonePrincipal").val(item.descricaoTelefonePrincipal);
             $("#descricaoTelefoneWhatsapp").val(item.descricaoTelefoneWhatsapp);
-           
 
-                if (item.telefonePrincipal == 1) {
-                    $("#telefonePrincipal").prop('checked', true)
-                    $("#descricaoTelefonePrincipal").val("Sim")
-                } else {
-                    $("#telefonePrincipal").prop('checked', false)
-                    $("#descricaoTelefonePrincipal").val("Não")
-                }
-                $("#telefoneWhatsapp").val(item.whatsapp);
 
-                if (item.telefoneWhatsapp == 1) {
-                    $("#telefoneWhatsapp").prop('checked', true)
-                    $("#descricaoTelefoneWhatsapp").val("Sim")
-                } else {
-                    $("#telefoneWhatsapp").prop('checked', false)
-                    $("#descricaoTelefoneWhatsapp").val("Não")
-                }
+            if (item.telefonePrincipal == 1) {
+                $("#telefonePrincipal").prop('checked', true)
+                $("#descricaoTelefonePrincipal").val("Sim")
+            } else {
+                $("#telefonePrincipal").prop('checked', false)
+                $("#descricaoTelefonePrincipal").val("Não")
             }
-        
+            $("#telefoneWhatsapp").val(item.whatsapp);
+
+            if (item.telefoneWhatsapp == 1) {
+                $("#telefoneWhatsapp").prop('checked', true)
+                $("#descricaoTelefoneWhatsapp").val("Sim")
+            } else {
+                $("#telefoneWhatsapp").prop('checked', false)
+                $("#descricaoTelefoneWhatsapp").val("Não")
+            }
+        }
+
     }
 
     function excluirTelefone() {
@@ -1728,6 +1740,8 @@ include("inc/scripts.php");
             smartAlert("Erro", "CPF já cadastrado.", "error");
             return false;
         }
+
+
 
 
         return true;

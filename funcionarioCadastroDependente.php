@@ -241,6 +241,10 @@ include("inc/scripts.php");
         $("#btnVoltar").on("click", function() {
             voltar();
         });
+        $('#descricao').on('change', function() {
+            var descricaoFormatado = $("#descricao").val().trim()
+            $("#descricao").val(descricaoFormatado)
+        });
 
         carregaPagina();
 
