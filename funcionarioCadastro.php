@@ -796,6 +796,7 @@ include("inc/scripts.php");
             var nomeFormatado = $("#nome").val().trim()
             $("#nome").val(nomeFormatado)
         });
+    
 
         $('#nomeDependente').on('change', function() {
             var nomeDependenteFormatado = $("#nomeDependente").val().trim()
@@ -1134,6 +1135,9 @@ include("inc/scripts.php");
         $('#idade').val(idade);
         return idade;
     }
+    
+
+
 
     function calcularIdadeDependente() {
         var dataNascimentoDependente = $('#dataNascimentoDependente').val();
