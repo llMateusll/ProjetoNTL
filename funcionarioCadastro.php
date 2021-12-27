@@ -741,7 +741,7 @@ include("inc/scripts.php");
             var existe = true;
 
             if (!tipoDependente) {
-                smartAlert("Atenção", "Escolha um dependente", "error")
+                smartAlert("Atenção", "Por favor, informe um Dependente", "error")
                 return;
             }
             if (validaDependente()) {
@@ -761,7 +761,7 @@ include("inc/scripts.php");
             var existe = true;
 
             if (!telefone) {
-                smartAlert("Atenção", "Escolha um telefone", "error")
+                smartAlert("Atenção", "Por favor, informe o seu Telefone", "error")
                 return;
             }
             if (validaTelefone()) {
@@ -779,7 +779,7 @@ include("inc/scripts.php");
             var existe = true;
 
             if (!email) {
-                smartAlert("Atenção", "Escolha um email", "error")
+                smartAlert("Atenção", "Por favor, informe o seu Email.", "error")
                 return;
             }
             if (validaEmail()) {
@@ -804,6 +804,9 @@ include("inc/scripts.php");
         $('#email').on('change', function() {
             var emailFormatado = $("#email").val().trim()
             $("#email").val(emailFormatado)
+        });
+        $('#email').on('change', function() {
+            checarEmail()
         });
 
         carregaPagina();
@@ -931,72 +934,72 @@ include("inc/scripts.php");
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
-            smartAlert("Atenção", "Informe Seu Nome", "error");
+            smartAlert("Atenção", "Por favor, informe seu Nome", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!cpf) {
-            smartAlert("Atenção", "Informe Seu CPF", "error");
+            smartAlert("Atenção", "Por favor, informe seu CPF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!rg) {
-            smartAlert("Atenção", "Informe Seu RG", "error");
+            smartAlert("Atenção", "Por favor, informe seu RG", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!dataNascimento) {
-            smartAlert("Atenção", "Informe a Data de Nascimento", "error");
+            smartAlert("Atenção", "Por favor, informe a Data de Nascimento", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!sexo) {
-            smartAlert("Atenção", "Informe Seu Sexo", "error");
+            smartAlert("Atenção", "Por favor, informe seu Sexo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!estadoCivil) {
-            smartAlert("Atenção", "Informe Seu Estado Civil", "error");
+            smartAlert("Atenção", "Por favor, informe seu Estado Civil", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!primeiroEmprego) {
-            smartAlert("Atenção", "Informe Seu é seu Primeiro Emprego", "error");
+            smartAlert("Atenção", "Por favor, informe seu Primeiro Emprego", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (jsonTelefoneArray == '[]') {
-            smartAlert("Atenção", "Informe Seu Telefone", "error");
+            smartAlert("Atenção", "Por favor, informe seu Telefone", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!cep) {
-            smartAlert("Atenção", "Informe Seu Cep", "error");
+            smartAlert("Atenção", "Por favor, informe seu Cep", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!logradouro) {
-            smartAlert("Atenção", "Informe Seu Logradouro", "error");
+            smartAlert("Atenção", "Por favor, informe seu Logradouro", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!bairro) {
-            smartAlert("Atenção", "Informe Seu Bairro", "error");
+            smartAlert("Atenção", "Por favor, informe seu Bairro", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!numero) {
-            smartAlert("Atenção", "Informe Seu Numero", "error");
+            smartAlert("Atenção", "Por favor, informe seu Numero", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!cidade) {
-            smartAlert("Atenção", "Informe Seu  Cidade", "error");
+            smartAlert("Atenção", "Por favor, informe seu  Cidade", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         if (!uf) {
-            smartAlert("Atenção", "Informe Seu UF", "error");
+            smartAlert("Atenção", "Por favor, informe seu UF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -1065,6 +1068,15 @@ include("inc/scripts.php");
                 }
             }
         );
+    }
+
+    function checarEmail(email) {
+        if (document.forms[0].email.value == "" ||
+            document.forms[0].email.value.indexOf('@') == -1 ||
+            document.forms[0].email.value.indexOf('.') == -1) {
+            $('#email').val("");
+            return false;
+        }
     }
 
     function gerarPdf() {
