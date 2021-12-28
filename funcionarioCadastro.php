@@ -234,7 +234,7 @@ include("inc/nav.php");
 
                                                             <div class="row ">
 
-                                                                <section class="col col-5 ">
+                                                                <section class="col col-4 ">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
                                                                         <input id="telefone" name="telefone" class="required">
@@ -289,7 +289,7 @@ include("inc/nav.php");
 
 
                                                             <div class="row">
-                                                                <section class="col col-5">
+                                                                <section class="col col-6">
 
                                                                     <label class="label" for="email">Email</label>
                                                                     <label class="input">
@@ -694,6 +694,12 @@ include("inc/scripts.php");
         $("#primeiroEmprego").on("change", function() {
             validaPrimeiroEmprego()
         });
+        $("#nome").on("change", function() {
+            valida_nome()
+        });
+        $("#nomeDependente").on("change", function() {
+            valida_nomeDependente()
+        });
 
         $("a").click(function() {
             $("div").removeClass('in');
@@ -704,7 +710,6 @@ include("inc/scripts.php");
 
             if (!validarCPF(cpf)) {
 
-                smartAlert("Atenção", "CPF Invalido", "error")
                 $('#cpf').val("");
             }
         });
@@ -942,8 +947,8 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!cpf || "___.___.___-__") {
-            smartAlert("Atenção", "Por favor, informe seu CPF", "error");
+        if (!cpf || cpf == "___.___.___-__") {
+            smartAlert("Erro", "Informe um CPF.", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -1223,6 +1228,7 @@ include("inc/scripts.php");
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                     } else {
+
                         smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
                         $('#cpf').val("");
 
@@ -1234,7 +1240,7 @@ include("inc/scripts.php");
         );
 
     }
-   
+
 
     function validarCPFDependente(cpf) {
         var cpf = cpf.replace(/[^\d]+/g, '');
@@ -1291,17 +1297,53 @@ include("inc/scripts.php");
                     } else {
                         smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
                         $('#cpfDependente').val("");
-
-
+                        
+                        
                     }
                 }
-
+                
             }
-        );
-
-    }
-
-    function validaPrimeiroEmprego() {
+            );
+            
+        }
+        
+        function valida_nomeDependente() {
+            var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+            if (!filter_nome.test(document.getElementById("nomeDependente").value)) {
+                smartAlert("Erro", "Nome de inválido", "error");
+                $("#nomeDependente").val("");
+                document.getElementById("nomeDependente").style.borderColor = "#ff0000";
+                document.getElementById("nomeDependente").style.outline = "#ff0000";
+                document.getElementById("nomeDependente").focus();
+                document.getElementById("nomeDependente").onkeydown = function keydown_nome() {
+                    document.getElementById("nomeDependente").placeholder = "";
+                    document.getElementById("nomeDependente").style.borderColor = "#999999";
+                    document.getElementById("nomeDependente").style.outline = null;
+                }
+                return false;
+            }
+            return true;
+        }
+    
+        function valida_nome() {
+            var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+            if (!filter_nome.test(document.getElementById("nome").value)) {
+                smartAlert("Erro", "Nome inválido", "error");
+                $("#nome").val("");
+                document.getElementById("nome").style.borderColor = "#ff0000";
+                document.getElementById("nome").style.outline = "#ff0000";
+                document.getElementById("nome").focus();
+                document.getElementById("nome").onkeydown = function keydown_nome() {
+                    document.getElementById("nome").placeholder = "";
+                    document.getElementById("nome").style.borderColor = "#999999";
+                    document.getElementById("nome").style.outline = null;
+                }
+                return false;
+            }
+            return true;
+        }
+        
+        function validaPrimeiroEmprego() {
         var optionSelect = document.getElementById("primeiroEmprego").value;
 
         if (optionSelect == "0") {
@@ -1415,18 +1457,22 @@ include("inc/scripts.php");
         else
             jsonTelefoneArray.push(item);
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+        $("#telefonePrincipal").prop('checked', false);
+        $("#telefoneWhatsapp").prop('checked', false);
         fillTableTelefone();
         clearFormTelefone();
 
     }
 
     function clearFormTelefone() {
-        $("#telefone").val('');
         $("#sequencialTelefone").val('');
-        $("#telefonePrincipal").val('');
-        $("#descricaoTelefonePrincipal").val('');
+        $("#telefone").val('');
         $("#telefoneWhatsapp").val('');
+        $("#telefonePrincipal").val('');
+        $("#emailPrincipal").val('');      
         $("#descricaoTelefoneWhatsapp").val('');
+        $("#descricaoTelefonePrincipal").val('');
+        $("#descricaoEmailPrincipal").val('');
 
     }
 
@@ -1632,6 +1678,7 @@ include("inc/scripts.php");
             jsonEmailArray.push(item);
         console.log(jsonEmailArray)
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
+        $("#emailPrincipal").prop('checked', false)
         fillTableEmail();
         clearFormEmail();
 
@@ -1690,6 +1737,9 @@ include("inc/scripts.php");
         }
         return false;
     }
+
+
+
 
     function carregaEmail(sequencialEmail) {
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
