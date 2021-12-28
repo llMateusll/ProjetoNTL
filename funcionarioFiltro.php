@@ -210,7 +210,7 @@ include("inc/nav.php");
                                                             </label>
                                                         </section>
                                                         <button type="button" id="btnPdf" style="MARGIN-TOP: 24px"class="btn btn-danger pull-left" title="Imprimir" aria-hidden="true">
-                                                            <span class="fa fa-print"></span>
+                                                            <span class="fa fa-file-pdf-o "></span>
                                                         </button>
                                                     </div>
 

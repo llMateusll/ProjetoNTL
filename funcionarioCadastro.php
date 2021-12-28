@@ -105,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="nome">Nome</label>
                                                                 <label class="input">
-                                                                    <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
+                                                                    <input id="nome" type="text" style="" class="required" maxlength="200" required autocomplete="off" placeholder=Nome>
                                                                 </label>
                                                             </section>
 
@@ -331,7 +331,7 @@ include("inc/nav.php");
                                                             </div>
 
                                                             <button type="button" id='btnPdf' style="display:none" class='btn btn-danger pull-right' title="Relatório" aria-hidden="true">
-                                                                <span class="fa fa-print"> </span>
+                                                                <span class="fa fa-file-pdf-o "> </span>
                                                             </button>
 
                                                     </fieldset>
@@ -619,6 +619,13 @@ include("inc/scripts.php");
                 }
             }]
         });
+        $('#nomeDependente').change(function validar() {
+            var textoValida = $('#nomeDependente').val();
+
+            if (textoValida == "1" || textoValida == "2" || textoValida == "3" || textoValida == "4" || textoValida == "5" || textoValida == "6" || textoValida == "7" || textoValida == "8" || textoValida == "9") {
+                window.alert("Só letras");
+            }
+        });
 
         $("#cpf").mask("999.999.999-99");
 
@@ -740,10 +747,6 @@ include("inc/scripts.php");
             var dataNascimentoDependente = $("#dataNascimentoDependente").val();
             var existe = true;
 
-            if (!tipoDependente) {
-                smartAlert("Atenção", "Por favor, informe um Dependente", "error")
-                return;
-            }
             if (validaDependente()) {
                 addDependente();
             }
@@ -796,7 +799,7 @@ include("inc/scripts.php");
             var nomeFormatado = $("#nome").val().trim()
             $("#nome").val(nomeFormatado)
         });
-    
+
 
         $('#nomeDependente').on('change', function() {
             var nomeDependenteFormatado = $("#nomeDependente").val().trim()
@@ -939,7 +942,7 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!cpf) {
+        if (!cpf || "___.___.___-__") {
             smartAlert("Atenção", "Por favor, informe seu CPF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
@@ -1135,9 +1138,6 @@ include("inc/scripts.php");
         $('#idade').val(idade);
         return idade;
     }
-    
-
-
 
     function calcularIdadeDependente() {
         var dataNascimentoDependente = $('#dataNascimentoDependente').val();
@@ -1234,6 +1234,7 @@ include("inc/scripts.php");
         );
 
     }
+   
 
     function validarCPFDependente(cpf) {
         var cpf = cpf.replace(/[^\d]+/g, '');
@@ -1289,7 +1290,7 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "cpf já cadastrado no sistema!", "error");
-                        $('#cpf').val("");
+                        $('#cpfDependente').val("");
 
 
                     }
@@ -1343,6 +1344,10 @@ include("inc/scripts.php");
 
         if ($("#telefonePrincipal").is(':checked') === true) {
             telefonePrincipalMarcado = 1;
+        }
+        if (telefone === '(__)_____-____') {
+            smartAlert("Erro", "Informe um telefone.", "error");
+            return false;
         }
         if (telefone === '') {
             smartAlert("Erro", "Informe um telefone.", "error");
@@ -1745,6 +1750,18 @@ include("inc/scripts.php");
         var dataNascimentoDependente = $('#dataNascimentoDependente').val();
         var dependenteValido = false;
 
+        if (nomeDependente === '') {
+            smartAlert("Erro", "Informe o Nome do Dependente .", "error");
+            return false;
+        }
+        if (cpfDependente === '') {
+            smartAlert("Erro", "Informe um CPF.", "error");
+            return false;
+        }
+        if (dataNascimentoDependente === '') {
+            smartAlert("Erro", "Informe Uma Data De Nascimento.", "error");
+            return false;
+        }
         if (tipoDependente === '') {
             smartAlert("Erro", "Informe um Dependente.", "error");
             return false;
@@ -1756,13 +1773,15 @@ include("inc/scripts.php");
                 break;
             }
         }
-        if (achou === true) {
+        if (cpfDependente === "___.___.___-__") {
             smartAlert("Erro", "CPF já cadastrado.", "error");
             return false;
         }
 
-
-
+        if (achou === true) {
+            smartAlert("Erro", "CPF já cadastrado.", "error");
+            return false;
+        }
 
         return true;
     }
